@@ -1,0 +1,351 @@
+{
+  "version": 2,
+  "exportedAt": "2026-05-03T07:37:32.002Z",
+  "data": {
+    "mt_products": [
+      {
+        "id": "p1",
+        "name": "Smartphone Ultra Pro",
+        "price": 299,
+        "currency": "USD",
+        "category": "Electrónica",
+        "condition": "nuevo",
+        "stock": 15,
+        "minStock": 3,
+        "description": "Smartphone de última generación con cámara de 108MP y pantalla AMOLED",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p1-0-1777753004156-sl9pbf.webp"
+        ],
+        "views": 245,
+        "cartAdds": 42,
+        "sales": 18,
+        "lastSaleDate": "2025-03-28",
+        "createdAt": "2025-01-15",
+        "originalPrice": 399,
+        "bulkDiscount": 10,
+        "bulkQty": 3,
+        "featured": "si",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p1-0-1777753004156-sl9pbf.webp"
+        ]
+      },
+      {
+        "id": "p2",
+        "name": "Auriculares Inalámbricos",
+        "price": 45,
+        "currency": "USD",
+        "category": "Electrónica",
+        "condition": "nuevo",
+        "stock": 30,
+        "minStock": 5,
+        "description": "Auriculares Bluetooth 5.3 con cancelación de ruido activa",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p2-0-1777793724835-s9qehb.webp"
+        ],
+        "views": 189,
+        "cartAdds": 35,
+        "sales": 22,
+        "lastSaleDate": "2025-03-30",
+        "createdAt": "2025-01-20",
+        "originalPrice": 65,
+        "bulkDiscount": 15,
+        "bulkQty": 2,
+        "featured": "no",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p2-0-1777793724835-s9qehb.webp"
+        ]
+      },
+      {
+        "id": "p3",
+        "name": "Camiseta Premium",
+        "price": 25,
+        "currency": "USD",
+        "category": "Ropa",
+        "condition": "nuevo",
+        "stock": 50,
+        "minStock": 10,
+        "description": "Camiseta de algodón orgánico con diseño exclusivo",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p3-0-1777793838216-enw6ht.webp",
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p3-1-1777793847375-de3j7y.webp"
+        ],
+        "views": 156,
+        "cartAdds": 28,
+        "sales": 35,
+        "lastSaleDate": "2025-03-29",
+        "createdAt": "2025-02-01",
+        "originalPrice": 0,
+        "bulkDiscount": 20,
+        "bulkQty": 5,
+        "featured": "no",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p3-0-1777793838216-enw6ht.webp",
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p3-1-1777793847375-de3j7y.webp"
+        ]
+      },
+      {
+        "id": "p4",
+        "name": "Chocolates Artesanales",
+        "price": 12,
+        "currency": "USD",
+        "category": "Dulces",
+        "condition": "nuevo",
+        "stock": 100,
+        "minStock": 15,
+        "description": "Caja de chocolates belgas artesanales - 12 unidades",
+        "images": [],
+        "views": 320,
+        "cartAdds": 56,
+        "sales": 45,
+        "lastSaleDate": "2025-03-30",
+        "createdAt": "2025-02-10",
+        "originalPrice": 18,
+        "bulkDiscount": 10,
+        "bulkQty": 3,
+        "featured": "si"
+      },
+      {
+        "id": "p5",
+        "name": "Laptop Gaming RTX",
+        "price": 899,
+        "currency": "USD",
+        "category": "Electrónica",
+        "condition": "nuevo",
+        "stock": 5,
+        "minStock": 2,
+        "description": "Laptop gaming con RTX 4060, 16GB RAM, SSD 512GB",
+        "images": [],
+        "views": 412,
+        "cartAdds": 15,
+        "sales": 3,
+        "lastSaleDate": "2025-03-25",
+        "createdAt": "2025-01-05",
+        "originalPrice": 1099,
+        "bulkDiscount": 0,
+        "bulkQty": 3,
+        "featured": "si"
+      },
+      {
+        "id": "p6",
+        "name": "Zapatillas Deportivas",
+        "price": 55,
+        "currency": "USD",
+        "category": "Ropa",
+        "condition": "nuevo",
+        "stock": 2,
+        "minStock": 5,
+        "description": "Zapatillas ultraligeras para running profesional",
+        "images": [],
+        "views": 98,
+        "cartAdds": 12,
+        "sales": 8,
+        "lastSaleDate": "2025-02-15",
+        "createdAt": "2025-02-20",
+        "originalPrice": 75,
+        "bulkDiscount": 0,
+        "bulkQty": 3,
+        "featured": "no"
+      },
+      {
+        "id": "p7",
+        "name": "Smartwatch Fitness",
+        "price": 79,
+        "currency": "USD",
+        "category": "Electrónica",
+        "condition": "reparado",
+        "stock": 8,
+        "minStock": 3,
+        "description": "Reloj inteligente con monitor cardíaco y GPS integrado",
+        "images": [],
+        "views": 167,
+        "cartAdds": 20,
+        "sales": 10,
+        "lastSaleDate": "2025-03-27",
+        "createdAt": "2025-03-01",
+        "originalPrice": 129,
+        "bulkDiscount": 5,
+        "bulkQty": 2,
+        "featured": "no"
+      },
+      {
+        "id": "p8",
+        "name": "Mochila Táctica",
+        "price": 35,
+        "currency": "USD",
+        "category": "Accesorios",
+        "condition": "nuevo",
+        "stock": 20,
+        "minStock": 5,
+        "description": "Mochila resistente al agua con múltiples compartimentos",
+        "images": [],
+        "views": 78,
+        "cartAdds": 9,
+        "sales": 5,
+        "lastSaleDate": "2025-03-20",
+        "createdAt": "2025-03-05",
+        "originalPrice": 0,
+        "bulkDiscount": 0,
+        "bulkQty": 3,
+        "featured": "no"
+      }
+    ],
+    "mt_sales": null,
+    "mt_config": {
+      "storeName": "MegaTienda Online",
+      "whatsapp": "+5350000000",
+      "facebook": "https://facebook.com/megatienda",
+      "email": "tienda@ejemplo.com",
+      "creatorName": "Edrian Cruz Down",
+      "creatorWhatsapp": "+5350000000",
+      "creatorFacebook": "https://facebook.com/edrian",
+      "creatorEmail": "edrian@ejemplo.com",
+      "creatorPhone": "+5350000000",
+      "creatorChannel": "",
+      "creatorCourse": "",
+      "creatorPhoto": "",
+      "paymentMethods": [
+        "Efectivo",
+        "Transferencia",
+        "Criptomoneda"
+      ],
+      "currencies": [
+        "CUP",
+        "USD",
+        "Criptomoneda"
+      ],
+      "adminPassword": "admin123",
+      "supplierPassword": "proveedor123",
+      "creatorPassword": "creator2025",
+      "securityQuestion": "¿Nombre de tu primera mascota?",
+      "securityAnswer": "luna",
+      "categories": [
+        "Electrónica",
+        "Ropa",
+        "Dulces",
+        "Hogar",
+        "Accesorios"
+      ],
+      "licenseKey": "MEGA-2025-TRIAL",
+      "licenseExpiry": "2026-12-31",
+      "licenseActive": true,
+      "clientChannel": "",
+      "clientWebsite": "",
+      "clientApk": "",
+      "clientFacebook": "",
+      "clientWhatsapp": "",
+      "avatarEmoji": "🛒",
+      "avatarImage": "",
+      "avatarMessages": "¡Ofertas hoy!|¡Bienvenido!|¡Compra ya!|¡Los mejores precios!|¡Nuevo stock!|¡No te lo pierdas!",
+      "logoEmoji": "🛒",
+      "logoImage": "",
+      "imgFolder": "",
+      "ownStoreUrl": "",
+      "affiliateUrl": "",
+      "orderMessage": "",
+      "contactBgImage": "",
+      "additionalContacts": [],
+      "projects": []
+    },
+    "mt_suppliers": null,
+    "mt_notifications": [
+      {
+        "id": "1c33b76c-1476-4423-a825-622a8db3d08e",
+        "type": "best_seller",
+        "message": "\"Chocolates Artesanales\" es el más vendido (45)",
+        "productId": "p4",
+        "date": "2026-05-02T19:21:35.032Z",
+        "read": false
+      },
+      {
+        "id": "114306ba-c87a-4b8a-8b5e-45318dc13d29",
+        "type": "slow_sale",
+        "message": "\"Mochila Táctica\" lleva 408 días sin venderse",
+        "productId": "p8",
+        "date": "2026-05-02T19:21:35.032Z",
+        "read": false
+      },
+      {
+        "id": "b8967299-3550-45ed-b390-02a4d006f048",
+        "type": "slow_sale",
+        "message": "\"Smartwatch Fitness\" lleva 401 días sin venderse",
+        "productId": "p7",
+        "date": "2026-05-02T19:21:35.032Z",
+        "read": false
+      },
+      {
+        "id": "839b8a2f-32f0-4249-8423-3b9072171098",
+        "type": "slow_sale",
+        "message": "\"Zapatillas Deportivas\" lleva 441 días sin venderse",
+        "productId": "p6",
+        "date": "2026-05-02T19:21:35.032Z",
+        "read": false
+      },
+      {
+        "id": "d9545b6f-3ba1-43fb-afe1-976d208d4a1c",
+        "type": "low_stock",
+        "message": "\"Zapatillas Deportivas\" tiene stock bajo (2)",
+        "productId": "p6",
+        "date": "2026-05-02T19:21:35.032Z",
+        "read": false
+      },
+      {
+        "id": "52b8ffc0-b70b-4c1d-8222-a59389ca3cfb",
+        "type": "slow_sale",
+        "message": "\"Laptop Gaming RTX\" lleva 403 días sin venderse",
+        "productId": "p5",
+        "date": "2026-05-02T19:21:35.032Z",
+        "read": false
+      },
+      {
+        "id": "722a7cb1-b6a2-4cfc-aea7-cfa498fac05c",
+        "type": "slow_sale",
+        "message": "\"Chocolates Artesanales\" lleva 398 días sin venderse",
+        "productId": "p4",
+        "date": "2026-05-02T19:21:35.032Z",
+        "read": false
+      },
+      {
+        "id": "c1085a65-9e53-43b6-a592-bf29ad0052fd",
+        "type": "slow_sale",
+        "message": "\"Camiseta Premium\" lleva 399 días sin venderse",
+        "productId": "p3",
+        "date": "2026-05-02T19:21:35.032Z",
+        "read": false
+      },
+      {
+        "id": "df9464f8-7927-4d1a-b670-9ed466adaf70",
+        "type": "slow_sale",
+        "message": "\"Auriculares Inalámbricos\" lleva 398 días sin venderse",
+        "productId": "p2",
+        "date": "2026-05-02T19:21:35.032Z",
+        "read": false
+      },
+      {
+        "id": "ce39f142-cb34-44df-8a08-83b1592a14b0",
+        "type": "slow_sale",
+        "message": "\"Smartphone Ultra Pro\" lleva 400 días sin venderse",
+        "productId": "p1",
+        "date": "2026-05-02T19:21:35.032Z",
+        "read": false
+      }
+    ],
+    "mt_visits": [
+      {
+        "date": "2026-05-02",
+        "hour": 21,
+        "count": 7
+      },
+      {
+        "date": "2026-05-02",
+        "hour": 22,
+        "count": 9
+      },
+      {
+        "date": "2026-05-03",
+        "hour": 9,
+        "count": 7
+      }
+    ],
+    "mt_projects": []
+  }
+}
