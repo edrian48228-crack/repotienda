@@ -3447,5 +3447,266 @@ async function ghPublicPull(c){
   window.addEventListener('online',  ()=>ghBar('ok','<i class="fas fa-wifi"></i> Conexión recuperada'));
 })();
 </script>
+
+<!-- =============================================================
+     PATCH v16 — solicitudes del usuario (no rompe nada existente)
+     ============================================================= -->
+<style id="patch-v16-styles">
+/* Permitir copiar/pegar desde portapapeles en cualquier dispositivo */
+input,textarea,select,[contenteditable]{
+  -webkit-user-select:text!important;user-select:text!important;
+  -webkit-touch-callout:default!important;-webkit-user-modify:read-write!important;
+  user-modify:read-write!important;touch-action:manipulation;
+}
+/* En móvil: SOLO iconos en el menú principal, todo en una línea */
+@media(max-width:640px){
+  #mainNav .nav-text{display:none!important;}
+  #mainNav{flex-wrap:nowrap!important;justify-content:flex-end;gap:4px!important;}
+  #mainNav .nav-btn,#mainNav .own-store-btn{
+    padding:7px 9px!important;font-size:.78rem!important;
+    flex:0 0 auto;min-width:34px;
+  }
+  #mainNav .nav-btn i{font-size:.95rem;}
+  /* Mostrar contadores totales como burbuja en android */
+  .admin-tabs{position:relative;}
+  .admin-tabs button{position:relative;}
+  .admin-tabs .tab-count{
+    position:absolute!important;top:-4px!important;right:-4px!important;
+    margin:0!important;min-width:18px!important;height:18px!important;
+    font-size:.62rem!important;padding:0 4px!important;
+    box-shadow:0 0 0 2px var(--bg-secondary,#111);z-index:2;
+  }
+  /* Más espacio inferior en proveedores en android */
+  #panel-suppliers{padding-bottom:90px!important;}
+  #panel-suppliers .table-responsive{margin-bottom:30px;}
+}
+/* En desktop el contador queda como estaba (al lado del texto) */
+@media(min-width:641px){
+  .admin-tabs .tab-count{position:static;box-shadow:none;}
+}
+/* Modal vencimiento licencia */
+#licenseExpiryModal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);}
+#licenseExpiryModal.show{display:flex;animation:lemFade .3s ease;}
+@keyframes lemFade{from{opacity:0}to{opacity:1}}
+#licenseExpiryModal .lem-card{
+  max-width:460px;width:100%;background:linear-gradient(135deg,#1a1208,#2a1a08);
+  border:2px solid #ffb300;border-radius:22px;padding:32px 26px;text-align:center;
+  box-shadow:0 20px 60px rgba(255,179,0,.35),0 0 80px rgba(255,109,0,.25);
+  animation:lemPop .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes lemPop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+#licenseExpiryModal .lem-icon{font-size:3.5rem;color:#ffb300;margin-bottom:14px;animation:lemPulse 1.5s ease-in-out infinite;}
+@keyframes lemPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+#licenseExpiryModal h2{color:#ffb300;font-size:1.4rem;margin-bottom:10px;font-weight:900;}
+#licenseExpiryModal p{color:#fff;font-size:.95rem;margin-bottom:18px;line-height:1.5;}
+#licenseExpiryModal .lem-days{font-size:2.6rem;color:#ff6d00;font-weight:900;margin:10px 0;text-shadow:0 0 20px rgba(255,109,0,.6);}
+#licenseExpiryModal .lem-actions{display:flex;flex-direction:column;gap:10px;margin-top:18px;}
+#licenseExpiryModal .lem-btn{padding:13px 20px;border-radius:50px;font-weight:800;border:none;cursor:pointer;font-size:.92rem;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.25s;}
+#licenseExpiryModal .lem-wa{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;}
+#licenseExpiryModal .lem-tel{background:linear-gradient(135deg,#0288d1,#01579b);color:#fff;}
+#licenseExpiryModal .lem-close{background:transparent;color:#aaa;border:1px solid #444;}
+#licenseExpiryModal .lem-btn:hover{transform:translateY(-2px);filter:brightness(1.1);}
+</style>
+
+<!-- Modal vencimiento licencia -->
+<div id="licenseExpiryModal" role="dialog" aria-modal="true">
+  <div class="lem-card">
+    <div class="lem-icon"><i class="fas fa-hourglass-half"></i></div>
+    <h2>¡Tu licencia está por vencer!</h2>
+    <div class="lem-days" id="lemDays">7</div>
+    <p id="lemMsg">días restantes para renovar tu licencia. Contacta al creador para reactivarla.</p>
+    <div class="lem-actions">
+      <a id="lemWa" class="lem-btn lem-wa" target="_blank"><i class="fab fa-whatsapp"></i> Contactar por WhatsApp</a>
+      <a id="lemTel" class="lem-btn lem-tel"><i class="fas fa-phone"></i> Llamar al creador</a>
+      <button class="lem-btn lem-close" onclick="document.getElementById('licenseExpiryModal').classList.remove('show')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============== PATCH v16 — lógica ============== */
+(function(){
+  // 1. Defaults para nuevas claves
+  if(typeof config!=='undefined'){
+    if(config.hideAvatar===undefined) config.hideAvatar=false;
+    if(config.hideMonetizeButtons===undefined) config.hideMonetizeButtons=false;
+    if(config.securityDisabled===undefined) config.securityDisabled=false;
+    try{ save('mt_config',config); }catch(e){}
+  }
+
+  // 2. Botones "Gana dinero" y "Quiero mi propia tienda" visibles desde el inicio
+  function applyMonetizeVisibility(){
+    if(typeof config==='undefined') return;
+    const ownBtn=document.getElementById('ownStoreBtn');
+    const affBtn=document.getElementById('affiliateBtn');
+    const hide=!!config.hideMonetizeButtons;
+    if(ownBtn){
+      if(hide){ ownBtn.style.display='none'; }
+      else{
+        ownBtn.style.display='inline-flex';
+        ownBtn.href=config.ownStoreUrl||'#';
+      }
+    }
+    if(affBtn){
+      if(hide){ affBtn.style.display='none'; }
+      else{
+        affBtn.style.display='inline-flex';
+        affBtn.href=config.affiliateUrl||'#';
+      }
+    }
+  }
+
+  // 3. Avatar desactivable
+  function applyAvatarVisibility(){
+    const av=document.getElementById('avatarFloat');
+    if(av) av.style.display=(config&&config.hideAvatar)?'none':'';
+  }
+
+  // 4. Modal vencimiento licencia (al login admin si <=7 días)
+  window.showLicenseExpiryWarning=function(daysLeft){
+    const m=document.getElementById('licenseExpiryModal');
+    if(!m) return;
+    document.getElementById('lemDays').textContent=daysLeft;
+    document.getElementById('lemMsg').textContent=
+      daysLeft<=0?'Tu licencia ya expiró. Renuévala ahora para continuar.':
+      'días restantes para renovar tu licencia. Contacta al creador para reactivarla.';
+    const wa=(config.creatorWhatsapp||'').replace(/[^0-9]/g,'');
+    const tel=(config.creatorPhone||config.creatorWhatsapp||'').replace(/[^0-9+]/g,'');
+    const txt=encodeURIComponent('Hola '+(config.creatorName||'')+', necesito renovar mi licencia de '+(config.storeName||'la tienda')+'. Me quedan '+daysLeft+' días.');
+    document.getElementById('lemWa').href='https://wa.me/'+wa+'?text='+txt;
+    document.getElementById('lemTel').href='tel:'+tel;
+    m.classList.add('show');
+  };
+
+  // Hook a loginAdmin (sin tocar el original)
+  if(typeof window.loginAdmin==='function'){
+    const _origLogin=window.loginAdmin;
+    window.loginAdmin=function(){
+      const before=window.isAdmin;
+      _origLogin.apply(this,arguments);
+      // Solo si quedó logueado
+      setTimeout(()=>{
+        if(window.isAdmin&&!before&&config.licenseActive){
+          const days=Math.ceil((new Date(config.licenseExpiry)-new Date())/(1000*60*60*24));
+          if(days<=7) showLicenseExpiryWarning(days);
+        }
+      },300);
+    };
+  }
+
+  // 5. Override isLicenseValid para respetar securityDisabled
+  if(typeof window.isLicenseValid==='function'){
+    const _orig=window.isLicenseValid;
+    window.isLicenseValid=function(){
+      if(config && config.securityDisabled) return true;
+      return _orig.apply(this,arguments);
+    };
+  }
+
+  // 6. Reset total del sistema (doble confirmación)
+  window.resetSystemFull=async function(){
+    if(typeof isCreator!=='undefined' && !isCreator){ alert('Solo el creador'); return; }
+    const c1=confirm('⚠️ ATENCIÓN: Esto borrará TODA la configuración, productos, proveedores, ventas, notificaciones e imágenes locales. ¿Continuar?');
+    if(!c1) return;
+    const c2=prompt('Para confirmar, escribe: BORRAR TODO');
+    if(c2!=='BORRAR TODO'){ alert('Cancelado'); return; }
+    try{
+      // localStorage
+      const keys=['mt_products','mt_sales','mt_config','mt_suppliers','mt_notifications','mt_visits','mt_projects','mt_images','mt_cart'];
+      keys.forEach(k=>{ try{localStorage.removeItem(k);}catch(e){} });
+      // Borrar todo lo que empiece con mt_
+      for(let i=localStorage.length-1;i>=0;i--){
+        const k=localStorage.key(i);
+        if(k && k.startsWith('mt_')) localStorage.removeItem(k);
+      }
+      // GitHub: borrar imágenes y data si hay sync
+      if(typeof window.ghDeleteAllRemote==='function'){
+        try{ await window.ghDeleteAllRemote(); }catch(e){}
+      }
+      alert('✅ Sistema restablecido. La página se recargará.');
+      location.reload();
+    }catch(e){ alert('Error: '+e.message); }
+  };
+
+  // 7. Inyectar UI extra en panel del creador
+  function injectCreatorControls(){
+    const panel=document.getElementById('panel-creator-config');
+    if(!panel || panel.querySelector('#patchV16Controls')) return;
+    const sec=document.createElement('div');
+    sec.id='patchV16Controls';
+    sec.className='creator-section';
+    sec.style.marginTop='20px';
+    sec.innerHTML=`
+      <h4><i class="fas fa-sliders"></i> Avanzado — Controles del sistema</h4>
+      <div style="background:var(--bg-card);padding:20px;border-radius:16px;margin-top:10px;display:flex;flex-direction:column;gap:14px;">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="cfgHideAvatar" style="width:auto;">
+          <span><i class="fas fa-robot" style="color:var(--rosado);"></i> Desactivar avatar de la tienda</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="cfgHideMonetize" style="width:auto;">
+          <span><i class="fas fa-eye-slash" style="color:var(--amarillo);"></i> Ocultar botones "Gana dinero" y "Quiero mi propia tienda"</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="cfgSecurityDisabled" style="width:auto;">
+          <span><i class="fas fa-shield-halved" style="color:var(--rojo);"></i> Desactivar TODA la seguridad del sistema (licencia/bloqueos)</span>
+        </label>
+        <button class="btn btn-primary" onclick="savePatchV16()" style="border-radius:50px;align-self:flex-start;">
+          <i class="fas fa-floppy-disk"></i> Guardar opciones
+        </button>
+        <hr style="border-color:var(--glass-border);margin:8px 0;">
+        <h4 style="color:var(--rojo);margin:0;"><i class="fas fa-triangle-exclamation"></i> Zona de peligro</h4>
+        <p style="font-size:.82rem;color:var(--text-muted);margin:0;">Restablece TODO el sistema: configuración, productos, imágenes locales y remotas.</p>
+        <button class="btn btn-danger" onclick="resetSystemFull()" style="border-radius:50px;align-self:flex-start;background:linear-gradient(135deg,#d32f2f,#b71c1c);color:#fff;">
+          <i class="fas fa-bomb"></i> Restablecer sistema completo
+        </button>
+      </div>
+    `;
+    panel.querySelector('.creator-section').appendChild(sec);
+    // Pre-cargar valores
+    document.getElementById('cfgHideAvatar').checked=!!config.hideAvatar;
+    document.getElementById('cfgHideMonetize').checked=!!config.hideMonetizeButtons;
+    document.getElementById('cfgSecurityDisabled').checked=!!config.securityDisabled;
+  }
+
+  window.savePatchV16=function(){
+    if(typeof isCreator!=='undefined' && !isCreator){ alert('Solo el creador'); return; }
+    config.hideAvatar=document.getElementById('cfgHideAvatar').checked;
+    config.hideMonetizeButtons=document.getElementById('cfgHideMonetize').checked;
+    config.securityDisabled=document.getElementById('cfgSecurityDisabled').checked;
+    save('mt_config',config);
+    applyMonetizeVisibility();
+    applyAvatarVisibility();
+    if(typeof showToast==='function') showToast('<i class="fas fa-check-circle"></i> Opciones guardadas');
+  };
+
+  // Hook setupAdminUI para inyectar y refrescar
+  if(typeof window.setupAdminUI==='function'){
+    const _orig=window.setupAdminUI;
+    window.setupAdminUI=function(){
+      _orig.apply(this,arguments);
+      setTimeout(injectCreatorControls,50);
+    };
+  }
+
+  // Hook applyConfig para reaplicar visibilidades sin perder lo demás
+  if(typeof window.applyConfig==='function'){
+    const _orig=window.applyConfig;
+    window.applyConfig=function(){
+      _orig.apply(this,arguments);
+      applyMonetizeVisibility();
+      applyAvatarVisibility();
+    };
+  }
+
+  // Aplicar al cargar
+  function init(){
+    applyMonetizeVisibility();
+    applyAvatarVisibility();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
+</script>
 </body>
 </html>
