@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "exportedAt": "2026-05-06T19:08:15.174Z",
+  "exportedAt": "2026-05-06T19:10:45.568Z",
   "data": {
     "mt_products": [
       {
@@ -83,7 +83,7 @@
       },
       {
         "id": "p4",
-        "name": "Cargador de Motorina 72V/5A",
+        "name": "Cargador de Motorina 72V/28A",
         "price": 12,
         "currency": "USD",
         "category": "Dulces",
@@ -131,32 +131,6 @@
         "featured": "si",
         "__lastRepoImgs": [
           "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p5-0-1777984594268-z3sh0j4s.webp"
-        ]
-      },
-      {
-        "id": "p6",
-        "name": "Cargador de motorina 72V/20A",
-        "price": 20000,
-        "currency": "USD",
-        "category": "Ropa",
-        "condition": "nuevo",
-        "stock": 2,
-        "minStock": 5,
-        "description": "Cargador para cargar motorina de 72v cualquier amperaje",
-        "images": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p6-0-1777982866220-mp61jlo1.webp"
-        ],
-        "views": 98,
-        "cartAdds": 12,
-        "sales": 8,
-        "lastSaleDate": "2025-02-15",
-        "createdAt": "2025-02-20",
-        "originalPrice": 22000,
-        "bulkDiscount": 0,
-        "bulkQty": 3,
-        "featured": "no",
-        "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p6-0-1777982866220-mp61jlo1.webp"
         ]
       },
       {
@@ -211,6 +185,32 @@
         "__lastRepoImgs": [
           "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-0-1777984598071-aiq9i8oi.webp",
           "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-1-1778094434984-5o0qodgc.webp"
+        ]
+      },
+      {
+        "id": "cc1c2346-a6af-4ab8-91e1-3f1f5e18fcb1",
+        "name": "Pantallas para moviles",
+        "price": 10000,
+        "currency": "CUP",
+        "category": "Accesorios",
+        "condition": "nuevo",
+        "stock": 10,
+        "minStock": 5,
+        "description": "Pantallas para todo tipo de telefonos moviles",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-cc1c2346-0-1778094643937-fmvlj921.webp"
+        ],
+        "originalPrice": 12000,
+        "bulkDiscount": 10,
+        "bulkQty": 3,
+        "featured": "si",
+        "views": 0,
+        "cartAdds": 0,
+        "sales": 0,
+        "lastSaleDate": null,
+        "createdAt": "2026-05-06T19:10:41.218Z",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-cc1c2346-0-1778094643937-fmvlj921.webp"
         ]
       }
     ],
