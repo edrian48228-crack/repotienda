@@ -3808,53 +3808,56 @@ input,textarea,select,[contenteditable="true"]{
   .sup-actions .sup-act{width:34px!important;height:34px!important;font-size:.9rem!important;}
 }
 
-/* Botones promo: redondeados con manchas de pintura japonesa estilo japeado */
+/* Botones promo: diseño profesional y elegante (glass + acento dorado/teal) */
 #promoRow .promo-btn{
   position:relative;
-  border-radius:999px!important;
-  padding:14px 28px!important;
-  font-weight:900!important;
-  letter-spacing:.4px;
+  display:inline-flex;align-items:center;gap:10px;
+  border-radius:12px!important;
+  padding:11px 22px!important;
+  font-weight:600!important;
+  font-size:.9rem;
+  letter-spacing:.3px;
   color:#fff!important;
-  border:2px solid rgba(255,255,255,.18)!important;
-  overflow:visible!important;
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,.14)!important;
+  background-clip:padding-box;
+  overflow:hidden;
   isolation:isolate;
-  text-shadow:0 2px 8px rgba(0,0,0,.45);
-  transition:transform .25s ease, box-shadow .25s ease;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  backdrop-filter:blur(6px);
 }
+#promoRow .promo-btn i{font-size:.95rem;opacity:.95;}
 #promoRow #ownStoreBtn.promo-btn{
-  background:
-    radial-gradient(circle at 18% 30%, rgba(255,235,59,.55) 0 14px, transparent 16px),
-    radial-gradient(circle at 82% 70%, rgba(255,255,255,.45) 0 10px, transparent 12px),
-    radial-gradient(circle at 60% 20%, rgba(255,255,255,.25) 0 6px, transparent 8px),
-    linear-gradient(135deg,#ff6d00,#ff1744 60%,#c2185b)!important;
-  box-shadow:0 8px 26px rgba(255,23,68,.55), inset 0 0 0 1px rgba(255,255,255,.2);
+  background:linear-gradient(135deg,#1a1f2e 0%,#2a1f3a 100%)!important;
+  box-shadow:0 4px 14px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.08);
+}
+#promoRow #ownStoreBtn.promo-btn::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+  background:linear-gradient(135deg,#d4af37,#f5d76e 50%,#b8860b);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
 }
 #promoRow #affiliateBtn.promo-btn{
-  background:
-    radial-gradient(circle at 22% 70%, rgba(0,229,255,.55) 0 12px, transparent 14px),
-    radial-gradient(circle at 78% 28%, rgba(255,255,255,.45) 0 9px, transparent 11px),
-    radial-gradient(circle at 50% 80%, rgba(255,255,255,.22) 0 6px, transparent 8px),
-    linear-gradient(135deg,#00c853,#00b8d4 55%,#1565c0)!important;
-  box-shadow:0 8px 26px rgba(0,200,83,.5), inset 0 0 0 1px rgba(255,255,255,.2);
+  background:linear-gradient(135deg,#0f2027 0%,#1a3a4a 100%)!important;
+  box-shadow:0 4px 14px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.08);
 }
-#promoRow .promo-btn::before,
-#promoRow .promo-btn::after{
-  content:"";position:absolute;border-radius:50%;pointer-events:none;z-index:-1;
-  filter:blur(.3px);
-  opacity:.85;
-}
-#promoRow .promo-btn::before{
-  width:34px;height:34px;left:-14px;top:-12px;
-  background:radial-gradient(circle, #fff 0 6px, rgba(255,255,255,.65) 7px 12px, transparent 14px);
-  transform:rotate(-18deg);
+#promoRow #affiliateBtn.promo-btn::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+  background:linear-gradient(135deg,#14b8a6,#5eead4 50%,#0d9488);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
 }
 #promoRow .promo-btn::after{
-  width:42px;height:18px;right:-18px;bottom:-10px;
-  background:radial-gradient(ellipse at center, rgba(255,255,255,.85) 0 8px, transparent 12px);
-  transform:rotate(14deg);
+  content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.12) 50%,transparent 100%);
+  transform:skewX(-20deg);transition:left .6s ease;pointer-events:none;
 }
-#promoRow .promo-btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 14px 36px rgba(0,0,0,.45);}
+#promoRow .promo-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.35);}
+#promoRow .promo-btn:hover::after{left:120%;}
+#promoRow #ownStoreBtn.promo-btn i{color:#f5d76e;}
+#promoRow #affiliateBtn.promo-btn i{color:#5eead4;}
 
 /* ocultar promo en admin */
 body.in-admin #promoRow{display:none!important;}
