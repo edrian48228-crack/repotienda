@@ -1,18 +1,18 @@
 {
   "version": 2,
-  "exportedAt": "2026-05-05T13:03:35.567Z",
+  "exportedAt": "2026-05-06T19:07:16.569Z",
   "data": {
     "mt_products": [
       {
         "id": "p1",
-        "name": "Smartphone Ultra Pro",
-        "price": 299,
-        "currency": "USD",
+        "name": "Smartphone Samsung A1+",
+        "price": 27000,
+        "currency": "CUP",
         "category": "Electrónica",
-        "condition": "nuevo",
-        "stock": 15,
+        "condition": "usado",
+        "stock": 2,
         "minStock": 3,
-        "description": "Smartphone de última generación con cámara de 108MP y pantalla AMOLED",
+        "description": "Smartphone de última generación con cámara de 108MP y pantalla AMOLED. 6 con 128. Incluye una inteligencia artificial Offline. SOLO 7 MESES DE USO",
         "images": [
           "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p1-0-1777984549243-shca8t7d.webp"
         ],
@@ -21,7 +21,7 @@
         "sales": 18,
         "lastSaleDate": "2025-03-28",
         "createdAt": "2025-01-15",
-        "originalPrice": 399,
+        "originalPrice": 30000,
         "bulkDiscount": 10,
         "bulkQty": 3,
         "featured": "si",
@@ -31,14 +31,14 @@
       },
       {
         "id": "p2",
-        "name": "Auriculares Inalámbricos",
-        "price": 45,
-        "currency": "USD",
-        "category": "Electrónica",
+        "name": "Puertos de Telefonos Moviles",
+        "price": 200,
+        "currency": "CUP",
+        "category": "Accesorios",
         "condition": "nuevo",
         "stock": 30,
         "minStock": 5,
-        "description": "Auriculares Bluetooth 5.3 con cancelación de ruido activa",
+        "description": "Puertos para telefonos moviles tipo b y tipo c",
         "images": [
           "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p2-0-1777985688086-06g4c1st.webp"
         ],
@@ -47,7 +47,7 @@
         "sales": 22,
         "lastSaleDate": "2025-03-30",
         "createdAt": "2025-01-20",
-        "originalPrice": 65,
+        "originalPrice": 220,
         "bulkDiscount": 15,
         "bulkQty": 2,
         "featured": "no",
@@ -57,14 +57,14 @@
       },
       {
         "id": "p3",
-        "name": "Camiseta Premium",
-        "price": 25,
-        "currency": "USD",
-        "category": "Ropa",
-        "condition": "nuevo",
-        "stock": 50,
+        "name": "Smartphone Huawei Nova 5T",
+        "price": 35000,
+        "currency": "CUP",
+        "category": "Electrónica",
+        "condition": "usado",
+        "stock": 2,
         "minStock": 10,
-        "description": "Camiseta de algodón orgánico con diseño exclusivo",
+        "description": "Telefonos de uso en perfecto estado. Solo detallito el borde de carmara frontal que no afecta la foto.  Incluye una inteligencia artificial offline",
         "images": [
           "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p3-0-1777985690442-0u1rji2c.webp"
         ],
@@ -73,7 +73,7 @@
         "sales": 35,
         "lastSaleDate": "2025-03-29",
         "createdAt": "2025-02-01",
-        "originalPrice": 0,
+        "originalPrice": 40000,
         "bulkDiscount": 20,
         "bulkQty": 5,
         "featured": "no",
@@ -83,7 +83,7 @@
       },
       {
         "id": "p4",
-        "name": "Chocolates Artesanales",
+        "name": "Cargador de Motorina 72V/5A",
         "price": 12,
         "currency": "USD",
         "category": "Dulces",
@@ -109,14 +109,14 @@
       },
       {
         "id": "p5",
-        "name": "Laptop Gaming RTX",
-        "price": 899,
+        "name": "Smartphone Realme Note 50",
+        "price": 45000,
         "currency": "USD",
         "category": "Electrónica",
-        "condition": "nuevo",
+        "condition": "usado",
         "stock": 5,
         "minStock": 2,
-        "description": "Laptop gaming con RTX 4060, 16GB RAM, SSD 512GB",
+        "description": "Tiene todos sus accesorios. 8 de RAM y 128 de almacenamiento. Trae una inteligencia Offline. SOLO 6 MESES DE USO",
         "images": [
           "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p5-0-1777984594268-z3sh0j4s.webp"
         ],
@@ -125,7 +125,7 @@
         "sales": 3,
         "lastSaleDate": "2025-03-25",
         "createdAt": "2025-01-05",
-        "originalPrice": 1099,
+        "originalPrice": 50000,
         "bulkDiscount": 0,
         "bulkQty": 3,
         "featured": "si",
@@ -135,14 +135,14 @@
       },
       {
         "id": "p6",
-        "name": "Zapatillas Deportivas",
-        "price": 55,
+        "name": "Cargador de motorina 72V/20A",
+        "price": 20000,
         "currency": "USD",
         "category": "Ropa",
         "condition": "nuevo",
         "stock": 2,
         "minStock": 5,
-        "description": "Zapatillas ultraligeras para running profesional",
+        "description": "Cargador para cargar motorina de 72v cualquier amperaje",
         "images": [
           "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p6-0-1777982866220-mp61jlo1.webp"
         ],
@@ -151,7 +151,7 @@
         "sales": 8,
         "lastSaleDate": "2025-02-15",
         "createdAt": "2025-02-20",
-        "originalPrice": 75,
+        "originalPrice": 22000,
         "bulkDiscount": 0,
         "bulkQty": 3,
         "featured": "no",
@@ -161,14 +161,14 @@
       },
       {
         "id": "p7",
-        "name": "Smartwatch Fitness",
-        "price": 79,
+        "name": "Puertos de telefonos celulares",
+        "price": 200,
         "currency": "USD",
         "category": "Electrónica",
         "condition": "reparado",
         "stock": 8,
         "minStock": 3,
-        "description": "Reloj inteligente con monitor cardíaco y GPS integrado",
+        "description": "Puertos para telefonos celulares",
         "images": [
           "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p7-0-1777985631440-lqytija6.webp"
         ],
@@ -177,7 +177,7 @@
         "sales": 10,
         "lastSaleDate": "2025-03-27",
         "createdAt": "2025-03-01",
-        "originalPrice": 129,
+        "originalPrice": 220,
         "bulkDiscount": 5,
         "bulkQty": 2,
         "featured": "no",
@@ -187,28 +187,30 @@
       },
       {
         "id": "p8",
-        "name": "Mochila Táctica",
-        "price": 35,
-        "currency": "USD",
+        "name": "Smartphone Relme Note 50",
+        "price": 48000,
+        "currency": "CUP",
         "category": "Accesorios",
         "condition": "nuevo",
         "stock": 20,
         "minStock": 5,
-        "description": "Mochila resistente al agua con múltiples compartimentos",
+        "description": "Telefonos movil con inteligencia offline incluida. 8 con 256.",
         "images": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-0-1777984598071-aiq9i8oi.webp"
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-0-1777984598071-aiq9i8oi.webp",
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-1-1778094434984-5o0qodgc.webp"
         ],
         "views": 78,
         "cartAdds": 9,
         "sales": 5,
         "lastSaleDate": "2025-03-20",
         "createdAt": "2025-03-05",
-        "originalPrice": 0,
+        "originalPrice": 55000,
         "bulkDiscount": 0,
         "bulkQty": 3,
         "featured": "no",
         "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-0-1777984598071-aiq9i8oi.webp"
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-0-1777984598071-aiq9i8oi.webp",
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-1-1778094434984-5o0qodgc.webp"
         ]
       }
     ],
@@ -259,7 +261,7 @@
       ],
       "adminPassword": "1234",
       "supplierPassword": "proveedor123",
-      "creatorPassword": "creator2025",
+      "creatorPassword": "1234",
       "securityQuestion": "¿Nombre de tu primera mascota?",
       "securityAnswer": "shutter",
       "categories": [
@@ -278,7 +280,7 @@
       "clientFacebook": "",
       "clientWhatsapp": "+5354693549",
       "avatarEmoji": "🛒",
-      "avatarImage": "blob:https://edrian48228-crack.github.io/ad5376d3-445f-415b-acb6-8a16e0b94c7d",
+      "avatarImage": "blob:https://edrian48228-crack.github.io/fedde821-d0cf-4566-a992-49195253dc12",
       "avatarMessages": "¡Ofertas hoy!|¡Bienvenido!|¡Compra ya!|¡Los mejores precios!|¡Nuevo stock!|¡No te lo pierdas!",
       "logoEmoji": "🛒",
       "logoImage": "",
@@ -288,10 +290,29 @@
       "orderMessage": "",
       "contactBgImage": "",
       "additionalContacts": [],
-      "projects": []
+      "projects": [],
+      "hideAvatar": false,
+      "hideMonetizeButtons": false,
+      "securityDisabled": false
     },
     "mt_suppliers": null,
     "mt_notifications": [
+      {
+        "id": "75da2fdd-3d80-40bd-9b3a-6b42da44f677",
+        "type": "low_stock",
+        "message": "\"Smartphone Samsung A1+\" tiene stock bajo (2)",
+        "productId": "p1",
+        "date": "2026-05-06T18:49:53.044Z",
+        "read": false
+      },
+      {
+        "id": "d5cb9276-c64c-462c-aa02-6a3d2c1ad687",
+        "type": "low_stock",
+        "message": "\"Smartphone Huawei Nova 5T\" tiene stock bajo (2)",
+        "productId": "p3",
+        "date": "2026-05-06T18:42:39.958Z",
+        "read": false
+      },
       {
         "id": "1c33b76c-1476-4423-a825-622a8db3d08e",
         "type": "best_seller",
@@ -393,6 +414,16 @@
         "date": "2026-05-05",
         "hour": 14,
         "count": 7
+      },
+      {
+        "date": "2026-05-06",
+        "hour": 20,
+        "count": 5
+      },
+      {
+        "date": "2026-05-06",
+        "hour": 21,
+        "count": 3
       }
     ],
     "mt_projects": []
