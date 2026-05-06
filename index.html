@@ -831,8 +831,7 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <!-- CREATOR LOGIN -->
 <div id="page-creator-login" class="page" style="display:none;">
 <div class="container section" style="max-width:420px;margin:80px auto;">
-<div style="position:relative;background:linear-gradient(135deg,var(--bg-card),rgba(255,109,0,.04));border:1px solid rgba(255,109,0,.25);border-radius:22px;padding:40px;text-align:center;">
-<button class="modal-close" onclick="showPage('store')" style="position:absolute;top:14px;right:18px;font-size:1.2rem;background:var(--bg-secondary);color:var(--text-muted);font-weight:700;z-index:10;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid var(--glass-border);" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+<div style="background:linear-gradient(135deg,var(--bg-card),rgba(255,109,0,.04));border:1px solid rgba(255,109,0,.25);border-radius:22px;padding:40px;text-align:center;">
 <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--naranja),var(--amarillo));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;"><i class="fas fa-crown" style="color:#111;"></i></div>
 <h2 style="font-family:'Orbitron',sans-serif;font-size:1.1rem;letter-spacing:1px;margin-bottom:8px;">ACCESO CREADOR</h2>
 <p style="color:var(--text-muted);margin-bottom:20px;font-size:.82rem;">Solo el creador del sistema puede acceder</p>
@@ -1351,18 +1350,16 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 
 <script>
 // ===== DATA =====
-// __mt obfuscation helper (XOR mathematical) — hides plain credentials/license from source view
-function __mtDx(a,k){try{return a.map(function(b,i){return String.fromCharCode(b^((k+i)&255));}).join('');}catch(_){return '';}}
 const DEFAULT_CONFIG={
 storeName:'MegaTienda Online',whatsapp:'+5350000000',facebook:'https://facebook.com/megatienda',
 email:'tienda@ejemplo.com',creatorName:'Edrian Cruz Down',creatorWhatsapp:'+5350000000',
 creatorFacebook:'https://facebook.com/edrian',creatorEmail:'edrian@ejemplo.com',
 creatorPhone:'+5350000000',creatorChannel:'',creatorCourse:'',creatorPhoto:'',
 paymentMethods:['Efectivo','Transferencia','Criptomoneda'],currencies:['CUP','USD','Criptomoneda'],
-adminPassword:__mtDx([44,42,34,57,63,99,97,103],77),supplierPassword:__mtDx([43,46,50,40,58,5,5,13,17,85,87,85],91),creatorPassword:__mtDx([18,0,22,21,1,25,5,74,73,72,78],113),
-securityQuestion:__mtDx([172,90,122,123,117,106,124,58,127,121,61,106,106,0,81,80,74,73,64,84,70,8,68,75,88,79,66,90,78,15],19),securityAnswer:__mtDx([115,85,79,67],31),
+adminPassword:'admin123',supplierPassword:'proveedor123',creatorPassword:'creator2025',
+securityQuestion:'¿Nombre de tu primera mascota?',securityAnswer:'luna',
 categories:['Electrónica','Ropa','Dulces','Hogar','Accesorios'],
-licenseKey:__mtDx([98,117,118,115,30,6,5,4,2,21,109,104,114,125,113],47),licenseExpiry:__mtDx([97,100,103,96,122,105,107,119,104,109],83),licenseActive:true,
+licenseKey:'MEGA-2025-TRIAL',licenseExpiry:'2026-12-31',licenseActive:true,
 clientChannel:'',clientWebsite:'',clientApk:'',clientFacebook:'',clientWhatsapp:'',
 avatarEmoji:'🛒',avatarImage:'',avatarMessages:'¡Ofertas hoy!|¡Bienvenido!|¡Compra ya!|¡Los mejores precios!|¡Nuevo stock!|¡No te lo pierdas!',
 logoEmoji:'🛒',logoImage:'',imgFolder:'',ownStoreUrl:'',affiliateUrl:'',orderMessage:'',contactBgImage:'',
@@ -2004,14 +2001,11 @@ return `
 <tr>
 <td><strong>${s.name}</strong></td><td>${s.category}</td><td>${s.address}</td>
 <td style="white-space:nowrap;">
-<div class="sup-actions" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
-${tel?`<a href="tel:${tel}" class="sup-act sup-call" title="Llamar"><i class="fas fa-phone"></i></a>`:''}
-${wa?`<a href="https://wa.me/${wa}" target="_blank" rel="noopener" class="sup-act sup-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>`:''}
-${s.email?`<a href="mailto:${s.email}" class="sup-act sup-mail" title="Correo"><i class="fas fa-envelope"></i></a>`:''}
-</div>
-<span style="font-size:.78rem;color:var(--text-muted);display:block;margin-top:6px;">${s.phone||''}</span>
+${tel?`<a href="tel:${tel}" class="btn-icon" style="background:var(--verde);color:#fff;margin:2px;" title="Llamar"><i class="fas fa-phone"></i></a>`:''}
+${wa?`<a href="https://wa.me/${wa}" target="_blank" class="btn-icon" style="background:#25d366;color:#fff;margin:2px;" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>`:''}
+<span style="font-size:.78rem;color:var(--text-muted);display:block;margin-top:4px;">${s.phone||''}</span>
 </td>
-<td>${s.email?`<a href="mailto:${s.email}" style="color:var(--naranja-brillante);text-decoration:none;"><i class="fas fa-envelope" style="margin-right:4px;"></i>${s.email}</a>`:'-'}</td>
+<td>${s.email||'-'}</td>
 <td style="white-space:nowrap;">
 <button class="btn-icon btn-warning" onclick="editSupplier('${s.id}')" title="Editar" style="margin:2px;"><i class="fas fa-pen-fancy"></i></button>
 <button class="btn-icon btn-danger" onclick="deleteSupplier('${s.id}')" title="Eliminar" style="margin:2px;"><i class="fas fa-xmark"></i></button>
@@ -2374,135 +2368,7 @@ background:linear-gradient(135deg,var(--verde),var(--cyan),var(--azul));backgrou
 </div>
 </div>
 
-<script>window.print();<\/script>
-<!-- =============================================================
-     PATCH v17 — UX final, sync bidireccional logo/avatar, offline total
-     ============================================================= -->
-<style id="patch-v17-styles">
-/* Suppliers: botones modernos diferenciados */
-.sup-actions .sup-act{
-  width:38px;height:38px;border-radius:12px;display:inline-flex;
-  align-items:center;justify-content:center;font-size:1rem;color:#fff;
-  text-decoration:none;border:none;transition:transform .2s,box-shadow .2s,filter .2s;
-  box-shadow:0 4px 12px rgba(0,0,0,.25);
-}
-.sup-actions .sup-act:hover{transform:translateY(-2px) scale(1.06);filter:brightness(1.1);}
-.sup-actions .sup-call{background:linear-gradient(135deg,#22c55e,#15803d);}
-.sup-actions .sup-wa{background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 4px 12px rgba(37,211,102,.4);}
-.sup-actions .sup-mail{background:linear-gradient(135deg,#ff6d00,#ff1744);box-shadow:0 4px 12px rgba(255,109,0,.4);}
-
-/* Android: copia/pega 100% en TODOS los inputs/textarea (incl. panel github) */
-input,textarea,select,[contenteditable="true"]{
-  -webkit-user-select:text!important;user-select:text!important;
-  -webkit-user-modify:read-write-plaintext-only;user-modify:read-write;
-  -webkit-touch-callout:default!important;touch-action:manipulation;
-}
-/* Asegurar que ningún ancestro bloquee la selección dentro de admin */
-#page-admin, #page-admin *,
-#panel-github, #panel-github *,
-#panel-config, #panel-config *,
-.modal, .modal *{
-  -webkit-touch-callout:default;
-}
-#page-admin input,#page-admin textarea,
-#panel-github input,#panel-github textarea,
-.modal input,.modal textarea{
-  -webkit-user-select:text!important;user-select:text!important;
-}
-
-@media(max-width:640px){
-  /* Reducir espacio vertical entre Contacto y final del footer (Android) */
-  #channelSection{margin-top:6px!important;margin-bottom:0!important;gap:6px!important;}
-  .projects-section{padding:10px 8px!important;margin:6px 0!important;}
-  .footer{margin-top:0!important;}
-  .footer-top{padding:14px 10px 10px!important;}
-  .footer-bottom{padding:8px 10px 10px!important;}
-  .footer-grid{gap:8px!important;margin-bottom:0!important;}
-  .footer-col{padding:10px!important;}
-  .footer-col h4{margin-bottom:6px!important;}
-  .footer-col a{padding:3px 0!important;}
-  .footer-bottom p{margin-top:6px!important;}
-  .footer-creator-badge{padding:6px 14px!important;font-size:.74rem!important;}
-
-  /* Carrito: items con MÁS espacio que el resto en Android */
-  #cartSidebar .cart-body{padding:18px 12px!important;}
-  #cartSidebar .cart-item{
-    padding:18px 14px!important;margin-bottom:18px!important;
-    border-radius:18px!important;gap:14px!important;
-    background:linear-gradient(135deg,var(--bg-card),rgba(255,109,0,.04))!important;
-    box-shadow:0 4px 14px rgba(0,0,0,.18)!important;
-  }
-  #cartSidebar .cart-item .details h4{margin-bottom:6px!important;}
-  #cartSidebar .cart-item .qty-control{margin-top:10px!important;gap:10px!important;}
-
-  /* Iconos proveedor un poco más grandes en móvil */
-  .sup-actions .sup-act{width:40px;height:40px;font-size:1.05rem;}
-}
-</style>
-
-<script id="patch-v17-script">
-(function(){
-  /* === Sync bidireccional inmediato al guardar logo/avatar/cualquier config ===
-     Hook saveConfig y saveCreatorConfig para forzar push inmediato a GitHub
-     y notificar a otros dispositivos vía polling existente. */
-  function hookSync(name){
-    if(typeof window[name]!=='function') return;
-    const orig=window[name];
-    window[name]=function(){
-      const r=orig.apply(this,arguments);
-      try{
-        // forzar persistencia y push inmediato (sin esperar debounce 2.5s)
-        if(typeof save==='function') save('mt_config', config);
-        if(typeof ghGetCreds==='function'){
-          const c=ghGetCreds();
-          if(c && c.autoSync && c.token && c.token.data && navigator.onLine && typeof ghPushAll==='function'){
-            setTimeout(()=>{ try{ ghPushAll(); }catch(_){}}, 200);
-          }
-        }
-        if(typeof applyConfig==='function') applyConfig();
-      }catch(_){}
-      return r;
-    };
-  }
-  function init(){
-    hookSync('saveConfig');
-    hookSync('saveCreatorConfig');
-
-    /* Pull inmediato al volver al primer plano (Android PWA) */
-    document.addEventListener('visibilitychange',()=>{
-      if(!document.hidden && typeof ghBootstrapPublicPull==='function' && navigator.onLine){
-        try{ ghBootstrapPublicPull(); }catch(_){}
-      }
-    });
-
-    /* Pre-cachear todas las imágenes de productos/config para offline TOTAL */
-    if('caches' in window && 'serviceWorker' in navigator){
-      const urls=new Set();
-      try{
-        (products||[]).forEach(p=>{
-          (p.images||[]).forEach(u=>{ if(u && /^https?:/.test(u)) urls.add(u); });
-          if(p.image && /^https?:/.test(p.image)) urls.add(p.image);
-        });
-        ['logoImage','avatarImage','creatorPhoto','contactBgImage'].forEach(k=>{
-          if(config && config[k] && /^https?:/.test(config[k])) urls.add(config[k]);
-        });
-      }catch(_){}
-      if(urls.size){
-        caches.open('mt-img-runtime-v1').then(cache=>{
-          urls.forEach(u=>{
-            cache.match(u).then(hit=>{
-              if(!hit) fetch(u,{mode:'no-cors'}).then(r=>{ try{cache.put(u,r);}catch(_){}}).catch(()=>{});
-            });
-          });
-        });
-      }
-    }
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
-  else init();
-})();
-</script>
-</body></html>`);
+<script>window.print();<\/script></body></html>`);
 }
 
 function shareLicenseWhatsApp(){
