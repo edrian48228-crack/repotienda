@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "exportedAt": "2026-05-07T10:59:27.290Z",
+  "exportedAt": "2026-05-08T08:25:11.540Z",
   "data": {
     "mt_products": [
       {
@@ -25,9 +25,7 @@
         "bulkDiscount": 10,
         "bulkQty": 3,
         "featured": "si",
-        "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p1-0-1777984549243-shca8t7d.webp"
-        ]
+        "__lastRepoImgs": []
       },
       {
         "id": "p2",
@@ -51,9 +49,7 @@
         "bulkDiscount": 15,
         "bulkQty": 2,
         "featured": "no",
-        "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p2-0-1777985688086-06g4c1st.webp"
-        ]
+        "__lastRepoImgs": []
       },
       {
         "id": "p3",
@@ -77,9 +73,7 @@
         "bulkDiscount": 20,
         "bulkQty": 5,
         "featured": "no",
-        "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p3-0-1777985690442-0u1rji2c.webp"
-        ]
+        "__lastRepoImgs": []
       },
       {
         "id": "p4",
@@ -103,9 +97,7 @@
         "bulkDiscount": 10,
         "bulkQty": 3,
         "featured": "si",
-        "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p4-0-1777984587975-85c3hopb.webp"
-        ]
+        "__lastRepoImgs": []
       },
       {
         "id": "p5",
@@ -129,9 +121,7 @@
         "bulkDiscount": 0,
         "bulkQty": 3,
         "featured": "si",
-        "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p5-0-1777984594268-z3sh0j4s.webp"
-        ]
+        "__lastRepoImgs": []
       },
       {
         "id": "p7",
@@ -155,9 +145,7 @@
         "bulkDiscount": 5,
         "bulkQty": 2,
         "featured": "no",
-        "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p7-0-1777985631440-lqytija6.webp"
-        ]
+        "__lastRepoImgs": []
       },
       {
         "id": "p8",
@@ -182,10 +170,7 @@
         "bulkDiscount": 0,
         "bulkQty": 3,
         "featured": "no",
-        "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-0-1777984598071-aiq9i8oi.webp",
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-1-1778094434984-5o0qodgc.webp"
-        ]
+        "__lastRepoImgs": []
       },
       {
         "id": "cc1c2346-a6af-4ab8-91e1-3f1f5e18fcb1",
@@ -209,9 +194,7 @@
         "sales": 0,
         "lastSaleDate": null,
         "createdAt": "2026-05-06T19:10:41.218Z",
-        "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-cc1c2346-0-1778094643937-fmvlj921.webp"
-        ]
+        "__lastRepoImgs": []
       },
       {
         "id": "215b18d6-1501-4950-a935-ecfb465f0a67",
@@ -235,9 +218,7 @@
         "sales": 0,
         "lastSaleDate": null,
         "createdAt": "2026-05-06T19:12:13.504Z",
-        "__lastRepoImgs": [
-          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-215b18d6-0-1778094736194-6l94ar2z.webp"
-        ]
+        "__lastRepoImgs": []
       }
     ],
     "mt_sales": [
@@ -477,6 +458,11 @@
       {
         "date": "2026-05-07",
         "hour": 12,
+        "count": 1
+      },
+      {
+        "date": "2026-05-08",
+        "hour": 10,
         "count": 1
       }
     ],
