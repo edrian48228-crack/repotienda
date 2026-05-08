@@ -1698,6 +1698,7 @@ ${hasBulk?`<div style="background:rgba(0,230,118,.08);border:1px solid rgba(0,23
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
 <button class="btn btn-primary" onclick="addToCart('${p.id}');closeModal('productDetailModal');" ${p.stock<=0?'disabled':''} style="border-radius:50px;padding:16px 32px;font-size:1rem;flex:1;"><i class="fas fa-cart-shopping"></i> Añadir al carrito</button>
 <a href="https://wa.me/${(config.whatsapp||'').replace(/[^0-9]/g,'')}?text=${encodeURIComponent('Hola, me interesa el producto: '+p.name+' ($'+p.price+' '+p.currency+')')}" target="_blank" class="btn btn-success" style="border-radius:50px;padding:16px 20px;font-size:1rem;" title="Escribir al admin por WhatsApp"><i class="fab fa-whatsapp" style="font-size:1.2rem;"></i></a>
+<a href="tel:${(config.whatsapp||'').replace(/[^0-9+]/g,'')}" class="btn btn-primary" style="border-radius:50px;padding:16px 20px;font-size:1rem;background:linear-gradient(135deg,#0288d1,#01579b);" title="Llamar al administrador"><i class="fas fa-phone" style="font-size:1.1rem;"></i></a>
 </div>
 </div>
 </div>`;
@@ -3868,6 +3869,183 @@ input,textarea,select,[contenteditable="true"]{
         });
       }
     }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
+</script>
+
+<!-- =============================================================
+     PATCH v20 — Llamada admin, fuente zombie, hide promo en admin,
+     ribbon VIP, scroll dinámico, lightbox en form productos,
+     contadores móviles, sync inmediata logo/avatar
+     ============================================================= -->
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&family=Metal+Mania&display=swap" rel="stylesheet">
+<style id="patch-v20-styles">
+/* Fuente estilo zombie/depredador para el nombre de la tienda */
+.store-name,#heroStoreName,#footerStoreName{
+  font-family:'Nosifer','Creepster','Metal Mania','Orbitron',sans-serif!important;
+  letter-spacing:2px!important;
+  text-shadow:0 0 14px rgba(255,23,68,.55),2px 2px 0 #000,0 0 28px rgba(255,109,0,.4)!important;
+}
+.store-name .t1,.store-name .t2{font-family:inherit!important;}
+
+/* Lazo VIP en botones promocionales */
+.promo-btn{position:relative;overflow:visible!important;}
+#affiliateBtn.promo-btn{border-top-left-radius:0!important;border-bottom-left-radius:0!important;}
+#ownStoreBtn.promo-btn{border-top-right-radius:0!important;border-bottom-right-radius:0!important;}
+.promo-btn::before{
+  content:'VIP';
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:#fff;color:#b71c1c;font-weight:900;font-size:.62rem;
+  padding:3px 8px;letter-spacing:1.5px;
+  box-shadow:0 2px 8px rgba(0,0,0,.35);z-index:3;
+  border:1.5px solid #b71c1c;
+}
+#affiliateBtn.promo-btn::before{left:-22px;border-radius:8px 0 0 8px;clip-path:polygon(0 0,100% 0,85% 50%,100% 100%,0 100%);padding-right:14px;}
+#ownStoreBtn.promo-btn::before{right:-22px;border-radius:0 8px 8px 0;clip-path:polygon(15% 0,100% 0,100% 100%,15% 100%,0 50%);padding-left:14px;}
+
+/* Bordes mejorados botón gana dinero */
+#affiliateBtn.promo-btn{
+  border:2px solid rgba(255,255,255,.25)!important;
+  background:linear-gradient(135deg,#00c853,#00e676,#00bfa5)!important;
+  box-shadow:0 4px 18px rgba(0,200,83,.45),inset 0 0 0 1px rgba(255,255,255,.15)!important;
+}
+
+/* Cuando admin (no creador) está logueado: ocultar AMBOS botones */
+body.admin-mode #ownStoreBtn,
+body.admin-mode #affiliateBtn,
+body.admin-mode #promoRow{display:none!important;}
+
+/* Imágenes del carrusel sin recortar */
+.rec-card img{object-fit:contain!important;background:var(--bg-secondary);}
+.rec-card{padding-top:6px;}
+
+/* Sección "MIS PROYECTOS Y SERVICIOS" más compacta */
+.projects-section{padding:18px 16px!important;margin:14px 0 0!important;}
+.projects-section h3{margin-bottom:10px!important;font-size:1rem!important;}
+.projects-grid{gap:10px!important;}
+
+/* Header dinámico al hacer scroll en Android */
+@media(max-width:640px){
+  .header{transition:padding .25s ease;}
+  .header.scrolling .promo-row,
+  .header.scrolling #promoRow{display:none!important;}
+  .header.scrolling .logo-icon{width:52px!important;height:52px!important;font-size:1.6rem!important;transition:.25s;}
+  .header.scrolling .store-name{font-size:1.5rem!important;transition:.25s;}
+  .logo-icon,.store-name{transition:all .3s ease;}
+}
+
+/* Contadores totales visibles en móvil sin romper diseño */
+@media(max-width:640px){
+  .admin-tabs .tab-count{
+    display:inline-flex!important;position:static!important;
+    min-width:18px!important;height:16px!important;font-size:.6rem!important;
+    padding:0 5px!important;margin-left:3px!important;box-shadow:none!important;
+  }
+  .admin-tabs button{padding:7px 8px!important;font-size:.68rem!important;gap:3px!important;}
+  .admin-tabs button span:first-of-type{display:inline!important;font-size:.66rem!important;}
+}
+
+/* Miniaturas clicables en formulario de producto */
+.pf-thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.pf-thumbs .pf-thumb{width:64px;height:64px;border-radius:10px;overflow:hidden;cursor:zoom-in;border:1px solid var(--glass-border);background:var(--bg-secondary);position:relative;}
+.pf-thumbs .pf-thumb img{width:100%;height:100%;object-fit:cover;}
+.pf-thumbs .pf-thumb:hover{border-color:var(--naranja);box-shadow:0 0 0 2px rgba(255,109,0,.3);}
+</style>
+
+<script id="patch-v20-script">
+(function(){
+  /* === 1. Marcar body cuando admin (no creador) — oculta promo === */
+  function applyAdminMode(){
+    const isA=(typeof isAdmin!=='undefined')&&isAdmin;
+    const isC=(typeof isCreator!=='undefined')&&isCreator;
+    document.body.classList.toggle('admin-mode', isA && !isC);
+  }
+  ['loginAdmin','loginCreator','logoutAdmin','setupAdminUI','applyConfig'].forEach(fn=>{
+    if(typeof window[fn]==='function'){
+      const orig=window[fn];
+      window[fn]=function(){const r=orig.apply(this,arguments);setTimeout(applyAdminMode,50);return r;};
+    }
+  });
+
+  /* === 2. Scroll dinámico Android: header se compacta/expande === */
+  let scrollTimer=null;
+  const header=document.getElementById('mainHeader');
+  window.addEventListener('scroll',()=>{
+    if(!header) return;
+    header.classList.add('scrolling');
+    clearTimeout(scrollTimer);
+    scrollTimer=setTimeout(()=>header.classList.remove('scrolling'),350);
+  },{passive:true});
+
+  /* === 3. Lightbox al hacer click en miniaturas del form de producto === */
+  function renderPfThumbs(){
+    const ta=document.getElementById('pfImages');
+    if(!ta) return;
+    let grid=document.getElementById('pfThumbs');
+    if(!grid){
+      grid=document.createElement('div');
+      grid.id='pfThumbs';grid.className='pf-thumbs';
+      ta.parentNode.insertBefore(grid, ta.nextSibling);
+    }
+    const buf=(window.__imgBuffers&&window.__imgBuffers['pfImages'])||[];
+    const urls=buf.length?buf.map(it=>it.kind==='file'?it.dataUrl:it.url)
+      :ta.value.split('\n').map(s=>s.trim()).filter(Boolean).filter(s=>!s.startsWith('📷')&&!s.startsWith('🔗'))
+        .map(u=>(typeof resolveImgPath==='function'?resolveImgPath(u):u));
+    grid.innerHTML=urls.map((u,i)=>`<div class="pf-thumb" data-idx="${i}"><img src="${u}" alt="img ${i+1}" onerror="this.style.opacity='.3'"></div>`).join('');
+    grid.querySelectorAll('.pf-thumb').forEach(el=>{
+      el.onclick=()=>{ if(typeof openLightbox==='function') openLightbox(urls, +el.dataset.idx); };
+    });
+  }
+  // Hook setImagesBuffer/clearImagesBuffer para refrescar thumbs
+  ['setImagesBuffer','clearImagesBuffer','triggerMultiImageUpload'].forEach(fn=>{
+    if(typeof window[fn]==='function'){
+      const orig=window[fn];
+      window[fn]=function(){const r=orig.apply(this,arguments);setTimeout(renderPfThumbs,150);return r;};
+    }
+  });
+  // También al abrir el modal del producto
+  if(typeof window.openProductForm==='function'){
+    const orig=window.openProductForm;
+    window.openProductForm=function(){const r=orig.apply(this,arguments);setTimeout(renderPfThumbs,200);return r;};
+  }
+
+  /* === 4. Contadores totales actualizados también en móvil === */
+  function refreshCounts(){
+    try{
+      const set=(id,n)=>{const e=document.getElementById(id);if(e)e.textContent=n;};
+      set('tabCountProducts',(typeof products!=='undefined'?products.length:0));
+      set('tabCountSuppliers',(typeof suppliers!=='undefined'?suppliers.length:0));
+      set('tabCountNotifs',(typeof notifications!=='undefined'?notifications.length:0));
+    }catch(e){}
+  }
+  setInterval(refreshCounts, 1500);
+
+  /* === 5. Sync inmediata logo/avatar bidireccional ===
+     Polling más frecuente cuando el usuario está activo. */
+  let pullTimer=null;
+  function fastPull(){
+    if(!navigator.onLine) return;
+    if(typeof window.ghBootstrapPublicPull==='function'){
+      try{ window.ghBootstrapPublicPull(); }catch(_){}
+    }
+  }
+  function startFastPull(){
+    if(pullTimer) clearInterval(pullTimer);
+    pullTimer=setInterval(fastPull, 20000); // cada 20s mientras la pestaña esté activa
+  }
+  function stopFastPull(){ if(pullTimer){clearInterval(pullTimer);pullTimer=null;} }
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden) stopFastPull(); else { fastPull(); startFastPull(); }
+  });
+  window.addEventListener('focus',fastPull);
+  window.addEventListener('online',fastPull);
+
+  function init(){
+    applyAdminMode();
+    refreshCounts();
+    if(!document.hidden) startFastPull();
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();
