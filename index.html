@@ -4530,5 +4530,255 @@ body{overflow:visible!important;overflow-x:clip!important;}
   window.addEventListener('resize', function(){ if(!isMobile()) show(); }, {passive:true});
 })();
 </script>
+
+<!-- =============================================================
+     PATCH v25 — Bordes admin, scroll-lock real, promo solo en top,
+     precio sin coma flotante, sync logo/avatar cross-device,
+     manifest dinámico (icono+nombre = logo+nombre tienda)
+     ============================================================= -->
+<style id="patch-v25-styles">
+/* === 1) ADMIN: bordes y márgenes consistentes en escritorio === */
+@media(min-width:901px){
+  #page-admin > .container.section{
+    padding-left:28px!important;
+    padding-right:28px!important;
+    max-width:1340px!important;
+  }
+  #page-admin .admin-panel{
+    padding:18px 22px!important;
+    background:rgba(15,15,20,.35);
+    border:1px solid var(--glass-border);
+    border-radius:18px;
+    margin-bottom:20px;
+  }
+  /* Menú admin pegado SIN recortarse: top = altura header real */
+  .admin-tabs{
+    top:var(--hdr-h, 72px)!important;
+    padding:10px 6px!important;
+    margin:0 -6px 16px!important;
+    border-radius:0 0 14px 14px;
+    box-shadow:0 6px 18px rgba(0,0,0,.35);
+  }
+}
+@media(max-width:900px){
+  .admin-tabs{ top:var(--hdr-h, 60px)!important; }
+}
+
+/* === 2) SCROLL-LOCK REAL al abrir modales (revierte el v24 que rompía body lock) === */
+html.mt-modal-lock,body.mt-modal-lock{
+  overflow:hidden!important;
+  height:100%!important;
+  touch-action:none!important;
+  overscroll-behavior:contain!important;
+}
+body.mt-modal-lock{position:fixed!important;width:100%!important;}
+.modal-overlay.show{overscroll-behavior:contain;}
+
+/* === 3) PROMO: visible SOLO en el top, sin parpadeos === */
+@media(max-width:900px){
+  /* Anula la transición/colapso de v24 que generaba el "parpadeo" */
+  #promoRow{
+    transition:opacity .18s linear!important;
+    max-height:none!important;
+    transform:none!important;
+    will-change:opacity!important;
+  }
+  body.promo-hide #promoRow{
+    max-height:none!important;
+    transform:none!important;
+    margin:0!important;padding:0!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    height:0!important;
+    overflow:hidden!important;
+  }
+}
+</style>
+
+<script id="patch-v25-script">
+(function(){
+  /* ---------- A) Variable CSS con la altura real del header ---------- */
+  function setHdrVar(){
+    var h=document.getElementById('mainHeader');
+    if(!h) return;
+    var r=h.getBoundingClientRect();
+    document.documentElement.style.setProperty('--hdr-h', Math.max(48,Math.round(r.height))+'px');
+  }
+  window.addEventListener('load', setHdrVar);
+  window.addEventListener('resize', setHdrVar);
+  setTimeout(setHdrVar, 200);
+  setTimeout(setHdrVar, 1200);
+
+  /* ---------- B) Scroll-lock REAL para modales ---------- */
+  var __scrollY = 0;
+  function lockScroll(){
+    if(document.body.classList.contains('mt-modal-lock')) return;
+    __scrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.top = '-'+__scrollY+'px';
+    document.documentElement.classList.add('mt-modal-lock');
+    document.body.classList.add('mt-modal-lock');
+  }
+  function unlockScroll(){
+    if(!document.body.classList.contains('mt-modal-lock')) return;
+    document.documentElement.classList.remove('mt-modal-lock');
+    document.body.classList.remove('mt-modal-lock');
+    document.body.style.top='';
+    window.scrollTo(0, __scrollY);
+  }
+  function anyModalOpen(){
+    return !!document.querySelector('.modal-overlay.show, .cart-overlay.show, .lightbox.show, #customConfirm.show');
+  }
+  // Wrap openModal/closeModal/openCart/closeCart/openLightbox/closeLightbox
+  ['openModal','openCart','openLightbox'].forEach(function(fn){
+    var orig=window[fn]; if(typeof orig!=='function') return;
+    window[fn]=function(){ var r=orig.apply(this,arguments); lockScroll(); return r; };
+  });
+  ['closeModal','closeCart','closeLightbox'].forEach(function(fn){
+    var orig=window[fn]; if(typeof orig!=='function') return;
+    window[fn]=function(){ var r=orig.apply(this,arguments); setTimeout(function(){ if(!anyModalOpen()) unlockScroll(); },10); return r; };
+  });
+  // Mutation observer para captar showCustomConfirm y otros que añaden .show directo
+  var mo=new MutationObserver(function(){
+    if(anyModalOpen()) lockScroll(); else unlockScroll();
+  });
+  mo.observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+
+  /* ---------- C) Promo: visible SOLO al inicio de la portada ---------- */
+  // Elimina los listeners de v24 reescribiendo body.promo-hide en función de scrollY
+  var TOP_OK=120;
+  function promoTick(){
+    var y=window.scrollY||window.pageYOffset||0;
+    var atTop=y<=TOP_OK;
+    if(window.matchMedia('(max-width:900px)').matches){
+      document.body.classList.toggle('promo-hide', !atTop);
+    } else {
+      document.body.classList.remove('promo-hide');
+    }
+  }
+  var rafP=false;
+  window.addEventListener('scroll', function(){
+    if(rafP) return; rafP=true;
+    requestAnimationFrame(function(){ rafP=false; promoTick(); });
+  }, {passive:true});
+  window.addEventListener('resize', promoTick, {passive:true});
+  promoTick();
+
+  /* ---------- D) Precio: redondeo seguro (evita 6999.99) ---------- */
+  function roundMoney(n){
+    if(typeof n!=='number'||!isFinite(n)) n=parseFloat(n)||0;
+    return Math.round(n*100)/100;
+  }
+  // Hook saveProduct
+  if(typeof window.saveProduct==='function'){
+    var _sp=window.saveProduct;
+    window.saveProduct=function(){
+      try{
+        var pf=document.getElementById('pfPrice');
+        if(pf) pf.value = roundMoney(parseFloat(pf.value)||0);
+        var op=document.getElementById('pfOriginalPrice');
+        if(op) op.value = roundMoney(parseFloat(op.value)||0);
+      }catch(e){}
+      return _sp.apply(this,arguments);
+    };
+  }
+  // Pre-llenado del formulario: mostrar entero si no tiene decimales
+  if(typeof window.openProductForm==='function'){
+    var _opf=window.openProductForm;
+    window.openProductForm=function(){
+      var r=_opf.apply(this,arguments);
+      setTimeout(function(){
+        ['pfPrice','pfOriginalPrice'].forEach(function(id){
+          var el=document.getElementById(id); if(!el) return;
+          var v=parseFloat(el.value); if(!isFinite(v)){el.value='';return;}
+          v=roundMoney(v);
+          el.value = (v%1===0) ? String(Math.round(v)) : String(v);
+        });
+      },30);
+      return r;
+    };
+  }
+
+  /* ---------- E) Sync logo/avatar entre dispositivos ---------- */
+  // Cuando cambia mt_config en otra pestaña/dispositivo (vía pull GH), reaplicar
+  window.addEventListener('storage', function(e){
+    if(!e.key) return;
+    if(e.key.indexOf('mt_config')!==-1 || e.key==='mt_config'){
+      try{
+        var raw=localStorage.getItem(e.key); if(!raw) return;
+        var c=JSON.parse(raw);
+        if(c && typeof c==='object'){
+          window.config = Object.assign(window.config||{}, c);
+          if(typeof window.applyConfig==='function') window.applyConfig();
+          updateManifest();
+        }
+      }catch(_e){}
+    }
+  });
+  // Forzar pull rápido al volver al foco / pestaña visible (refuerza fastPull existente)
+  function nudgePull(){
+    try{
+      if(typeof window.fastPull==='function') window.fastPull();
+      else if(typeof window.ghPull==='function') window.ghPull();
+    }catch(e){}
+  }
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden) nudgePull(); });
+  window.addEventListener('focus', nudgePull);
+  window.addEventListener('online', nudgePull);
+
+  /* ---------- F) Manifest dinámico: icono = logo, nombre = tienda ---------- */
+  var __manifestUrl=null;
+  function updateManifest(){
+    try{
+      var c=window.config||{};
+      var name=(c.storeName||'MegaTienda Online').toString();
+      var icon=(c.logoImage||'').toString();
+      var manifest={
+        name:name, short_name:name.split(' ')[0]||name,
+        description:c.storeDescription||'Tienda online',
+        start_url:'./', scope:'./', display:'standalone',
+        orientation:'portrait', background_color:'#050508', theme_color:'#050508', lang:'es',
+        icons:[]
+      };
+      if(icon && /^(https?:|data:|\/|\.)/.test(icon)){
+        manifest.icons.push({src:icon,sizes:'192x192',type:'image/png',purpose:'any'});
+        manifest.icons.push({src:icon,sizes:'512x512',type:'image/png',purpose:'any'});
+        manifest.icons.push({src:icon,sizes:'512x512',type:'image/png',purpose:'maskable'});
+      } else {
+        manifest.icons=[
+          {src:'icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'},
+          {src:'icon-512.png',sizes:'512x512',type:'image/png',purpose:'any'},
+          {src:'icon-512-maskable.png',sizes:'512x512',type:'image/png',purpose:'maskable'}
+        ];
+      }
+      var blob=new Blob([JSON.stringify(manifest)],{type:'application/manifest+json'});
+      if(__manifestUrl) URL.revokeObjectURL(__manifestUrl);
+      __manifestUrl=URL.createObjectURL(blob);
+      var link=document.querySelector('link[rel="manifest"]');
+      if(!link){ link=document.createElement('link'); link.rel='manifest'; document.head.appendChild(link); }
+      link.href=__manifestUrl;
+      // Apple touch icon
+      if(icon){
+        var apple=document.querySelector('link[rel="apple-touch-icon"]');
+        if(!apple){ apple=document.createElement('link'); apple.rel='apple-touch-icon'; document.head.appendChild(apple); }
+        apple.href=icon;
+      }
+      // <title>
+      try{ document.title = name; }catch(_){}
+    }catch(e){}
+  }
+  // Hook applyConfig
+  if(typeof window.applyConfig==='function'){
+    var _ac=window.applyConfig;
+    window.applyConfig=function(){
+      var r=_ac.apply(this,arguments);
+      updateManifest();
+      return r;
+    };
+  }
+  setTimeout(updateManifest, 600);
+  setTimeout(updateManifest, 2500);
+})();
+</script>
 </body>
 </html>
