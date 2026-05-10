@@ -811,8 +811,8 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 
 <!-- ADMIN LOGIN -->
 <div id="page-admin-login" class="page" style="display:none;">
-<div class="container section" style="max-width:420px;margin:80px auto;">
-<div style="position:relative;background:linear-gradient(135deg,var(--bg-card),rgba(255,23,68,.04));border:1px solid rgba(255,23,68,.2);border-radius:22px;padding:40px;text-align:center;">
+<div class="container section" style="max-width:420px;margin:0 auto;padding-top:80px;padding-bottom:40px;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;">
+<div style="position:relative;background:linear-gradient(135deg,var(--bg-card),rgba(255,23,68,.04));border:1px solid rgba(255,23,68,.2);border-radius:22px;padding:40px;text-align:center;width:100%;">
 <button class="modal-close" onclick="showPage('store')" style="position:absolute;top:14px;right:18px;font-size:1.2rem;background:var(--bg-secondary);color:var(--text-muted);font-weight:700;z-index:10;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid var(--glass-border);" aria-label="Cerrar"><i class="fas fa-times"></i></button><div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--rojo),var(--naranja));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;box-shadow:var(--neon-rojo);"><i class="fas fa-shield-halved" style="color:#fff;"></i></div>
 <h2 style="font-family:'Orbitron',sans-serif;font-size:1.1rem;letter-spacing:1px;margin-bottom:8px;">PANEL ADMIN</h2>
 <p style="color:var(--text-muted);margin-bottom:20px;font-size:.82rem;">Ingresa tu contraseña de administrador</p>
@@ -832,7 +832,7 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 
 <!-- CREATOR LOGIN -->
 <div id="page-creator-login" class="page" style="display:none;">
-<div class="container section" style="max-width:420px;margin:80px auto;">
+<div class="container section" style="max-width:420px;margin:0 auto;padding-top:80px;padding-bottom:40px;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;">
 <div style="position:relative;background:linear-gradient(135deg,var(--bg-card),rgba(255,109,0,.04));border:1px solid rgba(255,109,0,.25);border-radius:22px;padding:40px;text-align:center;">
 <button class="modal-close" onclick="showPage('store')" style="position:absolute;top:14px;right:18px;font-size:1.2rem;background:var(--bg-secondary);color:var(--text-muted);font-weight:700;z-index:10;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid var(--glass-border);" aria-label="Cerrar"><i class="fas fa-times"></i></button>
 <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--naranja),var(--amarillo));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;"><i class="fas fa-crown" style="color:#111;"></i></div>
@@ -1973,11 +1973,15 @@ function editProduct(id){openProductForm(id);}
 
 function saveProduct(){
 const name=document.getElementById('pfName').value.trim();
-const price=parseFloat(document.getElementById('pfPrice').value);
+let price=parseFloat(document.getElementById('pfPrice').value);
 if(!name||isNaN(price)){alert('Complete nombre y precio');return;}
+// Fix floating point: if the value is very close to an integer, snap to it
+price=Math.abs(price-Math.round(price))<0.01?Math.round(price):Math.round(price*100)/100;
 let images = (window.getImagesForSave ? window.getImagesForSave('pfImages') : document.getElementById('pfImages').value.split('\n').map(s=>s.trim()).filter(Boolean));
 // Store raw paths - resolveImgPath will handle folder prefix at render time
-const data={name,price,currency:document.getElementById('pfCurrency').value,category:document.getElementById('pfCategory').value,condition:document.getElementById('pfCondition').value,stock:parseInt(document.getElementById('pfStock').value)||0,minStock:parseInt(document.getElementById('pfMinStock').value)||5,description:document.getElementById('pfDescription').value.trim(),images,originalPrice:parseFloat(document.getElementById('pfOriginalPrice').value)||0,bulkDiscount:parseInt(document.getElementById('pfBulkDiscount').value)||0,bulkQty:parseInt(document.getElementById('pfBulkQty').value)||3,featured:document.getElementById('pfFeatured').value};
+const rawOriginalPrice=parseFloat(document.getElementById('pfOriginalPrice').value)||0;
+const origPrice=Math.abs(rawOriginalPrice-Math.round(rawOriginalPrice))<0.01?Math.round(rawOriginalPrice):Math.round(rawOriginalPrice*100)/100;
+const data={name,price,currency:document.getElementById('pfCurrency').value,category:document.getElementById('pfCategory').value,condition:document.getElementById('pfCondition').value,stock:parseInt(document.getElementById('pfStock').value)||0,minStock:parseInt(document.getElementById('pfMinStock').value)||5,description:document.getElementById('pfDescription').value.trim(),images,originalPrice:origPrice,bulkDiscount:parseInt(document.getElementById('pfBulkDiscount').value)||0,bulkQty:parseInt(document.getElementById('pfBulkQty').value)||3,featured:document.getElementById('pfFeatured').value};
 if(editingProductId){const p=products.find(x=>x.id===editingProductId);if(p)Object.assign(p,data);}
 else{products.push({id:crypto.randomUUID(),...data,views:0,cartAdds:0,sales:0,lastSaleDate:null,createdAt:new Date().toISOString()});}
 save('mt_products',products);renderAdminProducts();renderProducts();updateTabCounts();closeModal('productFormModal');
@@ -2134,7 +2138,7 @@ config.imgFolder=document.getElementById('cfgImgFolder').value.trim();
 // Parse additional contacts
 const acRaw=document.getElementById('cfgAdditionalContacts').value.trim();
 config.additionalContacts=acRaw?acRaw.split('\n').map(line=>{const [type,label,value]=line.split('|').map(s=>s.trim());return type&&label&&value?{id:crypto.randomUUID(),type,label,value}:null;}).filter(Boolean):[];
-save('mt_config',config);applyConfig();showToast('<i class="fas fa-check-circle"></i> Configuración guardada');
+save('mt_config',config);applyConfig();if(typeof window.__injectDynamicManifest==='function')window.__injectDynamicManifest();showToast('<i class="fas fa-check-circle"></i> Configuración guardada');
 }
 
 function saveCreatorConfig(){
@@ -2402,10 +2406,15 @@ const input=document.createElement('input');
 input.type='file';input.accept='image/*';input.multiple=false;
 input.onchange=function(e){
 const file=e.target.files[0];if(!file)return;
-const url=URL.createObjectURL(file);
+// Convert to base64 so the image is stored persistently and works on ALL devices
+const reader=new FileReader();
+reader.onload=function(ev){
+const base64=ev.target.result;
 const targetEl=document.getElementById(targetInputId);
-if(targetEl){targetEl.value=url;}
+if(targetEl){targetEl.value=base64;}
 showToast('<i class="fas fa-check-circle"></i> Imagen cargada');
+};
+reader.readAsDataURL(file);
 };
 input.click();
 }
@@ -3410,6 +3419,55 @@ async function ghPublicPull(c){
   }
   // Botón "Instalar app" flotante cuando el navegador lo permita
   let deferredPrompt=null;
+
+  // ===== DYNAMIC MANIFEST: usa logo y nombre de la tienda como icono y nombre de la APK =====
+  function injectDynamicManifest(){
+    try{
+      const storeName=(typeof config!=='undefined'&&config.storeName)?config.storeName:'MegaTienda Online';
+      const shortName=storeName.length>12?storeName.split(' ')[0]:storeName;
+      const logoImg=(typeof config!=='undefined'&&config.logoImage)?config.logoImage:null;
+      const icons=[];
+      if(logoImg&&logoImg.startsWith('data:')){
+        // Use the store logo (base64) as the PWA icon
+        icons.push({src:logoImg,sizes:'192x192',type:logoImg.split(';')[0].split(':')[1]||'image/png',purpose:'any maskable'});
+        icons.push({src:logoImg,sizes:'512x512',type:logoImg.split(';')[0].split(':')[1]||'image/png',purpose:'any maskable'});
+      } else {
+        icons.push({src:'icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'});
+        icons.push({src:'icon-512.png',sizes:'512x512',type:'image/png',purpose:'any'});
+        icons.push({src:'icon-512-maskable.png',sizes:'512x512',type:'image/png',purpose:'maskable'});
+      }
+      const manifest={
+        name:storeName,
+        short_name:shortName,
+        description:'Tu tienda online con productos al mejor precio',
+        start_url:'./',
+        scope:'./',
+        display:'standalone',
+        orientation:'portrait',
+        background_color:'#050508',
+        theme_color:'#050508',
+        lang:'es',
+        icons
+      };
+      const blob=new Blob([JSON.stringify(manifest)],{type:'application/manifest+json'});
+      const url=URL.createObjectURL(blob);
+      // Remove existing manifest link and replace with dynamic one
+      let link=document.querySelector('link[rel="manifest"]');
+      if(!link){link=document.createElement('link');link.rel='manifest';document.head.appendChild(link);}
+      if(link._dynamicUrl) URL.revokeObjectURL(link._dynamicUrl);
+      link._dynamicUrl=url;
+      link.href=url;
+    }catch(err){console.warn('[PWA] manifest dinámico falló:',err);}
+  }
+  // Inject manifest immediately and hook applyConfig to re-inject when config changes
+  injectDynamicManifest();
+  const _origApplyConfigPWA=window.applyConfig;
+  window.applyConfig=function(){
+    if(_origApplyConfigPWA) _origApplyConfigPWA.apply(this,arguments);
+    injectDynamicManifest();
+  };
+  window.__injectDynamicManifest=injectDynamicManifest;
+
   window.addEventListener('beforeinstallprompt', (e)=>{
     e.preventDefault(); deferredPrompt=e;
     if(document.getElementById('pwaInstallBtn')) return;
