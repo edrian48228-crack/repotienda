@@ -982,10 +982,10 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <div class="admin-panel" id="panel-products">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
 <h3 style="font-size:1rem;color:var(--naranja-brillante);display:flex;align-items:center;gap:8px;"><i class="fas fa-boxes-stacked"></i> PRODUCTOS</h3>
-<div style="display:flex;gap:8px;flex-wrap:wrap;">
+<div style="display:flex;gap:8px;flex-wrap:nowrap;align-items:center;">
 <button class="btn btn-primary btn-sm" onclick="openProductForm()" style="border-radius:50px;"><i class="fas fa-plus"></i> Nuevo</button>
 <button class="btn btn-secondary btn-sm" onclick="openBulkImport()" style="border-radius:50px;"><i class="fas fa-folder-open"></i> Importar carpeta</button>
-<button class="btn btn-danger btn-sm" onclick="deleteAllProducts()" style="border-radius:50px;"><i class="fas fa-trash-can"></i> Eliminar todos</button>
+<button class="btn btn-danger btn-sm" onclick="deleteAllProducts()" style="border-radius:50px;margin-left:auto;"><i class="fas fa-trash-can"></i> Eliminar todos</button>
 </div>
 </div>
 <div class="admin-search">
@@ -1025,23 +1025,23 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <button class="btn btn-danger btn-sm" onclick="clearAllNotifications()" style="border-radius:50px;"><i class="fas fa-trash-can"></i> Eliminar todas</button>
 </div>
 </div>
-<div class="admin-search">
-<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-<select id="adminNotifFilter" onchange="renderNotifications()" style="max-width:200px;">
+<div class="admin-search" style="padding:0;">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:nowrap;width:100%;">
+<select id="adminNotifFilter" onchange="renderNotifications()" style="flex:1;min-width:0;">
 <option value="">Todos los tipos</option>
 <option value="low_stock">Stock bajo</option>
 <option value="slow_sale">Venta lenta</option>
 <option value="best_seller">Más vendido</option>
 <option value="license_expiry">Licencia</option>
 </select>
-<select id="adminNotifAge" onchange="renderNotifications()" style="max-width:200px;">
+<select id="adminNotifAge" onchange="renderNotifications()" style="flex:1;min-width:0;">
 <option value="">Cualquier fecha</option>
 <option value="today">Hoy</option>
 <option value="week">Últimos 7 días</option>
 <option value="old">Más de 7 días</option>
 <option value="month_old">Más de 30 días</option>
 </select>
-<button class="btn btn-danger btn-sm" onclick="deleteOldNotifications()" style="border-radius:50px;white-space:nowrap;"><i class="fas fa-broom"></i> Limpiar antiguas</button>
+<button class="btn btn-danger btn-sm" onclick="deleteOldNotifications()" style="border-radius:50px;white-space:nowrap;flex-shrink:0;"><i class="fas fa-broom"></i> Limpiar antiguas</button>
 </div>
 </div>
 <div id="notificationsList"></div>
@@ -1892,7 +1892,7 @@ cart.forEach(c=>{const isBulk=c.bulkDiscount>0&&c.qty>=c.bulkQty;const up=isBulk
 footer.innerHTML=`
 <div class="cart-total-row">
 <span class="cart-total-label">Total</span>
-<span class="cart-total-value">${Object.entries(totals).map(([c,t])=>'$'+t.toFixed(2)+' '+c).join('  ')}</span>
+<span class="cart-total-value" style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">${Object.entries(totals).map(([c,t])=>'<span>$'+t.toFixed(2)+' '+c+'</span>').join('')}</span>
 </div>
 <div style="margin-bottom:14px;">
 <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:14px 18px;background:var(--bg-secondary);border:1px solid var(--glass-border);border-radius:14px;transition:.3s;" onmouseover="this.style.borderColor='var(--naranja)'" onmouseout="this.style.borderColor='var(--glass-border)'">
@@ -1923,7 +1923,7 @@ const headerMsg=config.orderMessage?config.orderMessage.replace('{tienda}',confi
 let msg=`${headerMsg}\n${isDelivery?'🚚 *SERVICIO A DOMICILIO*\n':''}\n`;
 cart.forEach(c=>{const isBulk=c.bulkDiscount>0&&c.qty>=c.bulkQty;const up=isBulk?c.price*(1-c.bulkDiscount/100):c.price;msg+=`• ${c.name} x${c.qty} = $${(up*c.qty).toFixed(2)} ${c.currency}${isBulk?' (desc.)':''}\n`;});
 const totals={};cart.forEach(c=>{const isBulk=c.bulkDiscount>0&&c.qty>=c.bulkQty;const up=isBulk?c.price*(1-c.bulkDiscount/100):c.price;if(!totals[c.currency])totals[c.currency]=0;totals[c.currency]+=up*c.qty;});
-msg+=`\n💰 *Total:* ${Object.entries(totals).map(([c,t])=>'$'+t.toFixed(2)+' '+c).join(' + ')}`;
+msg+=`\n💰 *Total:*\n${Object.entries(totals).map(([c,t])=>'   $'+t.toFixed(2)+' '+c).join('\n')}`;
 msg+=`\n💳 *Pago:* ${pm}`;
 const now=new Date().toISOString();
 cart.forEach(c=>{sales.push({id:crypto.randomUUID(),productId:c.id,productName:c.name,quantity:c.qty,total:c.price*c.qty,currency:c.currency,paymentMethod:pm,date:now});const p=products.find(x=>x.id===c.id);if(p){p.stock-=c.qty;p.sales+=c.qty;p.lastSaleDate=now;}});
@@ -4007,17 +4007,51 @@ async function ghPublicPull(c){
 
   window.addEventListener('beforeinstallprompt', (e)=>{
     e.preventDefault(); deferredPrompt=e;
+    // Auto-instalar la primera vez en Android (solo si no ha sido instalada antes)
+    const alreadyInstalled=localStorage.getItem('pwa_installed');
+    if(!alreadyInstalled){
+      // Lanzar prompt automáticamente después de 1 segundo
+      setTimeout(async()=>{
+        if(!deferredPrompt) return;
+        try{
+          deferredPrompt.prompt();
+          const choice=await deferredPrompt.userChoice;
+          if(choice.outcome==='accepted'){
+            localStorage.setItem('pwa_installed','1');
+            deferredPrompt=null;
+            return; // appinstalled event mostrará el toast
+          }
+        }catch(_){}
+        deferredPrompt=null;
+        // Si rechazó, mostrar botón flotante para que pueda instalarlo después
+        _showPwaInstallBtn();
+      },1000);
+      return;
+    }
+    // Ya instaló antes — mostrar botón flotante si no está
+    _showPwaInstallBtn();
+  });
+
+  function _showPwaInstallBtn(){
     if(document.getElementById('pwaInstallBtn')) return;
     const btn=document.createElement('button');
     btn.id='pwaInstallBtn';
     btn.innerHTML='<i class="fas fa-download"></i> Instalar app';
     btn.style.cssText='position:fixed;bottom:20px;left:20px;z-index:9998;padding:10px 18px;border-radius:50px;background:linear-gradient(135deg,var(--rojo),var(--naranja));color:#fff;border:none;font-weight:700;font-size:.85rem;box-shadow:var(--neon-naranja);cursor:pointer;display:flex;align-items:center;gap:8px;';
-    btn.onclick=async ()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); const c=await deferredPrompt.userChoice; if(c.outcome==='accepted') btn.remove(); deferredPrompt=null; };
+    btn.onclick=async()=>{
+      if(!deferredPrompt){ btn.remove(); return; }
+      deferredPrompt.prompt();
+      const ch=await deferredPrompt.userChoice;
+      if(ch.outcome==='accepted'){ localStorage.setItem('pwa_installed','1'); btn.remove(); }
+      deferredPrompt=null;
+    };
     document.body.appendChild(btn);
-  });
+  }
+
   window.addEventListener('appinstalled', ()=>{
+    localStorage.setItem('pwa_installed','1');
     const b=document.getElementById('pwaInstallBtn'); if(b) b.remove();
-    if(typeof showToast==='function') showToast('<i class="fas fa-check-circle"></i> App instalada');
+    if(typeof showToast==='function') showToast('<i class="fas fa-check-circle"></i> ¡App instalada correctamente en tu dispositivo!');
   });
 })();
 
@@ -4269,13 +4303,13 @@ input,textarea,select,[contenteditable]{
           <input type="checkbox" id="cfgSecurityDisabled" style="width:auto;">
           <span><i class="fas fa-shield-halved" style="color:var(--rojo);"></i> Desactivar TODA la seguridad del sistema (licencia/bloqueos)</span>
         </label>
-        <button class="btn btn-primary" onclick="savePatchV16()" style="border-radius:50px;align-self:flex-start;">
+        <button class="btn btn-primary btn-sm" onclick="savePatchV16()" style="border-radius:50px;align-self:flex-start;padding:10px 20px;">
           <i class="fas fa-floppy-disk"></i> Guardar opciones
         </button>
         <hr style="border-color:var(--glass-border);margin:8px 0;">
         <h4 style="color:var(--rojo);margin:0;"><i class="fas fa-triangle-exclamation"></i> Zona de peligro</h4>
         <p style="font-size:.82rem;color:var(--text-muted);margin:0;">Restablece TODO el sistema: configuración, productos, imágenes locales y remotas.</p>
-        <button class="btn btn-danger" onclick="resetSystemFull()" style="border-radius:50px;align-self:flex-start;background:linear-gradient(135deg,#d32f2f,#b71c1c);color:#fff;">
+        <button class="btn btn-danger btn-sm" onclick="resetSystemFull()" style="border-radius:50px;align-self:flex-start;background:linear-gradient(135deg,#d32f2f,#b71c1c);color:#fff;padding:10px 20px;">
           <i class="fas fa-bomb"></i> Restablecer sistema completo
         </button>
       </div>
