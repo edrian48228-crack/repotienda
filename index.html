@@ -823,7 +823,7 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <!-- Contact and Channel section -->
 <div class="section" style="text-align:center;">
 <h3 class="section-title"><i class="fas fa-headset"></i> CONTACTO</h3>
-<button class="contact-trigger" onclick="openModal('contactModal')"><i class="fas fa-envelope-open-text"></i> Contactar al Creador</button>
+<button class="contact-trigger" onclick="openModal('contactModal')"><i class="fas fa-envelope-open-text"></i> Contactar al Vendedor</button>
 <div id="channelSection" style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:28px;"></div>
 </div>
 </div>
@@ -846,6 +846,7 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <div class="footer-grid container">
 <div class="footer-col">
 <h4><i class="fas fa-store"></i> <span id="footerStoreName">MegaTienda</span></h4>
+<p style="font-size:.75rem;color:var(--text-muted);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;">Contacto de la tienda de productos</p>
 <p style="font-size:.85rem;line-height:1.7;color:var(--text-muted);">Tu tienda de confianza para encontrar los mejores productos al mejor precio.</p>
 <div class="footer-social" style="justify-content:flex-start;margin-top:14px;">
 <a class="wa" href="#" id="footerWa" target="_blank"><i class="fab fa-whatsapp"></i></a>
@@ -854,7 +855,7 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 </div>
 </div>
 <div class="footer-col">
-<h4><i class="fas fa-headset"></i> Contacto</h4>
+<h4><i class="fas fa-headset"></i> Contacto del Vendedor</h4>
 <div id="footerContactLinks"></div>
 </div>
 <div class="footer-col">
@@ -862,7 +863,7 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <div id="footerClientLinks"></div>
 </div>
 <div class="footer-col">
-<h4><i class="fas fa-crown"></i> Creador</h4>
+<h4><i class="fas fa-crown"></i> Creador del Sistema de Ventas</h4>
 <div id="footerCreatorInfo"></div>
 </div>
 </div>
@@ -1425,8 +1426,8 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <div id="contactCreatorPhoto" style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;overflow:hidden;border:3px solid var(--naranja-brillante);box-shadow:var(--neon-naranja);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--rojo),var(--naranja));font-size:2rem;color:#fff;">
 <i class="fas fa-user"></i>
 </div>
-<h2 style="text-align:center;justify-content:center;padding-right:0;font-family:'Orbitron',sans-serif;font-size:1.1rem;"><i class="fas fa-envelope-open-text" style="color:var(--naranja-brillante);"></i> Contacto del Creador</h2>
-<p id="contactCreatorNameLabel" style="color:var(--text-muted);font-size:.88rem;margin-top:6px;">Desarrollador del sistema</p>
+<h2 style="text-align:center;justify-content:center;padding-right:0;font-family:'Orbitron',sans-serif;font-size:1.1rem;"><i class="fas fa-envelope-open-text" style="color:var(--naranja-brillante);"></i> Contacto de la Tienda</h2>
+<p id="contactCreatorNameLabel" style="color:var(--text-muted);font-size:.88rem;margin-top:6px;">Vendedor de la tienda</p>
 </div>
 <div class="contact-card" id="contactCards"></div>
 </div>
@@ -2429,18 +2430,19 @@ if(config.clientFacebook)clientLinks+=`<a href="${config.clientFacebook}" target
 if(config.clientWhatsapp)clientLinks+=`<a href="https://wa.me/${(config.clientWhatsapp||'').replace(/[^0-9]/g,'')}" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>`;
 document.getElementById('footerClientLinks').innerHTML=clientLinks||'<span style="color:var(--text-muted);font-size:.82rem;">No configurados</span>';
 
-// Contact modal
+// Contact modal — datos de la TIENDA (no del creador del sistema)
 const photoEl=document.getElementById('contactCreatorPhoto');
-if(config.creatorPhoto){photoEl.innerHTML=`<img src="${config.creatorPhoto}" style="width:100%;height:100%;object-fit:cover;" alt="${config.creatorName}">`;}
-else{photoEl.innerHTML='<i class="fas fa-user"></i>';}
-document.getElementById('contactCreatorNameLabel').textContent=config.creatorName+' — Desarrollador del sistema';
+const contactImg=config.logoImage||config.avatarImage||'';
+if(contactImg){photoEl.innerHTML=`<img src="${contactImg}" style="width:100%;height:100%;object-fit:cover;" alt="${config.storeName}">`;}
+else{photoEl.innerHTML='<i class="fas fa-store"></i>';}
+document.getElementById('contactCreatorNameLabel').textContent=(config.storeName||'Tienda')+(config.storeTagline?' — '+config.storeTagline:' — Vendedor de la tienda');
 
 let cards='';
-if(config.creatorWhatsapp)cards+=`<a class="contact-item wa" href="https://wa.me/${config.creatorWhatsapp.replace(/[^0-9]/g,'')}" target="_blank"><i class="fab fa-whatsapp"></i><div><strong>WhatsApp</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.creatorWhatsapp}</div></div></a>`;
-if(config.creatorFacebook)cards+=`<a class="contact-item fb" href="${config.creatorFacebook}" target="_blank"><i class="fab fa-facebook"></i><div><strong>Facebook</strong><div style="font-size:.82rem;color:var(--text-muted);">Visitar perfil</div></div></a>`;
-if(config.creatorEmail)cards+=`<a class="contact-item em" href="mailto:${config.creatorEmail}"><i class="fas fa-envelope"></i><div><strong>Email</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.creatorEmail}</div></div></a>`;
-if(config.creatorPhone)cards+=`<a class="contact-item ph" href="tel:${config.creatorPhone}"><i class="fas fa-phone"></i><div><strong>Teléfono</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.creatorPhone}</div></div></a>`;
-document.getElementById('contactCards').innerHTML=cards;
+if(config.whatsapp)cards+=`<a class="contact-item wa" href="https://wa.me/${config.whatsapp.replace(/[^0-9]/g,'')}" target="_blank"><i class="fab fa-whatsapp"></i><div><strong>WhatsApp</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.whatsapp}</div></div></a>`;
+if(config.facebook)cards+=`<a class="contact-item fb" href="${config.facebook}" target="_blank"><i class="fab fa-facebook"></i><div><strong>Facebook</strong><div style="font-size:.82rem;color:var(--text-muted);">Visitar página</div></div></a>`;
+if(config.email)cards+=`<a class="contact-item em" href="mailto:${config.email}"><i class="fas fa-envelope"></i><div><strong>Email</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.email}</div></div></a>`;
+if(config.phone)cards+=`<a class="contact-item ph" href="tel:${config.phone}"><i class="fas fa-phone"></i><div><strong>Teléfono</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.phone}</div></div></a>`;
+document.getElementById('contactCards').innerHTML=cards||'<p style="color:var(--text-muted);font-size:.85rem;text-align:center;padding:20px;">Configura los datos de contacto en Ajustes.</p>';
 
 // Footer creator info
 const creatorInfoEl=document.getElementById('footerCreatorInfo');
