@@ -46,7 +46,10 @@ h1,h2,h3,h4,h5,h6,.section-title,.admin-tabs button,.nav-btn,.footer-col h4,.cre
 /* ===== PASSWORD TOGGLE ===== */
 .pw-wrap{position:relative;}
 .pw-wrap input{padding-right:48px;}
-.pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);font-size:1rem;padding:4px;cursor:pointer;transition:.3s;}
+/* El botón ojo se posiciona relativo al input, no al wrapper completo.
+   Se coloca desde abajo para que siempre quede centrado en el input aunque haya label */
+.pw-wrap .pw-toggle{position:absolute;right:12px;bottom:0;height:50px;width:36px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--text-muted);font-size:1rem;padding:0;cursor:pointer;transition:.3s;}
+.pw-wrap .pw-toggle:hover{color:var(--naranja-brillante);}
 .pw-toggle:hover{color:var(--naranja-brillante);}
 
 /* ===== OWN STORE BUTTON ===== */
@@ -175,7 +178,7 @@ h1,h2,h3,h4,h5,h6,.section-title,.admin-tabs button,.nav-btn,.footer-col h4,.cre
 .rec-track:hover{animation-play-state:paused;}
 .rec-card{min-width:220px;background:var(--bg-card);border-radius:16px;overflow:hidden;flex-shrink:0;border:1px solid var(--glass-border);transition:all .3s;cursor:pointer;}
 .rec-card:hover{border-color:var(--glow-border);transform:translateY(-6px);box-shadow:var(--neon-naranja);}
-.rec-card img{width:100%;height:150px;object-fit:cover;}
+.rec-card img{width:100%;height:150px;object-fit:contain;background:var(--bg-secondary);}
 .rec-card .rec-info{padding:14px;}
 .rec-card .rec-info h4{font-size:.88rem;margin-bottom:5px;color:var(--text-primary);font-weight:600;}
 .rec-card .rec-info .price{color:var(--naranja-brillante);font-weight:900;font-size:1.1rem;}
@@ -188,7 +191,7 @@ h1,h2,h3,h4,h5,h6,.section-title,.admin-tabs button,.nav-btn,.footer-col h4,.cre
 .section-title i{font-size:1.2rem;color:var(--naranja-brillante);}
 
 /* ===== MODAL ===== */
-.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);z-index:2000;justify-content:center;align-items:center;padding:20px;}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);z-index:10000;justify-content:center;align-items:center;padding:20px;}
 .modal-overlay.show{display:flex;}
 .modal{background:var(--bg-card);border:1px solid var(--glass-border);border-radius:22px;max-width:850px;width:100%;max-height:90vh;overflow-y:auto;padding:34px;position:relative;animation:modal-enter .45s cubic-bezier(.25,.8,.25,1);}
 @keyframes modal-enter{from{transform:translateY(50px) scale(.92);opacity:0;}to{transform:translateY(0) scale(1);opacity:1;}}
@@ -197,13 +200,27 @@ h1,h2,h3,h4,h5,h6,.section-title,.admin-tabs button,.nav-btn,.footer-col h4,.cre
 .modal h2{font-family:'Nunito',Arial Black,sans-serif;font-size:1.2rem;margin-bottom:24px;color:var(--text-primary);padding-right:50px;letter-spacing:1px;display:flex;align-items:center;gap:10px;font-weight:900;}
 
 @media(max-width:640px){
-  .modal-overlay{padding:10px!important;align-items:flex-start!important;padding-top:24px!important;}
+  .modal-overlay{padding:10px!important;align-items:flex-start!important;padding-top:env(safe-area-inset-top, 16px)!important;overflow-y:auto!important;}
+  .modal-overlay .modal{margin-top:8px!important;}
   .modal{padding:18px!important;border-radius:16px!important;max-height:88vh!important;}
   .modal h2{font-size:1rem!important;margin-bottom:14px!important;padding-right:42px!important;}
   .modal-close{width:34px!important;height:34px!important;font-size:1.05rem!important;top:10px!important;right:10px!important;}
   #contactModal .modal{max-width:94vw!important;}
   #contactModal .contact-card{gap:8px!important;}
   #contactCreatorPhoto{width:60px!important;height:60px!important;font-size:1.4rem!important;margin-bottom:10px!important;}
+  /* Login compacto en Android — todo visible sin scroll */
+  #page-admin-login .container,
+  #page-creator-login .container{padding-top:12px!important;padding-bottom:12px!important;}
+  #page-admin-login [style*="min-height:420px"],
+  #page-creator-login [style*="min-height:420px"]{min-height:0!important;padding:24px 20px!important;}
+  #page-admin-login h2,#page-creator-login h2{font-size:.95rem!important;margin-bottom:6px!important;}
+  #page-admin-login p,#page-creator-login p{margin-bottom:12px!important;font-size:.78rem!important;}
+  #page-admin-login [style*="width:72px"],
+  #page-creator-login [style*="width:72px"]{width:52px!important;height:52px!important;font-size:1.4rem!important;margin-bottom:12px!important;}
+  #page-admin-login [style*="margin-top:20px"],
+  #page-creator-login [style*="margin-top:20px"]{margin-top:12px!important;padding-top:12px!important;}
+  #page-admin-login [style*="margin-top:14px"],
+  #page-creator-login [style*="margin-top:14px"]{margin-top:8px!important;padding-top:8px!important;}
   /* Modal producto sin scroll horizontal en Android */
   #productDetailModal .modal{padding:14px!important;max-height:92dvh!important;overflow-y:auto!important;overflow-x:hidden!important;width:100%!important;box-sizing:border-box!important;}
   #productDetailModal .detail-layout{gap:12px!important;width:100%!important;box-sizing:border-box!important;}
@@ -285,6 +302,12 @@ h1,h2,h3,h4,h5,h6,.section-title,.admin-tabs button,.nav-btn,.footer-col h4,.cre
   body.admin-mode .header{display:none!important;}
   body.admin-mode #page-admin{padding-top:0!important;}
 }
+/* Ocultar header en páginas de login (admin/creator) en todos los dispositivos */
+body.login-mode .header{display:none!important;}
+body.login-mode #page-admin-login,
+body.login-mode #page-creator-login{padding-top:0!important;}
+body.login-mode #page-admin-login .container,
+body.login-mode #page-creator-login .container{min-height:100dvh!important;}
 /* adminFixedBar: en desktop es solo un wrapper visual normal */
 #adminFixedBar{
   display:contents;
@@ -729,10 +752,25 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <nav id="mainNav">
 <button class="nav-btn active" onclick="showPage('store')" id="navStore"><i class="fas fa-store"></i> <span class="nav-text">Tienda</span></button>
 <button class="nav-btn" onclick="openCart()" id="navCart"><i class="fas fa-shopping-bag"></i> <span class="nav-text">Carrito</span> <span class="cart-badge" id="cartBadge">0</span></button>
-<button class="nav-btn" onclick="document.getElementById('channelSection')?.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>{var el=document.querySelector('.contact-trigger');el&&el.click();},400)" id="navContact"><i class="fas fa-headset"></i> <span class="nav-text">Contacto</span></button><button class="nav-btn" onclick="document.querySelector('.projects-section')?.scrollIntoView({behavior:'smooth',block:'start'})" id="navProjects"><i class="fas fa-folder-open"></i> <span class="nav-text">Proyectos</span></button><button class="nav-btn nav-btn-admin" onclick="showPage('admin-login')" id="navAdmin" style="position:relative;"><i class="fas fa-shield-halved"></i> <span class="nav-text">Admin</span> <span class="notif-badge" id="notifBadge" style="display:none;">0</span></button>
+<button class="nav-btn" onclick="document.getElementById('channelSection')?.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>{var el=document.querySelector('.contact-trigger');el&&el.click();},400)" id="navContact"><i class="fas fa-headset"></i> <span class="nav-text">Contacto</span></button><button class="nav-btn" onclick="document.querySelector('.projects-section')?.scrollIntoView({behavior:'smooth',block:'start'})" id="navProjects"><i class="fas fa-folder-open"></i> <span class="nav-text">Proyectos</span></button><button class="nav-btn" onclick="showQRModal()" id="navQR" title="QR de la tienda"><i class="fas fa-qrcode"></i> <span class="nav-text">QR</span></button><button class="nav-btn nav-btn-admin" onclick="showPage('admin-login')" id="navAdmin" style="position:relative;"><i class="fas fa-shield-halved"></i> <span class="nav-text">Admin</span> <span class="notif-badge" id="notifBadge" style="display:none;">0</span></button>
 </nav>
 </div>
 </header>
+<!-- Botón flotante ocultar/mostrar botones promo — solo mobile -->
+<div id="promoCollapseBar" style="display:none;position:relative;z-index:50;">
+  <button id="promoCollapseBtn" onclick="togglePromoBar()" style="
+    width:100%;border:none;cursor:pointer;
+    background:linear-gradient(90deg,rgba(255,109,0,.12),rgba(255,23,68,.08));
+    border-bottom:1px solid rgba(255,109,0,.2);
+    padding:5px 16px;
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:.72rem;font-weight:700;color:var(--text-muted);
+    letter-spacing:.5px;
+  ">
+    <span id="promoCollapseLbl"><i class="fas fa-eye-slash"></i> Ocultar promociones</span>
+    <i class="fas fa-chevron-up" id="promoCollapseIcon" style="font-size:.65rem;transition:transform .3s;"></i>
+  </button>
+</div>
 
 <!-- FLOATING AVATAR -->
 <div class="avatar-float" id="avatarFloat" onclick="window.scrollTo({top:0,behavior:'smooth'})">
@@ -808,7 +846,7 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <!-- Contact and Channel section -->
 <div class="section" style="text-align:center;">
 <h3 class="section-title"><i class="fas fa-headset"></i> CONTACTO</h3>
-<button class="contact-trigger" onclick="openModal('contactModal')"><i class="fas fa-envelope-open-text"></i> Contactar al Creador</button>
+<button class="contact-trigger" onclick="openModal('contactModal')"><i class="fas fa-envelope-open-text"></i> Contactos de la Tienda</button>
 <div id="channelSection" style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:28px;"></div>
 </div>
 </div>
@@ -828,26 +866,23 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <!-- Footer -->
 <footer class="footer">
 <div class="footer-top">
-<div class="footer-grid container">
+<div class="footer-grid container" style="grid-template-columns:1fr 1fr 1fr;">
+<!-- hidden element to keep JS references alive -->
+<span id="footerStoreName" style="display:none;">MegaTienda</span>
+<a class="wa" href="#" id="footerWa" target="_blank" style="display:none;"></a>
+<a class="fb" href="#" id="footerFb" target="_blank" style="display:none;"></a>
+<a class="em" href="#" id="footerEm" style="display:none;"></a>
 <div class="footer-col">
-<h4><i class="fas fa-store"></i> <span id="footerStoreName">MegaTienda</span></h4>
-<p style="font-size:.85rem;line-height:1.7;color:var(--text-muted);">Tu tienda de confianza para encontrar los mejores productos al mejor precio.</p>
-<div class="footer-social" style="justify-content:flex-start;margin-top:14px;">
-<a class="wa" href="#" id="footerWa" target="_blank"><i class="fab fa-whatsapp"></i></a>
-<a class="fb" href="#" id="footerFb" target="_blank"><i class="fab fa-facebook"></i></a>
-<a class="em" href="#" id="footerEm"><i class="fas fa-envelope"></i></a>
-</div>
-</div>
-<div class="footer-col">
-<h4><i class="fas fa-headset"></i> Contacto</h4>
+<h4><i class="fas fa-headset"></i> Contacto del Vendedor</h4>
 <div id="footerContactLinks"></div>
 </div>
 <div class="footer-col">
-<h4><i class="fas fa-compass"></i> Enlaces</h4>
+<h4><i class="fas fa-link"></i> Enlaces de la Tienda</h4>
 <div id="footerClientLinks"></div>
+<a href="#" onclick="showQRModal();return false;" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:8px 16px;border-radius:50px;background:linear-gradient(135deg,rgba(255,109,0,.15),rgba(255,23,68,.1));border:1px solid rgba(255,109,0,.3);color:var(--naranja-brillante);font-size:.85rem;font-weight:700;transition:.3s;" title="Ver QR de acceso a la tienda"><i class="fas fa-qrcode"></i> Ver QR de acceso</a>
 </div>
 <div class="footer-col">
-<h4><i class="fas fa-crown"></i> Creador</h4>
+<h4><i class="fas fa-crown"></i> Creador del Sistema</h4>
 <div id="footerCreatorInfo"></div>
 </div>
 </div>
@@ -861,9 +896,21 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 </footer>
 </div>
 
+<!-- QR MODAL -->
+<div class="modal-overlay" id="qrModal">
+<div class="modal" style="max-width:380px;text-align:center;position:relative;">
+<button class="modal-close" onclick="closeModal('qrModal')"><i class="fas fa-times"></i></button>
+<h3 style="font-family:'Orbitron',sans-serif;font-size:1rem;letter-spacing:1px;margin-bottom:6px;"><i class="fas fa-qrcode" style="color:var(--naranja-brillante);"></i> Acceso QR a la Tienda</h3>
+<p style="font-size:.8rem;color:var(--text-muted);margin-bottom:18px;">Escanea este código para acceder directamente a la tienda</p>
+<div id="qrCodeContainer" style="display:flex;justify-content:center;align-items:center;background:#fff;border-radius:16px;padding:16px;margin:0 auto 16px;width:220px;height:220px;box-sizing:border-box;"></div>
+<p id="qrUrlText" style="font-size:.72rem;color:var(--text-muted);word-break:break-all;margin-bottom:14px;"></p>
+<button class="btn btn-primary btn-block" onclick="downloadQR()" style="border-radius:50px;"><i class="fas fa-download"></i> Descargar QR</button>
+</div>
+</div>
+
 <!-- ADMIN LOGIN -->
 <div id="page-admin-login" class="page" style="display:none;">
-<div class="container section" style="max-width:420px;margin:0 auto;padding-top:80px;padding-bottom:40px;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;">
+<div class="container section" style="max-width:420px;margin:0 auto;padding-top:20px;padding-bottom:20px;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;">
 <div style="position:relative;background:linear-gradient(135deg,var(--bg-card),rgba(255,23,68,.04));border:1px solid rgba(255,23,68,.2);border-radius:22px;padding:40px;text-align:center;width:100%;min-height:420px;display:flex;flex-direction:column;justify-content:center;">
 <button class="modal-close" onclick="showPage('store')" style="position:absolute;top:14px;right:18px;font-size:1.2rem;background:var(--bg-secondary);color:var(--text-muted);font-weight:700;z-index:10;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid var(--glass-border);" aria-label="Cerrar"><i class="fas fa-times"></i></button><div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--rojo),var(--naranja));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;box-shadow:var(--neon-rojo);"><i class="fas fa-shield-halved" style="color:#fff;"></i></div>
 <h2 style="font-family:'Orbitron',sans-serif;font-size:1.1rem;letter-spacing:1px;margin-bottom:8px;">PANEL ADMIN</h2>
@@ -884,7 +931,7 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 
 <!-- CREATOR LOGIN -->
 <div id="page-creator-login" class="page" style="display:none;">
-<div class="container section" style="max-width:420px;margin:0 auto;padding-top:80px;padding-bottom:40px;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;">
+<div class="container section" style="max-width:420px;margin:0 auto;padding-top:20px;padding-bottom:20px;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;">
 <div style="position:relative;background:linear-gradient(135deg,var(--bg-card),rgba(255,109,0,.04));border:1px solid rgba(255,109,0,.25);border-radius:22px;padding:40px;text-align:center;width:100%;min-height:420px;display:flex;flex-direction:column;justify-content:center;">
 <button class="modal-close" onclick="showPage('store')" style="position:absolute;top:14px;right:18px;font-size:1.2rem;background:var(--bg-secondary);color:var(--text-muted);font-weight:700;z-index:10;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid var(--glass-border);" aria-label="Cerrar"><i class="fas fa-times"></i></button>
 <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--naranja),var(--amarillo));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;"><i class="fas fa-crown" style="color:#111;"></i></div>
@@ -967,10 +1014,10 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <div class="admin-panel" id="panel-products">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
 <h3 style="font-size:1rem;color:var(--naranja-brillante);display:flex;align-items:center;gap:8px;"><i class="fas fa-boxes-stacked"></i> PRODUCTOS</h3>
-<div style="display:flex;gap:8px;flex-wrap:wrap;">
+<div style="display:flex;gap:8px;flex-wrap:nowrap;align-items:center;">
 <button class="btn btn-primary btn-sm" onclick="openProductForm()" style="border-radius:50px;"><i class="fas fa-plus"></i> Nuevo</button>
 <button class="btn btn-secondary btn-sm" onclick="openBulkImport()" style="border-radius:50px;"><i class="fas fa-folder-open"></i> Importar carpeta</button>
-<button class="btn btn-danger btn-sm" onclick="deleteAllProducts()" style="border-radius:50px;"><i class="fas fa-trash-can"></i> Eliminar todos</button>
+<button class="btn btn-danger btn-sm" onclick="deleteAllProducts()" style="border-radius:50px;margin-left:auto;"><i class="fas fa-trash-can"></i> Eliminar todos</button>
 </div>
 </div>
 <div class="admin-search">
@@ -1010,14 +1057,24 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <button class="btn btn-danger btn-sm" onclick="clearAllNotifications()" style="border-radius:50px;"><i class="fas fa-trash-can"></i> Eliminar todas</button>
 </div>
 </div>
-<div class="admin-search">
-<select id="adminNotifFilter" onchange="renderNotifications()" style="max-width:220px;">
-<option value="">Todas</option>
+<div class="admin-search" style="padding:0;">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:nowrap;width:100%;">
+<select id="adminNotifFilter" onchange="renderNotifications()" style="flex:1;min-width:0;">
+<option value="">Todos los tipos</option>
 <option value="low_stock">Stock bajo</option>
 <option value="slow_sale">Venta lenta</option>
 <option value="best_seller">Más vendido</option>
 <option value="license_expiry">Licencia</option>
 </select>
+<select id="adminNotifAge" onchange="renderNotifications()" style="flex:1;min-width:0;">
+<option value="">Cualquier fecha</option>
+<option value="today">Hoy</option>
+<option value="week">Últimos 7 días</option>
+<option value="old">Más de 7 días</option>
+<option value="month_old">Más de 30 días</option>
+</select>
+<button class="btn btn-danger btn-sm" onclick="deleteOldNotifications()" style="border-radius:50px;white-space:nowrap;flex-shrink:0;"><i class="fas fa-broom"></i> Limpiar antiguas</button>
+</div>
 </div>
 <div id="notificationsList"></div>
 </div>
@@ -1065,11 +1122,14 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <h4 style="margin-bottom:18px;color:var(--text-primary);display:flex;align-items:center;gap:8px;font-weight:800;"><i class="fas fa-store" style="color:var(--naranja);"></i> Datos de la Tienda</h4>
 <div class="form-row">
 <div class="form-group"><label>Nombre de la tienda</label><input id="cfgStoreName"></div>
-<div class="form-group"><label>WhatsApp</label><input id="cfgWhatsapp"></div>
+<div class="form-group"><label>WhatsApp</label><input id="cfgWhatsapp" placeholder="+53..."></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label><i class="fas fa-phone" style="color:var(--verde);"></i> Teléfono (llamada directa)</label><input id="cfgPhone" placeholder="+53..." type="tel"></div>
+<div class="form-group"><label>Email</label><input id="cfgEmail"></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Facebook</label><input id="cfgFacebook"></div>
-<div class="form-group"><label>Email</label><input id="cfgEmail"></div>
 </div>
 <h4 style="margin:24px 0 18px;color:var(--text-primary);display:flex;align-items:center;gap:8px;font-weight:800;"><i class="fas fa-lock" style="color:var(--rojo);"></i> Seguridad</h4>
 <div class="form-row">
@@ -1400,8 +1460,8 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <div id="contactCreatorPhoto" style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;overflow:hidden;border:3px solid var(--naranja-brillante);box-shadow:var(--neon-naranja);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--rojo),var(--naranja));font-size:2rem;color:#fff;">
 <i class="fas fa-user"></i>
 </div>
-<h2 style="text-align:center;justify-content:center;padding-right:0;font-family:'Orbitron',sans-serif;font-size:1.1rem;"><i class="fas fa-envelope-open-text" style="color:var(--naranja-brillante);"></i> Contacto del Creador</h2>
-<p id="contactCreatorNameLabel" style="color:var(--text-muted);font-size:.88rem;margin-top:6px;">Desarrollador del sistema</p>
+<h2 style="text-align:center;justify-content:center;padding-right:0;font-family:'Orbitron',sans-serif;font-size:1.1rem;"><i class="fas fa-envelope-open-text" style="color:var(--naranja-brillante);"></i> Contacto de la Tienda</h2>
+<p id="contactCreatorNameLabel" style="color:var(--text-muted);font-size:.88rem;margin-top:6px;">Vendedor de la tienda</p>
 </div>
 <div class="contact-card" id="contactCards"></div>
 </div>
@@ -1632,8 +1692,17 @@ const el=document.getElementById('page-'+page);if(el)el.style.display='block';
 document.querySelectorAll('#mainNav .nav-btn').forEach(b=>b.classList.remove('active'));
 if(page==='store')document.getElementById('navStore').classList.add('active');
 if(page.includes('admin')||page.includes('creator'))document.getElementById('navAdmin').classList.add('active');
+// Ocultar header en páginas de login
+const isLoginPage=(page==='admin-login'||page==='creator-login');
+if(isLoginPage){document.body.classList.add('login-mode');}else{document.body.classList.remove('login-mode');}
 // Ocultar header de portada en desktop cuando se está en panel admin
 if(page==='admin'){document.body.classList.add('admin-mode');}else{document.body.classList.remove('admin-mode');}
+// Ocultar botones promo en páginas de login
+const isLogin=(page==='admin-login'||page==='creator-login');
+const promoRow=document.getElementById('promoRow');
+const promoBar=document.getElementById('promoCollapseBar');
+if(promoRow) promoRow.style.display=isLogin?'none':'';
+if(promoBar) promoBar.style.display=isLogin?'none':'';
 if(page==='store'){renderProducts();renderRecommended();document.getElementById('heroVisitCount').textContent=getVisitsToday();}
 // Limpia campos sensibles al entrar a páginas de login (autocompletado del navegador)
 if(page==='admin-login'){const ap=document.getElementById('adminPassword');if(ap){ap.value='';setTimeout(()=>ap.value='',50);}}
@@ -1815,7 +1884,12 @@ openModal('productDetailModal');
 
 // ===== CART =====
 function addToCart(id){
-const p=products.find(x=>x.id===id);if(!p||p.stock<=0)return;
+const p=products.find(x=>x.id===id);
+if(!p) return;
+if(p.stock<=0){
+  showToast('<i class="fas fa-ban"></i> "'+p.name+'" está agotado');
+  return;
+}
 p.cartAdds++;save('mt_products',products);
 const existing=cart.find(c=>c.id===id);
 if(existing){if(existing.qty<p.stock)existing.qty++;else return;}
@@ -1823,7 +1897,7 @@ else{cart.push({id:p.id,name:p.name,price:p.price,originalPrice:p.originalPrice|
 updateCartBadge();showToast(`<i class="fas fa-check-circle"></i> "${p.name}" añadido al carrito`);
 }
 
-function showToast(msg){const t=document.createElement('div');t.className='mt-toast';t.style.cssText='position:fixed;top:80px;right:20px;background:linear-gradient(135deg,var(--rojo),var(--naranja));color:#fff;padding:16px 24px;border-radius:16px;font-weight:600;z-index:5000;animation:modal-enter .3s;box-shadow:0 10px 40px rgba(0,0,0,.5);max-width:340px;font-size:.9rem;display:flex;align-items:center;gap:8px;';t.innerHTML=msg;document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='.3s';setTimeout(()=>t.remove(),300);},2500);}
+function showToast(msg){const t=document.createElement('div');t.className='mt-toast';t.style.cssText='position:fixed;top:max(env(safe-area-inset-top,0px) + 12px, 12px);right:16px;background:linear-gradient(135deg,var(--rojo),var(--naranja));color:#fff;padding:14px 20px;border-radius:16px;font-weight:600;z-index:99999;animation:modal-enter .3s;box-shadow:0 10px 40px rgba(0,0,0,.5);max-width:320px;font-size:.88rem;display:flex;align-items:center;gap:8px;';t.innerHTML=msg;document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='.3s';setTimeout(()=>t.remove(),300);},2500);}
 
 function renderCart(){
 const items=document.getElementById('cartItems');
@@ -1840,20 +1914,20 @@ const isBulk=c.bulkDiscount>0&&c.qty>=c.bulkQty;
 const unitPrice=isBulk?c.price*(1-c.bulkDiscount/100):c.price;
 const hasImg=c.image&&c.image.length>0;
 return `
-<div class="cart-item">
+<div class="cart-item" data-id="${c.id}">
 ${hasImg?`<img src="${c.image}" alt="${c.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
 <div style="display:none;width:72px;height:72px;border-radius:12px;background:var(--bg-secondary);align-items:center;justify-content:center;">${ICON_PLACEHOLDERS[c.category]||ICON_PLACEHOLDERS.default}</div>`:
 `<div style="width:72px;height:72px;border-radius:12px;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;flex-shrink:0;">${ICON_PLACEHOLDERS[c.category]||ICON_PLACEHOLDERS.default}</div>`}
 <div class="details">
 <h4>${c.name}</h4>
-<div style="color:var(--text-muted);font-size:.82rem;">$${unitPrice.toFixed(2)} ${c.currency}${isBulk?` <span style="color:var(--verde);font-weight:700;">(-${c.bulkDiscount}%)</span>`:''}</div>
+<div class="cart-unit-price" style="color:var(--text-muted);font-size:.82rem;">$${unitPrice.toFixed(2)} ${c.currency}${isBulk?` <span style="color:var(--verde);font-weight:700;">(-${c.bulkDiscount}%)</span>`:''}</div>
 </div>
 <div class="qty-control">
 <button onclick="updateCartQty('${c.id}',-1)"><i class="fas fa-minus"></i></button>
 <span style="font-weight:800;min-width:28px;text-align:center;font-size:1rem;">${c.qty}</span>
 <button onclick="updateCartQty('${c.id}',1)"><i class="fas fa-plus"></i></button>
 </div>
-<div style="font-weight:900;font-size:1.1rem;background:linear-gradient(135deg,var(--naranja),var(--rojo));-webkit-background-clip:text;-webkit-text-fill-color:transparent;min-width:70px;text-align:right;">$${(unitPrice*c.qty).toFixed(2)}</div>
+<div class="cart-item-total" style="font-weight:900;font-size:1.1rem;background:linear-gradient(135deg,var(--naranja),var(--rojo));-webkit-background-clip:text;-webkit-text-fill-color:transparent;min-width:70px;text-align:right;">$${(unitPrice*c.qty).toFixed(2)}</div>
 <button class="btn-icon btn-danger" onclick="removeFromCart('${c.id}')" title="Eliminar"><i class="fas fa-trash-can"></i></button>
 </div>`;}).join('');
 
@@ -1862,7 +1936,7 @@ cart.forEach(c=>{const isBulk=c.bulkDiscount>0&&c.qty>=c.bulkQty;const up=isBulk
 footer.innerHTML=`
 <div class="cart-total-row">
 <span class="cart-total-label">Total</span>
-<span class="cart-total-value">${Object.entries(totals).map(([c,t])=>'$'+t.toFixed(2)+' '+c).join('  ')}</span>
+<span class="cart-total-value" style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">${Object.entries(totals).map(([c,t])=>'<span>$'+t.toFixed(2)+' '+c+'</span>').join('')}</span>
 </div>
 <div style="margin-bottom:14px;">
 <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:14px 18px;background:var(--bg-secondary);border:1px solid var(--glass-border);border-radius:14px;transition:.3s;" onmouseover="this.style.borderColor='var(--naranja)'" onmouseout="this.style.borderColor='var(--glass-border)'">
@@ -1881,8 +1955,48 @@ footer.innerHTML=`
 <button class="btn btn-primary btn-block" onclick="processOrder()" style="border-radius:50px;padding:16px;font-size:1rem;"><i class="fas fa-paper-plane"></i> Enviar Pedido por WhatsApp</button>`;
 }
 
-function updateCartQty(id,delta){const item=cart.find(c=>c.id===id);if(!item)return;const p=products.find(x=>x.id===id);item.qty+=delta;if(item.qty<1)cart=cart.filter(c=>c.id!==id);else if(p&&item.qty>p.stock)item.qty=p.stock;updateCartBadge();renderCart();}
-function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCartBadge();renderCart();}
+function _calcTotal(){
+  const totals={};
+  cart.forEach(c=>{const isBulk=c.bulkDiscount>0&&c.qty>=c.bulkQty;const up=isBulk?c.price*(1-c.bulkDiscount/100):c.price;if(!totals[c.currency])totals[c.currency]=0;totals[c.currency]+=up*c.qty;});
+  const el=document.querySelector('.cart-total-value');
+  if(el) el.innerHTML=Object.entries(totals).map(([c,t])=>'<span>$'+t.toFixed(2)+' '+c+'</span>').join('');
+}
+function updateCartQty(id,delta){
+  const item=cart.find(c=>c.id===id);if(!item)return;
+  const p=products.find(x=>x.id===id);
+  const newQty=item.qty+delta;
+  if(newQty<1){removeFromCart(id);return;}
+  if(p&&newQty>p.stock)return;
+  item.qty=newQty;
+  updateCartBadge();
+  // Actualizar solo los nodos del item afectado sin re-renderizar todo
+  const row=document.querySelector('.cart-item[data-id="'+id+'"]');
+  if(row){
+    const isBulk=item.bulkDiscount>0&&item.qty>=item.bulkQty;
+    const unitPrice=isBulk?item.price*(1-item.bulkDiscount/100):item.price;
+    const qtySpan=row.querySelector('.qty-control span');
+    const priceDiv=row.querySelector('.cart-item-total');
+    const unitDiv=row.querySelector('.cart-unit-price');
+    if(qtySpan) qtySpan.textContent=item.qty;
+    if(priceDiv) priceDiv.textContent='$'+(unitPrice*item.qty).toFixed(2);
+    if(unitDiv) unitDiv.textContent='$'+unitPrice.toFixed(2)+' '+item.currency+(isBulk?' (-'+item.bulkDiscount+'%)':'');
+    _calcTotal();
+  } else {
+    renderCart();
+  }
+}
+function removeFromCart(id){
+  cart=cart.filter(c=>c.id!==id);
+  updateCartBadge();
+  const row=document.querySelector('.cart-item[data-id="'+id+'"]');
+  if(row){
+    row.style.transition='opacity .18s,transform .18s';
+    row.style.opacity='0';row.style.transform='translateX(30px)';
+    setTimeout(()=>{ row.remove(); _calcTotal(); if(cart.length===0)renderCart(); },180);
+  } else {
+    renderCart();
+  }
+}
 function updateCartBadge(){document.getElementById('cartBadge').textContent=cart.reduce((s,c)=>s+c.qty,0);}
 
 function processOrder(){
@@ -1893,7 +2007,7 @@ const headerMsg=config.orderMessage?config.orderMessage.replace('{tienda}',confi
 let msg=`${headerMsg}\n${isDelivery?'🚚 *SERVICIO A DOMICILIO*\n':''}\n`;
 cart.forEach(c=>{const isBulk=c.bulkDiscount>0&&c.qty>=c.bulkQty;const up=isBulk?c.price*(1-c.bulkDiscount/100):c.price;msg+=`• ${c.name} x${c.qty} = $${(up*c.qty).toFixed(2)} ${c.currency}${isBulk?' (desc.)':''}\n`;});
 const totals={};cart.forEach(c=>{const isBulk=c.bulkDiscount>0&&c.qty>=c.bulkQty;const up=isBulk?c.price*(1-c.bulkDiscount/100):c.price;if(!totals[c.currency])totals[c.currency]=0;totals[c.currency]+=up*c.qty;});
-msg+=`\n💰 *Total:* ${Object.entries(totals).map(([c,t])=>'$'+t.toFixed(2)+' '+c).join(' + ')}`;
+msg+=`\n💰 *Total:*\n${Object.entries(totals).map(([c,t])=>'   $'+t.toFixed(2)+' '+c).join('\n')}`;
 msg+=`\n💳 *Pago:* ${pm}`;
 const now=new Date().toISOString();
 cart.forEach(c=>{sales.push({id:crypto.randomUUID(),productId:c.id,productName:c.name,quantity:c.qty,total:c.price*c.qty,currency:c.currency,paymentMethod:pm,date:now});const p=products.find(x=>x.id===c.id);if(p){p.stock-=c.qty;p.sales+=c.qty;p.lastSaleDate=now;}});
@@ -2157,7 +2271,20 @@ generateNotifications();
 
 function renderNotifications(){
 const filter=document.getElementById('adminNotifFilter')?document.getElementById('adminNotifFilter').value:'';
-const filtered=filter?notifications.filter(n=>n.type===filter):notifications;
+const ageFilter=document.getElementById('adminNotifAge')?document.getElementById('adminNotifAge').value:'';
+const now=Date.now();
+const DAY=86400000;
+let filtered=filter?notifications.filter(n=>n.type===filter):notifications;
+if(ageFilter){
+  filtered=filtered.filter(n=>{
+    const age=now-new Date(n.date).getTime();
+    if(ageFilter==='today') return age<DAY;
+    if(ageFilter==='week') return age<7*DAY;
+    if(ageFilter==='old') return age>=7*DAY;
+    if(ageFilter==='month_old') return age>=30*DAY;
+    return true;
+  });
+}
 const iconMap={low_stock:'<i class="fas fa-triangle-exclamation"></i>',slow_sale:'<i class="fas fa-clock"></i>',best_seller:'<i class="fas fa-trophy"></i>',license_expiry:'<i class="fas fa-key"></i>'};
 document.getElementById('notificationsList').innerHTML=filtered.length?filtered.map(n=>`
 <div class="notification notif-${n.type} ${n.read?'':'notif-unread'}">
@@ -2166,6 +2293,14 @@ document.getElementById('notificationsList').innerHTML=filtered.length?filtered.
 <span style="font-size:.7rem;color:var(--text-muted);white-space:nowrap;">${new Date(n.date).toLocaleDateString('es')} · ${new Date(n.date).toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'})}</span>
 <button class="btn-icon btn-secondary btn-sm" onclick="event.stopPropagation();deleteNotification('${n.id}')" title="Eliminar" style="margin-left:6px;"><i class="fas fa-xmark"></i></button>
 </div>`).join(''):'<p style="text-align:center;color:var(--text-muted);padding:40px;"><i class="fas fa-bell-slash" style="font-size:2rem;display:block;margin-bottom:12px;opacity:.3;"></i>No hay notificaciones</p>';
+}
+function deleteOldNotifications(){
+  const cutoff=Date.now()-7*86400000;
+  const before=notifications.length;
+  notifications=notifications.filter(n=>new Date(n.date).getTime()>=cutoff);
+  save('mt_notifications',notifications);
+  renderNotifications();updateNotifBadge();updateTabCounts();
+  showToast('<i class="fas fa-broom"></i> '+(before-notifications.length)+' notificación(es) antiguas eliminadas');
 }
 function markAllNotifRead(){notifications.forEach(n=>n.read=true);save('mt_notifications',notifications);renderNotifications();updateNotifBadge();showToast('<i class="fas fa-check"></i> Todas leídas');}
 function deleteNotification(id){notifications=notifications.filter(n=>n.id!==id);save('mt_notifications',notifications);renderNotifications();updateNotifBadge();}
@@ -2178,6 +2313,7 @@ notifications=[];save('mt_notifications',notifications);renderNotifications();up
 function loadConfig(){
 document.getElementById('cfgStoreName').value=config.storeName;
 document.getElementById('cfgWhatsapp').value=config.whatsapp;
+document.getElementById('cfgPhone').value=config.phone||'';
 document.getElementById('cfgFacebook').value=config.facebook;
 document.getElementById('cfgEmail').value=config.email;
 // Admin can only change their password if creator allows; show current
@@ -2267,6 +2403,7 @@ if(document.getElementById('cfgOwnStoreUrl'))document.getElementById('cfgOwnStor
 function saveConfig(){
 config.storeName=document.getElementById('cfgStoreName').value.trim();
 config.whatsapp=document.getElementById('cfgWhatsapp').value.trim();
+config.phone=document.getElementById('cfgPhone').value.trim();
 config.facebook=document.getElementById('cfgFacebook').value.trim();
 config.email=document.getElementById('cfgEmail').value.trim();
 // Admin can't change admin password - only creator can
@@ -2378,18 +2515,19 @@ if(config.clientFacebook)clientLinks+=`<a href="${config.clientFacebook}" target
 if(config.clientWhatsapp)clientLinks+=`<a href="https://wa.me/${(config.clientWhatsapp||'').replace(/[^0-9]/g,'')}" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>`;
 document.getElementById('footerClientLinks').innerHTML=clientLinks||'<span style="color:var(--text-muted);font-size:.82rem;">No configurados</span>';
 
-// Contact modal
+// Contact modal — datos de la TIENDA (no del creador del sistema)
 const photoEl=document.getElementById('contactCreatorPhoto');
-if(config.creatorPhoto){photoEl.innerHTML=`<img src="${config.creatorPhoto}" style="width:100%;height:100%;object-fit:cover;" alt="${config.creatorName}">`;}
-else{photoEl.innerHTML='<i class="fas fa-user"></i>';}
-document.getElementById('contactCreatorNameLabel').textContent=config.creatorName+' — Desarrollador del sistema';
+const contactImg=config.logoImage||config.avatarImage||'';
+if(contactImg){photoEl.innerHTML=`<img src="${contactImg}" style="width:100%;height:100%;object-fit:cover;" alt="${config.storeName}">`;}
+else{photoEl.innerHTML='<i class="fas fa-store"></i>';}
+document.getElementById('contactCreatorNameLabel').textContent=(config.storeName||'Tienda')+(config.storeTagline?' — '+config.storeTagline:' — Vendedor de la tienda');
 
 let cards='';
-if(config.creatorWhatsapp)cards+=`<a class="contact-item wa" href="https://wa.me/${config.creatorWhatsapp.replace(/[^0-9]/g,'')}" target="_blank"><i class="fab fa-whatsapp"></i><div><strong>WhatsApp</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.creatorWhatsapp}</div></div></a>`;
-if(config.creatorFacebook)cards+=`<a class="contact-item fb" href="${config.creatorFacebook}" target="_blank"><i class="fab fa-facebook"></i><div><strong>Facebook</strong><div style="font-size:.82rem;color:var(--text-muted);">Visitar perfil</div></div></a>`;
-if(config.creatorEmail)cards+=`<a class="contact-item em" href="mailto:${config.creatorEmail}"><i class="fas fa-envelope"></i><div><strong>Email</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.creatorEmail}</div></div></a>`;
-if(config.creatorPhone)cards+=`<a class="contact-item ph" href="tel:${config.creatorPhone}"><i class="fas fa-phone"></i><div><strong>Teléfono</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.creatorPhone}</div></div></a>`;
-document.getElementById('contactCards').innerHTML=cards;
+if(config.whatsapp)cards+=`<a class="contact-item wa" href="https://wa.me/${config.whatsapp.replace(/[^0-9]/g,'')}" target="_blank"><i class="fab fa-whatsapp"></i><div><strong>WhatsApp</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.whatsapp}</div></div></a>`;
+if(config.facebook)cards+=`<a class="contact-item fb" href="${config.facebook}" target="_blank"><i class="fab fa-facebook"></i><div><strong>Facebook</strong><div style="font-size:.82rem;color:var(--text-muted);">Visitar página</div></div></a>`;
+if(config.email)cards+=`<a class="contact-item em" href="mailto:${config.email}"><i class="fas fa-envelope"></i><div><strong>Email</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.email}</div></div></a>`;
+if(config.phone)cards+=`<a class="contact-item ph" href="tel:${config.phone}"><i class="fas fa-phone"></i><div><strong>Teléfono</strong><div style="font-size:.82rem;color:var(--text-muted);">${config.phone}</div></div></a>`;
+document.getElementById('contactCards').innerHTML=cards||'<p style="color:var(--text-muted);font-size:.85rem;text-align:center;padding:20px;">Configura los datos de contacto en Ajustes.</p>';
 
 // Footer creator info
 const creatorInfoEl=document.getElementById('footerCreatorInfo');
@@ -2547,10 +2685,54 @@ background:linear-gradient(135deg,var(--verde),var(--cyan),var(--azul));backgrou
 
 function shareLicenseWhatsApp(){
 const msg=`📄 *Licencia - ${config.storeName}*\n\n🔑 Clave: ${config.licenseKey}\n📅 Expiración: ${config.licenseExpiry}\n✅ Estado: ${config.licenseActive?'Activa':'Inactiva'}\n🏪 Tienda: ${config.storeName}\n👨‍💻 Creador: ${config.creatorName}\n📱 Contacto: ${config.creatorWhatsapp}`;
-window.open(`https://wa.me/${config.creatorWhatsapp.replace(/[^0-9]/g,'')}?text=${encodeURIComponent(msg)}`,'_blank');
+// Enviar al WhatsApp del cliente (no del creador)
+const targetWa=(config.clientWhatsapp||config.whatsapp||config.creatorWhatsapp||'').replace(/[^0-9]/g,'');
+window.open(`https://wa.me/${targetWa}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
 // ===== IMPORT/EXPORT =====
+// ===== TOGGLE BOTONES PROMO (mobile) =====
+(function(){
+  let _promoVisible=true;
+
+  function updatePromoCollapseBar(){
+    // Solo mostrar la barra en mobile y cuando hay al menos un botón promo activo
+    const isMobile=window.innerWidth<=640;
+    const hasVisible=[document.getElementById('ownStoreBtn'),document.getElementById('affiliateBtn')]
+      .some(b=>b&&b.style.display!=='none'&&b.href&&b.href!=='#');
+    const bar=document.getElementById('promoCollapseBar');
+    if(bar) bar.style.display=(isMobile&&hasVisible)?'block':'none';
+  }
+
+  window.togglePromoBar=function(){
+    _promoVisible=!_promoVisible;
+    const row=document.getElementById('promoRow');
+    const lbl=document.getElementById('promoCollapseLbl');
+    const icon=document.getElementById('promoCollapseIcon');
+    if(row){
+      if(_promoVisible){
+        row.classList.remove('promo-hidden');
+      } else {
+        row.classList.add('promo-hidden');
+      }
+    }
+    if(lbl) lbl.innerHTML=_promoVisible
+      ?'<i class="fas fa-eye-slash"></i> Ocultar promociones'
+      :'<i class="fas fa-eye"></i> Mostrar promociones';
+    if(icon) icon.style.transform=_promoVisible?'':'rotate(180deg)';
+  };
+
+  // Observar cambios de visibilidad de los botones promo
+  window.addEventListener('resize', updatePromoCollapseBar);
+  // Hook sobre applyConfig para re-evaluar cuando cambia config
+  const _prevAC=window.applyConfig;
+  window.applyConfig=function(){
+    if(_prevAC) _prevAC.apply(this,arguments);
+    setTimeout(updatePromoCollapseBar,100);
+  };
+  setTimeout(updatePromoCollapseBar,600);
+})();
+
 // ===== IMPORTACIÓN MASIVA DESDE CARPETA =====
 let _bulkFiles = []; // archivos pendientes de confirmar
 
@@ -2742,7 +2924,49 @@ async function confirmBulkImport(){
 }
 
 function exportData(){const data=JSON.stringify({products,sales,config,suppliers,notifications,visits},null,2);const blob=new Blob([data],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='megatienda-datos.json';a.click();}
-function importData(){const file=document.getElementById('importFile').files[0];if(!file){alert('Seleccione JSON');return;}const reader=new FileReader();reader.onload=function(e){try{const data=JSON.parse(e.target.result);if(data.products){products=data.products;products.forEach(p=>{if(p.originalPrice===undefined)p.originalPrice=0;if(p.bulkDiscount===undefined)p.bulkDiscount=0;if(p.bulkQty===undefined)p.bulkQty=3;if(p.featured===undefined)p.featured='no';});save('mt_products',products);}if(data.sales){sales=data.sales;save('mt_sales',sales);}if(data.config){config={...DEFAULT_CONFIG,...data.config};save('mt_config',config);}if(data.suppliers){suppliers=data.suppliers;save('mt_suppliers',suppliers);}if(data.notifications){notifications=data.notifications;save('mt_notifications',notifications);}if(data.visits){visits=data.visits;save('mt_visits',visits);}applyConfig();renderProducts();if(isAdmin){renderAdminProducts();renderSuppliers();renderDashboard();renderNotifications();}showToast('<i class="fas fa-check-circle"></i> Datos importados');}catch{alert('❌ JSON no válido');}};reader.readAsText(file);}
+function importData(){
+  const fileInput=document.getElementById('importFile');
+  const file=fileInput.files[0];
+  if(!file){alert('Selecciona un archivo JSON primero');return;}
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      // Quitar BOM y espacios que algunos editores agregan
+      const txt=e.target.result.replace(/^\uFEFF/,'').trim();
+      const data=JSON.parse(txt);
+      const imported=[];
+      if(data.products&&Array.isArray(data.products)){
+        products=data.products;
+        products.forEach(p=>{
+          if(p.originalPrice===undefined)p.originalPrice=0;
+          if(p.bulkDiscount===undefined)p.bulkDiscount=0;
+          if(p.bulkQty===undefined)p.bulkQty=3;
+          if(p.featured===undefined)p.featured='no';
+          if(!p.images)p.images=[];
+        });
+        save('mt_products',products);
+        imported.push('productos ('+products.length+')');
+      }
+      if(data.sales&&Array.isArray(data.sales)){sales=data.sales;save('mt_sales',sales);imported.push('ventas');}
+      if(data.config&&typeof data.config==='object'){config=Object.assign({},DEFAULT_CONFIG,data.config);save('mt_config',config);imported.push('config');}
+      if(data.suppliers&&Array.isArray(data.suppliers)){suppliers=data.suppliers;save('mt_suppliers',suppliers);imported.push('proveedores');}
+      if(data.notifications&&Array.isArray(data.notifications)){notifications=data.notifications;save('mt_notifications',notifications);imported.push('notificaciones');}
+      if(data.visits){visits=data.visits;save('mt_visits',visits);imported.push('visitas');}
+      if(data.projects&&Array.isArray(data.projects)){projects=data.projects;save('mt_projects',projects);imported.push('proyectos');}
+      applyConfig();
+      renderProducts();
+      if(isAdmin){renderAdminProducts();renderSuppliers();renderDashboard();renderNotifications();}
+      if(typeof renderProjects==='function')renderProjects();
+      if(typeof updateTabCounts==='function')updateTabCounts();
+      // Reset input para poder reimportar el mismo archivo
+      fileInput.value='';
+      showToast('<i class="fas fa-check-circle"></i> Importado: '+imported.join(', '));
+    }catch(err){
+      alert('Error al importar:\n'+err.message+'\n\nAseg\xfarate de que el archivo sea el JSON exportado por este sistema.');
+    }
+  };
+  reader.readAsText(file);
+}
 function downloadSystem(){const a=document.createElement('a');const blob=new Blob(['<!DOCTYPE html>'+document.documentElement.outerHTML],{type:'text/html'});a.href=URL.createObjectURL(blob);a.download='MegaTienda.html';a.click();}
 
 // ===== MODALS =====
@@ -2750,6 +2974,36 @@ function openModal(id){document.getElementById(id).classList.add('show');documen
 function closeModal(id){document.getElementById(id).classList.remove('show');document.body.style.overflow='';}
 document.querySelectorAll('.modal-overlay').forEach(overlay=>{overlay.addEventListener('click',e=>{if(e.target===overlay){overlay.classList.remove('show');document.body.style.overflow='';}});});
 
+// ===== QR CODE =====
+function showQRModal(){
+  const url=window.location.href.split('?')[0].split('#')[0];
+  document.getElementById('qrUrlText').textContent=url;
+  const container=document.getElementById('qrCodeContainer');
+  container.innerHTML='';
+  // Usar API de Google Charts para generar QR
+  const size=188;
+  const img=document.createElement('img');
+  img.src=`https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(url)}&format=png&margin=0&color=000000&bgcolor=ffffff`;
+  img.alt='QR de la tienda';
+  img.style.cssText=`width:${size}px;height:${size}px;border-radius:8px;`;
+  img.id='qrImg';
+  img.onerror=function(){
+    // Fallback: generar QR manualmente con canvas si la API falla
+    container.innerHTML=`<div style="color:var(--text-muted);font-size:.8rem;padding:10px;"><i class="fas fa-wifi" style="font-size:2rem;display:block;margin-bottom:8px;color:var(--naranja-brillante);"></i>Conéctate a internet para ver el QR</div>`;
+  };
+  container.appendChild(img);
+  openModal('qrModal');
+}
+function downloadQR(){
+  const img=document.getElementById('qrImg');
+  if(!img){showToast('<i class="fas fa-exclamation-circle"></i> QR no disponible');return;}
+  const a=document.createElement('a');
+  a.href=img.src;
+  a.download='qr-tienda.png';
+  a.target='_blank';
+  a.click();
+  showToast('<i class="fas fa-check-circle"></i> Descargando QR…');
+}
 
 // ===== IMAGE FROM DIRECTORY BUTTON =====
 function triggerImageUpload(targetInputId){
@@ -3872,17 +4126,51 @@ async function ghPublicPull(c){
 
   window.addEventListener('beforeinstallprompt', (e)=>{
     e.preventDefault(); deferredPrompt=e;
+    // Auto-instalar la primera vez en Android (solo si no ha sido instalada antes)
+    const alreadyInstalled=localStorage.getItem('pwa_installed');
+    if(!alreadyInstalled){
+      // Lanzar prompt automáticamente después de 1 segundo
+      setTimeout(async()=>{
+        if(!deferredPrompt) return;
+        try{
+          deferredPrompt.prompt();
+          const choice=await deferredPrompt.userChoice;
+          if(choice.outcome==='accepted'){
+            localStorage.setItem('pwa_installed','1');
+            deferredPrompt=null;
+            return; // appinstalled event mostrará el toast
+          }
+        }catch(_){}
+        deferredPrompt=null;
+        // Si rechazó, mostrar botón flotante para que pueda instalarlo después
+        _showPwaInstallBtn();
+      },1000);
+      return;
+    }
+    // Ya instaló antes — mostrar botón flotante si no está
+    _showPwaInstallBtn();
+  });
+
+  function _showPwaInstallBtn(){
     if(document.getElementById('pwaInstallBtn')) return;
     const btn=document.createElement('button');
     btn.id='pwaInstallBtn';
     btn.innerHTML='<i class="fas fa-download"></i> Instalar app';
     btn.style.cssText='position:fixed;bottom:20px;left:20px;z-index:9998;padding:10px 18px;border-radius:50px;background:linear-gradient(135deg,var(--rojo),var(--naranja));color:#fff;border:none;font-weight:700;font-size:.85rem;box-shadow:var(--neon-naranja);cursor:pointer;display:flex;align-items:center;gap:8px;';
-    btn.onclick=async ()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); const c=await deferredPrompt.userChoice; if(c.outcome==='accepted') btn.remove(); deferredPrompt=null; };
+    btn.onclick=async()=>{
+      if(!deferredPrompt){ btn.remove(); return; }
+      deferredPrompt.prompt();
+      const ch=await deferredPrompt.userChoice;
+      if(ch.outcome==='accepted'){ localStorage.setItem('pwa_installed','1'); btn.remove(); }
+      deferredPrompt=null;
+    };
     document.body.appendChild(btn);
-  });
+  }
+
   window.addEventListener('appinstalled', ()=>{
+    localStorage.setItem('pwa_installed','1');
     const b=document.getElementById('pwaInstallBtn'); if(b) b.remove();
-    if(typeof showToast==='function') showToast('<i class="fas fa-check-circle"></i> App instalada');
+    if(typeof showToast==='function') showToast('<i class="fas fa-check-circle"></i> ¡App instalada correctamente en tu dispositivo!');
   });
 })();
 
@@ -4134,13 +4422,13 @@ input,textarea,select,[contenteditable]{
           <input type="checkbox" id="cfgSecurityDisabled" style="width:auto;">
           <span><i class="fas fa-shield-halved" style="color:var(--rojo);"></i> Desactivar TODA la seguridad del sistema (licencia/bloqueos)</span>
         </label>
-        <button class="btn btn-primary" onclick="savePatchV16()" style="border-radius:50px;align-self:flex-start;">
+        <button class="btn btn-primary btn-sm" onclick="savePatchV16()" style="border-radius:50px;align-self:flex-start;padding:10px 20px;">
           <i class="fas fa-floppy-disk"></i> Guardar opciones
         </button>
         <hr style="border-color:var(--glass-border);margin:8px 0;">
         <h4 style="color:var(--rojo);margin:0;"><i class="fas fa-triangle-exclamation"></i> Zona de peligro</h4>
         <p style="font-size:.82rem;color:var(--text-muted);margin:0;">Restablece TODO el sistema: configuración, productos, imágenes locales y remotas.</p>
-        <button class="btn btn-danger" onclick="resetSystemFull()" style="border-radius:50px;align-self:flex-start;background:linear-gradient(135deg,#d32f2f,#b71c1c);color:#fff;">
+        <button class="btn btn-danger btn-sm" onclick="resetSystemFull()" style="border-radius:50px;align-self:flex-start;background:linear-gradient(135deg,#d32f2f,#b71c1c);color:#fff;padding:10px 20px;">
           <i class="fas fa-bomb"></i> Restablecer sistema completo
         </button>
       </div>
@@ -4259,6 +4547,7 @@ input,textarea,select,[contenteditable="true"]{
 
 /* === PATCH v19: promo buttons in own row & supplier icons horizontal === */
 .promo-row{display:flex;flex-wrap:nowrap;gap:10px;align-items:center;justify-content:flex-end;margin-left:auto;}
+.promo-row.promo-hidden{display:none!important;}
 .promo-row:empty{display:none;}
 .sup-actions{display:inline-flex!important;flex-wrap:nowrap!important;gap:8px;align-items:center;}
 .sup-actions .sup-act{flex:0 0 auto;}
@@ -4333,6 +4622,298 @@ input,textarea,select,[contenteditable="true"]{
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();
+})();
+</script>
+<!-- =============================================================
+     PATCH v18 — Correcciones múltiples solicitadas
+     ============================================================= -->
+<style id="patch-v18-styles">
+
+/* ── 3. Modales CENTRADOS en Android ── */
+@media(max-width:640px){
+  .modal-overlay{
+    padding:10px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    padding-top:max(env(safe-area-inset-top,10px),10px)!important;
+    overflow-y:auto!important;
+    box-sizing:border-box!important;
+  }
+  .modal-overlay .modal{
+    margin:auto!important;
+    position:relative!important;
+    top:auto!important;left:auto!important;
+  }
+  .modal{max-height:88dvh!important;overflow-y:auto!important;}
+}
+
+/* ── 4. Lightbox por encima del productDetailModal ── */
+.lightbox{z-index:20000!important;}
+.lightbox-close{z-index:20001!important;}
+.lightbox-nav{z-index:20001!important;}
+
+/* ── 8. Barra de estado mas arriba & boton instalar abajo visible ── */
+#ghSyncBar{bottom:72px!important;}
+#pwaInstallBtn{bottom:14px!important;left:14px!important;}
+body.product-detail-open #pwaInstallBtn{display:none!important;}
+
+/* ── 9. Hover precio compatible con hover nombre ── */
+.card-name{transition:color .35s;}
+.product-card:hover .card-name{color:var(--naranja-brillante)!important;}
+.product-card:hover .price-current{filter:brightness(1.18);}
+
+/* Ocultar botón instalar cuando carrito está abierto */
+body.cart-open #pwaInstallBtn{display:none!important;}
+
+/* ── CARRITO: scroll 100% nativo Android (sin interferencias) ── */
+/* Neutralizar touch-action heredado de inputs en TODO el overlay */
+#cartOverlay,#cartOverlay *{touch-action:auto !important;}
+/* Solo el body scrollea en Y */
+#cartOverlay .cart-body{
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  -webkit-overflow-scrolling:touch !important;
+  overscroll-behavior-y:contain !important;
+  contain:strict !important;   /* aísla layout/paint del resto de la página */
+}
+/* Panel: no captura gestos táctiles, los deja pasar al cart-body */
+#cartOverlay .cart-panel{overflow:hidden !important;}
+/* Botones: solo tap */
+#cartOverlay button{touch-action:manipulation !important;}
+
+/* ── CARRITO: layout de items reorganizado y limpio ── */
+#cartOverlay .cart-item{
+  display:grid !important;
+  grid-template-columns:72px 1fr auto !important;
+  grid-template-rows:auto auto !important;
+  gap:0 12px !important;
+  padding:14px !important;
+  margin-bottom:10px !important;
+  align-items:start !important;
+  border-radius:16px !important;
+  background:var(--bg-card) !important;
+  border:1px solid var(--glass-border) !important;
+  position:relative !important;
+}
+
+/* Imagen: columna 1, fila 1-2 */
+#cartOverlay .cart-item > img,
+#cartOverlay .cart-item > div[style*="width:72px"] {
+  grid-column:1 !important;
+  grid-row:1 / 3 !important;
+  align-self:center !important;
+  width:72px !important;
+  height:72px !important;
+  border-radius:12px !important;
+  object-fit:cover !important;
+  flex-shrink:0 !important;
+}
+
+/* Detalles (nombre + precio unit): columna 2, fila 1 */
+#cartOverlay .cart-item .details{
+  grid-column:2 !important;
+  grid-row:1 !important;
+  min-width:0 !important;
+}
+#cartOverlay .cart-item .details h4{
+  font-size:.9rem !important;
+  font-weight:700 !important;
+  white-space:normal !important;
+  line-height:1.3 !important;
+  margin-bottom:3px !important;
+  overflow:hidden !important;
+  display:-webkit-box !important;
+  -webkit-line-clamp:2 !important;
+  -webkit-box-orient:vertical !important;
+}
+
+/* Precio total: columna 3, fila 1 */
+#cartOverlay .cart-item > div[style*="font-weight:900"]{
+  grid-column:3 !important;
+  grid-row:1 !important;
+  align-self:center !important;
+  text-align:right !important;
+  font-size:1rem !important;
+  font-weight:900 !important;
+  white-space:nowrap !important;
+}
+
+/* Fila 2: qty-control a la izquierda (col2) y botón eliminar a la derecha (col3) */
+#cartOverlay .cart-item .qty-control{
+  grid-column:2 !important;
+  grid-row:2 !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  margin-top:8px !important;
+}
+#cartOverlay .cart-item .qty-control button{
+  width:32px !important;
+  height:32px !important;
+  border-radius:10px !important;
+}
+#cartOverlay .cart-item .qty-control span{
+  font-weight:800 !important;
+  min-width:24px !important;
+  text-align:center !important;
+}
+
+/* Botón eliminar: col3, fila 2 */
+#cartOverlay .cart-item > button.btn-icon{
+  grid-column:3 !important;
+  grid-row:2 !important;
+  align-self:end !important;
+  margin-top:8px !important;
+}
+
+/* Android mobile: ajuste compacto manteniendo el grid */
+@media(max-width:640px){
+  #cartOverlay .cart-body{padding:12px 10px !important;}
+  #cartOverlay .cart-item{
+    grid-template-columns:60px 1fr auto !important;
+    gap:0 10px !important;
+    padding:12px !important;
+    margin-bottom:8px !important;
+  }
+  #cartOverlay .cart-item > img,
+  #cartOverlay .cart-item > div[style*="width:72px"]{
+    width:60px !important;
+    height:60px !important;
+  }
+  #cartOverlay .cart-item > div[style*="font-weight:900"]{
+    font-size:.9rem !important;
+  }
+}
+
+/* Footer: 3 columnas en desktop */
+.footer-grid{grid-template-columns:1fr 1fr 1fr!important;}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr!important;}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr!important;}}
+</style>
+
+<script id="patch-v18-script">
+(function(){
+
+  /* 1. Avatar: incluye 5 productos aleatorios en su ciclo */
+  function buildAvatarProductMsgs(){
+    if(typeof products==='undefined'||!products.length) return [];
+    const shuffled=[...products].sort(()=>Math.random()-.5);
+    return shuffled.slice(0,5).map(p=>'🛒 '+p.name+' — $'+p.price+' '+(p.currency||''));
+  }
+
+  function initAvatarWithProducts(){
+    const configMsgs=(typeof config!=='undefined'&&config.avatarMessages
+      ?config.avatarMessages
+      :'¡Ofertas hoy!|¡Bienvenido!|¡Compra ya!').split('|').filter(Boolean);
+    const productMsgs=buildAvatarProductMsgs();
+    const allMsgs=[...configMsgs,...productMsgs];
+    let idx=0;
+    const el=document.getElementById('avatarSpeech');
+    if(el&&allMsgs.length) el.textContent=allMsgs[0];
+    if(window.__avatarPatchInterval) clearInterval(window.__avatarPatchInterval);
+    window.__avatarPatchInterval=setInterval(()=>{
+      idx=(idx+1)%allMsgs.length;
+      const speech=document.getElementById('avatarSpeech');
+      if(speech) speech.textContent=allMsgs[idx];
+    },3500);
+  }
+
+  function tryInitAvatar(){
+    if(typeof products!=='undefined') initAvatarWithProducts();
+    else setTimeout(tryInitAvatar,500);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',tryInitAvatar);
+  else setTimeout(tryInitAvatar,800);
+
+  /* 4. Lightbox al frente cuando productDetailModal está abierto */
+  document.addEventListener('click',function(e){
+    const img=e.target.closest('#productDetailModal .main-image-wrap img, #productDetailModal .gallery img');
+    if(!img) return;
+    setTimeout(()=>{
+      const lb=document.querySelector('.lightbox.show');
+      if(lb){lb.style.zIndex='20000';lb.style.position='fixed';}
+    },60);
+  });
+
+  /* 6. Mensaje si no hay elementos para eliminar */
+  function patchDelete(fname,countFn,label){
+    if(typeof window[fname]!=='function') return;
+    const orig=window[fname];
+    window[fname]=async function(){
+      if(countFn()===0){
+        if(typeof showToast==='function') showToast('<i class="fas fa-info-circle"></i> No hay '+label+' para eliminar');
+        return;
+      }
+      return orig.apply(this,arguments);
+    };
+  }
+  function tryPatchDeletes(){
+    patchDelete('deleteAllProducts',()=>(typeof products!=='undefined'?products.length:1),'productos');
+    patchDelete('deleteAllSuppliers',()=>(typeof suppliers!=='undefined'?suppliers.length:1),'proveedores');
+    patchDelete('clearAllNotifications',()=>(typeof notifications!=='undefined'?notifications.length:1),'notificaciones');
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',tryPatchDeletes);
+  else tryPatchDeletes();
+
+  /* 8b. Ocultar botón instalar cuando carrito está abierto */
+  /* + Corregir body.overflow en Android para no bloquear scroll interno del carrito */
+  function patchCart(){
+    const origOpen=window.openCart;
+    const origClose=window.closeCart;
+    if(typeof origOpen==='function'){
+      window.openCart=function(){
+        origOpen.apply(this,arguments);
+        document.body.classList.add('cart-open');
+        /* En Android el body.overflow:hidden rompe el scroll del panel interno.
+           Lo revertimos sólo en touch devices y dejamos que el overlay fixed lo contenga */
+        if('ontouchstart' in window){
+          document.body.style.overflow='';
+          document.body.style.position='fixed';
+          document.body.style.width='100%';
+        }
+      };
+    }
+    if(typeof origClose==='function'){
+      window.closeCart=function(){
+        origClose.apply(this,arguments);
+        document.body.classList.remove('cart-open');
+        /* Restaurar posición body */
+        if('ontouchstart' in window){
+          document.body.style.position='';
+          document.body.style.width='';
+        }
+      };
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',patchCart);
+  else patchCart();
+
+  /* 8. Ocultar boton instalar cuando productDetailModal abierto */
+  function patchModals(){
+    const origOpen=window.openModal;
+    const origClose=window.closeModal;
+    if(typeof origOpen==='function'){
+      window.openModal=function(id){
+        origOpen.apply(this,arguments);
+        if(id==='productDetailModal') document.body.classList.add('product-detail-open');
+      };
+    }
+    if(typeof origClose==='function'){
+      window.closeModal=function(id){
+        origClose.apply(this,arguments);
+        if(id==='productDetailModal') document.body.classList.remove('product-detail-open');
+      };
+    }
+    // También detectar click en overlay
+    document.querySelectorAll('.modal-overlay').forEach(o=>{
+      o.addEventListener('click',function(e){
+        if(e.target===o&&o.id==='productDetailModal') document.body.classList.remove('product-detail-open');
+      });
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',patchModals);
+  else patchModals();
+
 })();
 </script>
 </body>
