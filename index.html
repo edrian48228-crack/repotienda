@@ -193,7 +193,7 @@ h1,h2,h3,h4,h5,h6,.section-title,.admin-tabs button,.nav-btn,.footer-col h4,.cre
 /* ===== MODAL ===== */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);z-index:10000;justify-content:center;align-items:center;padding:20px;}
 .modal-overlay.show{display:flex;}
-.modal{background:var(--bg-card);border:1px solid var(--glass-border);border-radius:22px;max-width:850px;width:100%;max-height:90vh;overflow-y:auto;padding:34px;position:relative;animation:modal-enter .45s cubic-bezier(.25,.8,.25,1);}
+.modal{background:var(--bg-card);border:1px solid var(--glass-border);border-radius:22px;max-width:850px;width:100%;max-height:90vh;overflow-y:auto;padding:34px;position:relative;}
 @keyframes modal-enter{from{transform:translateY(50px) scale(.92);opacity:0;}to{transform:translateY(0) scale(1);opacity:1;}}
 .modal-close{position:absolute;top:14px;right:18px;font-size:1.4rem;background:var(--bg-secondary);color:var(--text-muted);font-weight:700;z-index:10;transition:.3s;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid var(--glass-border);}
 .modal-close:hover{color:var(--rojo);background:rgba(255,23,68,.1);border-color:var(--rojo);}
@@ -558,7 +558,7 @@ background:linear-gradient(135deg,var(--verde),var(--cyan),var(--azul));backgrou
 /* ===== CUSTOM CONFIRM DIALOG ===== */
 .confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(16px);z-index:5000;justify-content:center;align-items:center;padding:20px;}
 .confirm-overlay.show{display:flex;}
-.confirm-box{background:var(--bg-card);border:2px solid var(--naranja);border-radius:22px;max-width:440px;width:100%;padding:36px;text-align:center;animation:modal-enter .4s cubic-bezier(.25,.8,.25,1);box-shadow:0 0 60px rgba(255,109,0,.15);}
+.confirm-box{background:var(--bg-card);border:2px solid var(--naranja);border-radius:22px;max-width:440px;width:100%;padding:36px;text-align:center;box-shadow:0 0 60px rgba(255,109,0,.15);}
 .confirm-box .confirm-icon{font-size:3.5rem;margin-bottom:16px;display:block;}
 .confirm-box h3{font-family:'Orbitron',sans-serif;font-size:1.1rem;margin-bottom:12px;color:var(--naranja-brillante);letter-spacing:1px;}
 .confirm-box p{color:var(--text-secondary);font-size:.92rem;margin-bottom:24px;line-height:1.6;}
@@ -1538,13 +1538,34 @@ const SAMPLE_PRODUCTS=[
 {id:'p8',name:'Mochila Táctica',price:35,currency:'USD',category:'Accesorios',condition:'nuevo',stock:20,minStock:5,description:'Mochila resistente al agua con múltiples compartimentos',images:[],views:78,cartAdds:9,sales:5,lastSaleDate:'2025-03-20',createdAt:'2025-03-05',originalPrice:0,bulkDiscount:0,bulkQty:3,featured:'no'}
 ];
 
-function save(k,v){localStorage.setItem(k,JSON.stringify(v));}
-function load(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch{return d;}}
+// Namespace por repositorio: aísla datos entre repos del mismo usuario de GitHub Pages
+// Detecta el repo desde la URL (ej: user.github.io/mi-tienda/ → NS = "mi-tienda/")
+// Esto garantiza que cada repositorio tenga sus propios datos aislados en localStorage
+(function(){
+  try{
+    const h=location.hostname;
+    let ns='default/';
+    if(/\.github\.io$/i.test(h)){
+      const segs=location.pathname.split('/').filter(Boolean);
+      // En GitHub Pages, el primer segmento del path ES el nombre del repo
+      if(segs.length>0) ns=segs[0]+'/';
+      else ns=h.split('.')[0]+'/'; // caso usuario.github.io sin subpath
+    } else {
+      // En desarrollo local u otro host, usar el primer segmento del path
+      const segs=location.pathname.split('/').filter(Boolean);
+      if(segs.length>0) ns=segs[0]+'/';
+    }
+    window.__REPO_NS=ns;
+  }catch(_){ window.__REPO_NS='default/'; }
+})();
+
+function save(k,v){localStorage.setItem(__REPO_NS+k,JSON.stringify(v));}
+function load(k,d){try{const v=localStorage.getItem(__REPO_NS+k);return v?JSON.parse(v):d;}catch{return d;}}
 
 // Restaurar imágenes offline si config las perdió (ej: pull de GitHub sin imágenes)
 function restoreOfflineImages(cfg){
   try{
-    const saved=JSON.parse(localStorage.getItem('mt_offline_imgs')||'{}');
+    const saved=JSON.parse(localStorage.getItem(__REPO_NS+'mt_offline_imgs')||'{}');
     ['logoImage','avatarImage','contactBgImage','creatorPhoto'].forEach(k=>{
       if(!cfg[k]&&saved[k]) cfg[k]=saved[k];
     });
@@ -1596,7 +1617,8 @@ let avatarMsgs=(config.avatarMessages||DEFAULT_CONFIG.avatarMessages).split('|')
 let avatarIdx=0;
 function updateAvatar(){const el=document.getElementById('avatarEmoji');if(config.avatarImage){el.innerHTML=`<img src="${config.avatarImage}" alt="avatar">`;}else{el.textContent=config.avatarEmoji||'🛒';}}
 updateAvatar();
-setInterval(()=>{avatarIdx=(avatarIdx+1)%avatarMsgs.length;const el=document.getElementById('avatarSpeech');if(el)el.textContent=avatarMsgs[avatarIdx];},3500);
+// Iniciar el intervalo del avatar base (el patch-v18 lo reemplazará con productos incluidos)
+window.__avatarBaseInterval=setInterval(()=>{avatarIdx=(avatarIdx+1)%avatarMsgs.length;const el=document.getElementById('avatarSpeech');if(el)el.textContent=avatarMsgs[avatarIdx];},3500);
 
 function updateLogo(){const el=document.getElementById('logoIcon');if(config.logoImage){el.innerHTML=`<img src="${config.logoImage}" alt="logo">`;}else{el.textContent=config.logoEmoji||'🛒';}}
 updateLogo();
@@ -2434,7 +2456,7 @@ save('mt_config',config);
   ['logoImage','avatarImage','contactBgImage','creatorPhoto'].forEach(k=>{
     if(config[k]) offlineImgs[k]=config[k];
   });
-  if(Object.keys(offlineImgs).length) localStorage.setItem('mt_offline_imgs', JSON.stringify(offlineImgs));
+  if(Object.keys(offlineImgs).length) localStorage.setItem(__REPO_NS+'mt_offline_imgs', JSON.stringify(offlineImgs));
 })();
 applyConfig();if(typeof window.__injectDynamicManifest==='function')window.__injectDynamicManifest();showToast('<i class="fas fa-check-circle"></i> Configuración guardada');
 }
@@ -2624,7 +2646,7 @@ background:linear-gradient(135deg,var(--verde),var(--cyan),var(--azul));backgrou
 /* ===== CUSTOM CONFIRM DIALOG ===== */
 .confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(16px);z-index:5000;justify-content:center;align-items:center;padding:20px;}
 .confirm-overlay.show{display:flex;}
-.confirm-box{background:var(--bg-card);border:2px solid var(--naranja);border-radius:22px;max-width:440px;width:100%;padding:36px;text-align:center;animation:modal-enter .4s cubic-bezier(.25,.8,.25,1);box-shadow:0 0 60px rgba(255,109,0,.15);}
+.confirm-box{background:var(--bg-card);border:2px solid var(--naranja);border-radius:22px;max-width:440px;width:100%;padding:36px;text-align:center;box-shadow:0 0 60px rgba(255,109,0,.15);}
 .confirm-box .confirm-icon{font-size:3.5rem;margin-bottom:16px;display:block;}
 .confirm-box h3{font-family:'Orbitron',sans-serif;font-size:1.1rem;margin-bottom:12px;color:var(--naranja-brillante);letter-spacing:1px;}
 .confirm-box p{color:var(--text-secondary);font-size:.92rem;margin-bottom:24px;line-height:1.6;}
@@ -3454,7 +3476,7 @@ function ghLoadUI(){
   ghSetOnline();
   if(c.owner&&c.repo&&c.token&&c.token.data) ghSetStatus('ok','<i class="fas fa-check"></i> Configurado');
   else ghSetStatus('idle','<i class="fas fa-circle"></i> Sin configurar');
-  const last=localStorage.getItem('mt_gh_lastsync');
+  const last=localStorage.getItem(__REPO_NS+'mt_gh_lastsync');
   document.getElementById('ghLastSync').textContent='Última sync: '+(last?new Date(last).toLocaleString():'nunca');
 }
 
@@ -3663,7 +3685,7 @@ async function ghCollectAndUploadImages(token){
 function ghBuildPayload(){
   const out={ version:2, exportedAt:new Date().toISOString(), data:{} };
   for(const k of GH_KEYS){
-    try{ const raw=localStorage.getItem(k); out.data[k] = raw ? JSON.parse(raw) : null; }
+    try{ const raw=localStorage.getItem(__REPO_NS+k); out.data[k] = raw ? JSON.parse(raw) : null; }
     catch{ out.data[k] = null; }
   }
   return out;
@@ -3686,7 +3708,7 @@ async function ghPushAll(){
     const b64 = btoa(unescape(encodeURIComponent(json)));
     // Usa el helper robusto que refresca SHA y reintenta hasta 5 veces ante 409/422.
     await ghPutFileSafe(path, b64, 'data: sync '+new Date().toISOString(), token, 5);
-    localStorage.setItem('mt_gh_lastsync', Date.now());
+    localStorage.setItem(__REPO_NS+'mt_gh_lastsync', Date.now());
     ghLog('✓ Datos subidos a '+path,'ok');
     ghSetStatus('ok','<i class="fas fa-check"></i> Sincronizado');
     document.getElementById('ghLastSync').textContent='Última sync: '+new Date().toLocaleString();
@@ -3715,7 +3737,7 @@ async function ghPullAll(silent){
     if(!silent && !confirm('Esto sobreescribirá los datos locales con los del repo. ¿Continuar?')) { ghSetStatus('ok','<i class="fas fa-check"></i> Cancelado'); return; }
     for(const k of GH_KEYS){
       if(payload.data[k]!==undefined && payload.data[k]!==null){
-        localStorage.setItem(k, JSON.stringify(payload.data[k]));
+        localStorage.setItem(__REPO_NS+k, JSON.stringify(payload.data[k]));
       }
     }
     ghLog('✓ Datos descargados desde '+path+' ('+payload.exportedAt+')','ok');
@@ -3841,9 +3863,15 @@ async function ghCleanAndReload(){
 }
 function ghHardReset(){
   if(!confirm('⚠️ ESTO BORRA TODOS LOS DATOS LOCALES (productos, config, ventas…). Asegúrate de haber hecho push a GitHub antes. ¿Continuar?'))return;
-  if(!confirm('Última confirmación: ¿borrar localStorage completo?'))return;
+  if(!confirm('Última confirmación: ¿borrar datos de este repositorio?'))return;
   const ghCreds = localStorage.getItem(GH_LS);
-  localStorage.clear();
+  // Solo eliminar claves del repositorio actual (con el namespace de este repo)
+  const keysToDelete=[];
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k&&k!==GH_LS&&k.startsWith(__REPO_NS)) keysToDelete.push(k);
+  }
+  keysToDelete.forEach(k=>localStorage.removeItem(k));
   if(ghCreds) localStorage.setItem(GH_LS, ghCreds); // conservar credenciales
   ghLog('Reset total ejecutado','warn');
   setTimeout(()=>location.reload(), 800);
@@ -3857,20 +3885,20 @@ function ghHardReset(){
    El resultado se persiste en localStorage para próximas visitas offline. */
 function ghAutoDetectRepo(){
   try{
-    const saved = localStorage.getItem('mt_gh_autorepo');
+    const saved = localStorage.getItem(__REPO_NS+'mt_gh_autorepo');
     if(saved){ try{ return JSON.parse(saved); }catch(_){} }
     const qs = new URLSearchParams(location.search);
     const qRepo = qs.get('repo');
     if(qRepo && qRepo.includes('/')){
       const [owner, repo] = qRepo.split('/');
       const auto = {owner, repo, branch: qs.get('branch')||'main', dataPath: qs.get('dataPath')||'data'};
-      localStorage.setItem('mt_gh_autorepo', JSON.stringify(auto));
+      localStorage.setItem(__REPO_NS+'mt_gh_autorepo', JSON.stringify(auto));
       return auto;
     }
     const qOwner = qs.get('owner'), qR = qs.get('repo');
     if(qOwner && qR){
       const auto = {owner:qOwner, repo:qR, branch: qs.get('branch')||'main', dataPath: qs.get('dataPath')||'data'};
-      localStorage.setItem('mt_gh_autorepo', JSON.stringify(auto));
+      localStorage.setItem(__REPO_NS+'mt_gh_autorepo', JSON.stringify(auto));
       return auto;
     }
     const meta = document.querySelector('meta[name="gh-repo"]');
@@ -3904,6 +3932,12 @@ async function ghBootstrapPublicPull(){
   if(c && c.token && c.token.data && !c.token.enc && navigator.onLine){
     setTimeout(()=>{ try{ ghPullAll(true); }catch(_){} }, 1500);
   }
+  // Marcar que el pull inicial terminó (éxito o fallo) para que el avatar
+  // pueda inicializarse con los productos correctos del repo actual
+  if(!window.__ghPullDone){
+    window.__ghPullDone = true;
+    if(typeof window.__initAvatarWithProducts==='function') window.__initAvatarWithProducts();
+  }
 }
 
 window.addEventListener('load', ()=>{
@@ -3922,8 +3956,8 @@ window.addEventListener('online', ()=> ghBootstrapPublicPull());
 
 // Botón manual "Forzar actualización" disponible en consola: window.forceSync()
 window.forceSync = function(){
-  localStorage.removeItem('mt_gh_publicver');
-  localStorage.removeItem('mt_gh_publichash');
+  localStorage.removeItem(__REPO_NS+'mt_gh_publicver');
+  localStorage.removeItem(__REPO_NS+'mt_gh_publichash');
   return ghBootstrapPublicPull();
 };
 
@@ -3964,27 +3998,23 @@ async function ghPublicPull(c){
   try{
     const payload = await ghFetchStoreJson(c);
     if(!payload || !payload.data) return;
-    // FIX: comparar por HASH del contenido real, no por exportedAt.
-    // Antes: si exportedAt coincidía con el último guardado, salía sin mirar
-    // los datos. Ahora detectamos cualquier cambio real aunque exportedAt no
-    // esté actualizado.
     const dataStr = JSON.stringify(payload.data);
     let hash = 0; for(let i=0;i<dataStr.length;i++){ hash=((hash<<5)-hash+dataStr.charCodeAt(i))|0; }
     const hashStr = String(hash);
-    const lastHash = localStorage.getItem('mt_gh_publichash') || '';
+    const lastHash = localStorage.getItem(__REPO_NS+'mt_gh_publichash') || '';
     if(hashStr === lastHash) return; // contenido idéntico, nada que hacer
     let changed = false;
     for(const k of (window.GH_KEYS||['mt_products','mt_config','mt_suppliers','mt_sales','mt_visits','mt_notifications','mt_projects'])){
       if(payload.data[k]!==undefined && payload.data[k]!==null){
         const newJson = JSON.stringify(payload.data[k]);
-        if(localStorage.getItem(k) !== newJson){
-          localStorage.setItem(k, newJson);
+        if(localStorage.getItem(__REPO_NS+k) !== newJson){
+          localStorage.setItem(__REPO_NS+k, newJson);
           changed = true;
         }
       }
     }
-    localStorage.setItem('mt_gh_publichash', hashStr);
-    if(payload.exportedAt) localStorage.setItem('mt_gh_publicver', payload.exportedAt);
+    localStorage.setItem(__REPO_NS+'mt_gh_publichash', hashStr);
+    if(payload.exportedAt) localStorage.setItem(__REPO_NS+'mt_gh_publicver', payload.exportedAt);
     if(changed){
       // Re-render en caliente sin recargar
       try{
@@ -3999,6 +4029,8 @@ async function ghPublicPull(c){
         if(typeof renderRecommended==='function') renderRecommended();
         if(typeof renderCategoryFilters==='function') renderCategoryFilters();
         if(typeof renderAdminProducts==='function' && typeof isAdmin!=='undefined' && isAdmin) renderAdminProducts();
+        // Reinicializar avatar con los productos correctos del repo actual
+        if(typeof window.__initAvatarWithProducts==='function') window.__initAvatarWithProducts();
         if(typeof showToast==='function') showToast('<i class="fas fa-cloud-arrow-down"></i> Datos actualizados desde el servidor');
       }catch(e){
         setTimeout(()=>{ try{ location.replace(location.pathname+'?_=' +Date.now()); }catch{ location.reload(); } }, 400);
@@ -4127,7 +4159,7 @@ async function ghPublicPull(c){
   window.addEventListener('beforeinstallprompt', (e)=>{
     e.preventDefault(); deferredPrompt=e;
     // Auto-instalar la primera vez en Android (solo si no ha sido instalada antes)
-    const alreadyInstalled=localStorage.getItem('pwa_installed');
+    const alreadyInstalled=localStorage.getItem(__REPO_NS+'pwa_installed');
     if(!alreadyInstalled){
       // Lanzar prompt automáticamente después de 1 segundo
       setTimeout(async()=>{
@@ -4136,7 +4168,7 @@ async function ghPublicPull(c){
           deferredPrompt.prompt();
           const choice=await deferredPrompt.userChoice;
           if(choice.outcome==='accepted'){
-            localStorage.setItem('pwa_installed','1');
+            localStorage.setItem(__REPO_NS+'pwa_installed','1');
             deferredPrompt=null;
             return; // appinstalled event mostrará el toast
           }
@@ -4161,14 +4193,14 @@ async function ghPublicPull(c){
       if(!deferredPrompt){ btn.remove(); return; }
       deferredPrompt.prompt();
       const ch=await deferredPrompt.userChoice;
-      if(ch.outcome==='accepted'){ localStorage.setItem('pwa_installed','1'); btn.remove(); }
+      if(ch.outcome==='accepted'){ localStorage.setItem(__REPO_NS+'pwa_installed','1'); btn.remove(); }
       deferredPrompt=null;
     };
     document.body.appendChild(btn);
   }
 
   window.addEventListener('appinstalled', ()=>{
-    localStorage.setItem('pwa_installed','1');
+    localStorage.setItem(__REPO_NS+'pwa_installed','1');
     const b=document.getElementById('pwaInstallBtn'); if(b) b.remove();
     if(typeof showToast==='function') showToast('<i class="fas fa-check-circle"></i> ¡App instalada correctamente en tu dispositivo!');
   });
@@ -4382,13 +4414,13 @@ input,textarea,select,[contenteditable]{
     const c2=prompt('Para confirmar, escribe: BORRAR TODO');
     if(c2!=='BORRAR TODO'){ alert('Cancelado'); return; }
     try{
-      // localStorage
+      // localStorage - solo claves del repo actual
       const keys=['mt_products','mt_sales','mt_config','mt_suppliers','mt_notifications','mt_visits','mt_projects','mt_images','mt_cart'];
-      keys.forEach(k=>{ try{localStorage.removeItem(k);}catch(e){} });
-      // Borrar todo lo que empiece con mt_
+      keys.forEach(k=>{ try{localStorage.removeItem(__REPO_NS+k);}catch(e){} });
+      // Borrar todo lo que empiece con el namespace del repo actual
       for(let i=localStorage.length-1;i>=0;i--){
         const k=localStorage.key(i);
-        if(k && k.startsWith('mt_')) localStorage.removeItem(k);
+        if(k && k.startsWith(__REPO_NS+'mt_')) localStorage.removeItem(k);
       }
       // GitHub: borrar imágenes y data si hay sync
       if(typeof window.ghDeleteAllRemote==='function'){
@@ -4808,19 +4840,31 @@ body.cart-open #pwaInstallBtn{display:none!important;}
     const productMsgs=buildAvatarProductMsgs();
     const allMsgs=[...configMsgs,...productMsgs];
     let idx=0;
+    // Cancelar intervalos previos para evitar mensajes desincronizados
+    if(window.__avatarBaseInterval) clearInterval(window.__avatarBaseInterval);
+    if(window.__avatarPatchInterval) clearInterval(window.__avatarPatchInterval);
     const el=document.getElementById('avatarSpeech');
     if(el&&allMsgs.length) el.textContent=allMsgs[0];
-    if(window.__avatarPatchInterval) clearInterval(window.__avatarPatchInterval);
+    // Ciclo uniforme: todos los mensajes con exactamente el mismo intervalo
     window.__avatarPatchInterval=setInterval(()=>{
       idx=(idx+1)%allMsgs.length;
       const speech=document.getElementById('avatarSpeech');
       if(speech) speech.textContent=allMsgs[idx];
     },3500);
   }
+  // Exponer para que ghPublicPull pueda reinicializar el avatar tras cargar datos del repo
+  window.__initAvatarWithProducts = initAvatarWithProducts;
 
   function tryInitAvatar(){
-    if(typeof products!=='undefined') initAvatarWithProducts();
-    else setTimeout(tryInitAvatar,500);
+    // Esperar a que el pull de GitHub haya completado (o fallado) antes de
+    // mostrar productos en el avatar, para evitar mostrar datos de otro repo.
+    // __ghPullDone se establece en true por ghBootstrapPublicPull al terminar.
+    if(window.__ghPullDone){
+      if(typeof products!=='undefined') initAvatarWithProducts();
+    } else {
+      // Si el pull tarda más de 4s, inicializar igual (solo con mensajes de config)
+      setTimeout(()=>{ if(typeof products!=='undefined') initAvatarWithProducts(); }, 4000);
+    }
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',tryInitAvatar);
   else setTimeout(tryInitAvatar,800);
