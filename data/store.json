@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "exportedAt": "2026-05-19T17:34:38.548Z",
+  "exportedAt": "2026-05-19T17:35:57.085Z",
   "data": {
     "mt_products": [
       {
@@ -174,10 +174,10 @@
     ],
     "mt_sales": null,
     "mt_config": {
-      "storeName": "MegaTienda Online",
-      "whatsapp": "+5350000000",
+      "storeName": "CrackShop Pro",
+      "whatsapp": "+5359691810",
       "facebook": "https://facebook.com/megatienda",
-      "email": "tienda@ejemplo.com",
+      "email": "icdanger48228@gmail.com",
       "creatorName": "Edrian Cruz Down",
       "creatorWhatsapp": "+5350000000",
       "creatorFacebook": "https://facebook.com/edrian",
@@ -196,7 +196,7 @@
         "USD",
         "Criptomoneda"
       ],
-      "adminPassword": "admin123",
+      "adminPassword": "admin2025",
       "supplierPassword": "proveedor123",
       "creatorPassword": "creator2025",
       "securityQuestion": "¿Nombre de tu primera mascota?",
@@ -215,7 +215,7 @@
       "clientWebsite": "",
       "clientApk": "",
       "clientFacebook": "",
-      "clientWhatsapp": "",
+      "clientWhatsapp": "+5359691810",
       "avatarEmoji": "🛒",
       "avatarImage": "",
       "avatarMessages": "¡Ofertas hoy!|¡Bienvenido!|¡Compra ya!|¡Los mejores precios!|¡Nuevo stock!|¡No te lo pierdas!",
@@ -230,7 +230,8 @@
       "projects": [],
       "hideAvatar": false,
       "hideMonetizeButtons": false,
-      "securityDisabled": false
+      "securityDisabled": false,
+      "phone": "+5359691810"
     },
     "mt_suppliers": null,
     "mt_notifications": [
