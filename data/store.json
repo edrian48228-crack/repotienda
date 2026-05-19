@@ -1,74 +1,89 @@
 {
   "version": 2,
-  "exportedAt": "2026-05-19T17:38:13.765Z",
+  "exportedAt": "2026-05-07T10:59:27.290Z",
   "data": {
     "mt_products": [
       {
         "id": "p1",
-        "name": "Smartphone Ultra Pro",
-        "price": 299,
-        "currency": "USD",
+        "name": "Smartphone Samsung A1+",
+        "price": 27000,
+        "currency": "CUP",
         "category": "Electrónica",
-        "condition": "nuevo",
-        "stock": 15,
+        "condition": "usado",
+        "stock": 2,
         "minStock": 3,
-        "description": "Smartphone de última generación con cámara de 108MP y pantalla AMOLED",
-        "images": [],
+        "description": "Smartphone de última generación con cámara de 108MP y pantalla AMOLED. 6 con 128. Incluye una inteligencia artificial Offline. SOLO 7 MESES DE USO",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p1-0-1777984549243-shca8t7d.webp"
+        ],
         "views": 245,
         "cartAdds": 42,
         "sales": 18,
         "lastSaleDate": "2025-03-28",
         "createdAt": "2025-01-15",
-        "originalPrice": 399,
+        "originalPrice": 30000,
         "bulkDiscount": 10,
         "bulkQty": 3,
-        "featured": "si"
+        "featured": "si",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p1-0-1777984549243-shca8t7d.webp"
+        ]
       },
       {
         "id": "p2",
-        "name": "Auriculares Inalámbricos",
-        "price": 45,
-        "currency": "USD",
-        "category": "Electrónica",
+        "name": "Puertos de Telefonos Moviles",
+        "price": 200,
+        "currency": "CUP",
+        "category": "Accesorios",
         "condition": "nuevo",
         "stock": 30,
         "minStock": 5,
-        "description": "Auriculares Bluetooth 5.3 con cancelación de ruido activa",
-        "images": [],
-        "views": 189,
+        "description": "Puertos para telefonos moviles tipo b y tipo c",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p2-0-1777985688086-06g4c1st.webp"
+        ],
+        "views": 190,
         "cartAdds": 35,
         "sales": 22,
         "lastSaleDate": "2025-03-30",
         "createdAt": "2025-01-20",
-        "originalPrice": 65,
+        "originalPrice": 220,
         "bulkDiscount": 15,
         "bulkQty": 2,
-        "featured": "no"
+        "featured": "no",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p2-0-1777985688086-06g4c1st.webp"
+        ]
       },
       {
         "id": "p3",
-        "name": "Camiseta Premium",
-        "price": 25,
-        "currency": "USD",
-        "category": "Ropa",
-        "condition": "nuevo",
-        "stock": 50,
+        "name": "Smartphone Huawei Nova 5T",
+        "price": 35000,
+        "currency": "CUP",
+        "category": "Electrónica",
+        "condition": "usado",
+        "stock": 2,
         "minStock": 10,
-        "description": "Camiseta de algodón orgánico con diseño exclusivo",
-        "images": [],
+        "description": "Telefonos de uso en perfecto estado. Solo detallito el borde de carmara frontal que no afecta la foto.  Incluye una inteligencia artificial offline",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p3-0-1777985690442-0u1rji2c.webp"
+        ],
         "views": 156,
-        "cartAdds": 28,
+        "cartAdds": 29,
         "sales": 35,
         "lastSaleDate": "2025-03-29",
         "createdAt": "2025-02-01",
-        "originalPrice": 0,
+        "originalPrice": 40000,
         "bulkDiscount": 20,
         "bulkQty": 5,
-        "featured": "no"
+        "featured": "no",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p3-0-1777985690442-0u1rji2c.webp"
+        ]
       },
       {
         "id": "p4",
-        "name": "Chocolates Artesanales",
+        "name": "Cargador de Motorina 72V/28A",
         "price": 12,
         "currency": "USD",
         "category": "Dulces",
@@ -76,116 +91,190 @@
         "stock": 100,
         "minStock": 15,
         "description": "Caja de chocolates belgas artesanales - 12 unidades",
-        "images": [],
-        "views": 320,
-        "cartAdds": 56,
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p4-0-1777984587975-85c3hopb.webp"
+        ],
+        "views": 321,
+        "cartAdds": 59,
         "sales": 45,
         "lastSaleDate": "2025-03-30",
         "createdAt": "2025-02-10",
         "originalPrice": 18,
         "bulkDiscount": 10,
         "bulkQty": 3,
-        "featured": "si"
+        "featured": "si",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p4-0-1777984587975-85c3hopb.webp"
+        ]
       },
       {
         "id": "p5",
-        "name": "Laptop Gaming RTX",
-        "price": 899,
+        "name": "Smartphone Realme Note 50",
+        "price": 45000,
         "currency": "USD",
         "category": "Electrónica",
-        "condition": "nuevo",
+        "condition": "usado",
         "stock": 5,
         "minStock": 2,
-        "description": "Laptop gaming con RTX 4060, 16GB RAM, SSD 512GB",
-        "images": [],
+        "description": "Tiene todos sus accesorios. 8 de RAM y 128 de almacenamiento. Trae una inteligencia Offline. SOLO 6 MESES DE USO",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p5-0-1777984594268-z3sh0j4s.webp"
+        ],
         "views": 412,
-        "cartAdds": 15,
+        "cartAdds": 16,
         "sales": 3,
         "lastSaleDate": "2025-03-25",
         "createdAt": "2025-01-05",
-        "originalPrice": 1099,
+        "originalPrice": 50000,
         "bulkDiscount": 0,
         "bulkQty": 3,
-        "featured": "si"
-      },
-      {
-        "id": "p6",
-        "name": "Zapatillas Deportivas",
-        "price": 55,
-        "currency": "USD",
-        "category": "Ropa",
-        "condition": "nuevo",
-        "stock": 2,
-        "minStock": 5,
-        "description": "Zapatillas ultraligeras para running profesional",
-        "images": [],
-        "views": 98,
-        "cartAdds": 12,
-        "sales": 8,
-        "lastSaleDate": "2025-02-15",
-        "createdAt": "2025-02-20",
-        "originalPrice": 75,
-        "bulkDiscount": 0,
-        "bulkQty": 3,
-        "featured": "no"
+        "featured": "si",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p5-0-1777984594268-z3sh0j4s.webp"
+        ]
       },
       {
         "id": "p7",
-        "name": "Smartwatch Fitness",
-        "price": 79,
+        "name": "Puertos de telefonos celulares",
+        "price": 200,
         "currency": "USD",
         "category": "Electrónica",
         "condition": "reparado",
         "stock": 8,
         "minStock": 3,
-        "description": "Reloj inteligente con monitor cardíaco y GPS integrado",
-        "images": [],
+        "description": "Puertos para telefonos celulares",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p7-0-1777985631440-lqytija6.webp"
+        ],
         "views": 167,
         "cartAdds": 20,
         "sales": 10,
         "lastSaleDate": "2025-03-27",
         "createdAt": "2025-03-01",
-        "originalPrice": 129,
+        "originalPrice": 220,
         "bulkDiscount": 5,
         "bulkQty": 2,
-        "featured": "no"
+        "featured": "no",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p7-0-1777985631440-lqytija6.webp"
+        ]
       },
       {
         "id": "p8",
-        "name": "Mochila Táctica",
-        "price": 35,
-        "currency": "USD",
+        "name": "Smartphone Relme Note 50",
+        "price": 48000,
+        "currency": "CUP",
         "category": "Accesorios",
         "condition": "nuevo",
         "stock": 20,
         "minStock": 5,
-        "description": "Mochila resistente al agua con múltiples compartimentos",
-        "images": [],
+        "description": "Telefonos movil con inteligencia offline incluida. 8 con 256.",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-0-1777984598071-aiq9i8oi.webp",
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-1-1778094434984-5o0qodgc.webp"
+        ],
         "views": 78,
         "cartAdds": 9,
         "sales": 5,
         "lastSaleDate": "2025-03-20",
         "createdAt": "2025-03-05",
-        "originalPrice": 0,
+        "originalPrice": 55000,
         "bulkDiscount": 0,
         "bulkQty": 3,
-        "featured": "no"
+        "featured": "no",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-0-1777984598071-aiq9i8oi.webp",
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-p8-1-1778094434984-5o0qodgc.webp"
+        ]
+      },
+      {
+        "id": "cc1c2346-a6af-4ab8-91e1-3f1f5e18fcb1",
+        "name": "Pantallas para moviles",
+        "price": 10000,
+        "currency": "CUP",
+        "category": "Accesorios",
+        "condition": "nuevo",
+        "stock": 10,
+        "minStock": 5,
+        "description": "Pantallas para todo tipo de telefonos moviles",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-cc1c2346-0-1778094643937-fmvlj921.webp"
+        ],
+        "originalPrice": 12000,
+        "bulkDiscount": 10,
+        "bulkQty": 3,
+        "featured": "si",
+        "views": 0,
+        "cartAdds": 4,
+        "sales": 0,
+        "lastSaleDate": null,
+        "createdAt": "2026-05-06T19:10:41.218Z",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-cc1c2346-0-1778094643937-fmvlj921.webp"
+        ]
+      },
+      {
+        "id": "215b18d6-1501-4950-a935-ecfb465f0a67",
+        "name": "Placa de Samsung A32 5g",
+        "price": 7500,
+        "currency": "CUP",
+        "category": "Accesorios",
+        "condition": "nuevo",
+        "stock": 2,
+        "minStock": 5,
+        "description": "Placa para telefono samsung a32 5g",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-215b18d6-0-1778094736194-6l94ar2z.webp"
+        ],
+        "originalPrice": 8000,
+        "bulkDiscount": 15,
+        "bulkQty": 3,
+        "featured": "si",
+        "views": 1,
+        "cartAdds": 2,
+        "sales": 0,
+        "lastSaleDate": null,
+        "createdAt": "2026-05-06T19:12:13.504Z",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-215b18d6-0-1778094736194-6l94ar2z.webp"
+        ]
       }
     ],
-    "mt_sales": null,
+    "mt_sales": [
+      {
+        "id": "782c3839-e5fa-42bd-a042-8a37147319c3",
+        "productId": "p2",
+        "productName": "Auriculares Inalámbricos",
+        "quantity": 1,
+        "total": 45,
+        "currency": "USD",
+        "paymentMethod": "Efectivo",
+        "date": "2026-05-05T13:00:48.469Z"
+      },
+      {
+        "id": "dca443fe-0698-4535-90ca-af73bd2a1f44",
+        "productId": "p4",
+        "productName": "Chocolates Artesanales",
+        "quantity": 1,
+        "total": 12,
+        "currency": "USD",
+        "paymentMethod": "Efectivo",
+        "date": "2026-05-05T13:00:48.469Z"
+      }
+    ],
     "mt_config": {
-      "storeName": "CrackShop Pro",
-      "whatsapp": "+5359691810",
+      "storeName": "MegaTienda Online",
+      "whatsapp": "+5354693549",
       "facebook": "https://facebook.com/megatienda",
-      "email": "icdanger48228@gmail.com",
+      "email": "tienda@ejemplo.com",
       "creatorName": "Edrian Cruz Down",
-      "creatorWhatsapp": "+56524769",
+      "creatorWhatsapp": "+5354693449",
       "creatorFacebook": "https://facebook.com/edrian",
       "creatorEmail": "icdanger48228@gmail.com",
-      "creatorPhone": "+56524769",
+      "creatorPhone": "+5354693549",
       "creatorChannel": "",
       "creatorCourse": "",
-      "creatorPhoto": "",
+      "creatorPhoto": "blob:https://edrian48228-crack.github.io/131b0b8d-1c8b-4455-802f-e70c3b2249f1",
       "paymentMethods": [
         "Efectivo",
         "Transferencia",
@@ -196,11 +285,11 @@
         "USD",
         "Criptomoneda"
       ],
-      "adminPassword": "admin2025",
+      "adminPassword": "1234",
       "supplierPassword": "proveedor123",
-      "creatorPassword": "creator2025",
+      "creatorPassword": "1234",
       "securityQuestion": "¿Nombre de tu primera mascota?",
-      "securityAnswer": "luna",
+      "securityAnswer": "shutter",
       "categories": [
         "Electrónica",
         "Ropa",
@@ -215,111 +304,179 @@
       "clientWebsite": "",
       "clientApk": "",
       "clientFacebook": "",
-      "clientWhatsapp": "+5359691810",
+      "clientWhatsapp": "+5354693549",
       "avatarEmoji": "🛒",
-      "avatarImage": "",
+      "avatarImage": "blob:https://edrian48228-crack.github.io/cc553c66-a90a-48e5-bf2f-fabf0d1f5930",
       "avatarMessages": "¡Ofertas hoy!|¡Bienvenido!|¡Compra ya!|¡Los mejores precios!|¡Nuevo stock!|¡No te lo pierdas!",
       "logoEmoji": "🛒",
       "logoImage": "",
       "imgFolder": "",
-      "ownStoreUrl": "",
-      "affiliateUrl": "",
+      "ownStoreUrl": "https://edrian48228-crack.github.io/repo/app/",
+      "affiliateUrl": "https://edrian48228-crack.github.io/repo/app/",
       "orderMessage": "",
       "contactBgImage": "",
       "additionalContacts": [],
       "projects": [],
       "hideAvatar": false,
       "hideMonetizeButtons": false,
-      "securityDisabled": false,
-      "phone": "+5359691810"
+      "securityDisabled": false
     },
     "mt_suppliers": null,
     "mt_notifications": [
       {
-        "id": "c1b9b23e-3838-42d3-a3c4-f17986d5a9c5",
+        "id": "6058a72c-1276-4ce1-b166-de94d8f9e50d",
+        "type": "low_stock",
+        "message": "\"Placa de Samsung A32 5g\" tiene stock bajo (2)",
+        "productId": "215b18d6-1501-4950-a935-ecfb465f0a67",
+        "date": "2026-05-06T19:12:13.520Z",
+        "read": false
+      },
+      {
+        "id": "75da2fdd-3d80-40bd-9b3a-6b42da44f677",
+        "type": "low_stock",
+        "message": "\"Smartphone Samsung A1+\" tiene stock bajo (2)",
+        "productId": "p1",
+        "date": "2026-05-06T18:49:53.044Z",
+        "read": false
+      },
+      {
+        "id": "d5cb9276-c64c-462c-aa02-6a3d2c1ad687",
+        "type": "low_stock",
+        "message": "\"Smartphone Huawei Nova 5T\" tiene stock bajo (2)",
+        "productId": "p3",
+        "date": "2026-05-06T18:42:39.958Z",
+        "read": false
+      },
+      {
+        "id": "1c33b76c-1476-4423-a825-622a8db3d08e",
         "type": "best_seller",
         "message": "\"Chocolates Artesanales\" es el más vendido (45)",
         "productId": "p4",
-        "date": "2026-05-19T17:33:39.994Z",
+        "date": "2026-05-02T19:21:35.032Z",
         "read": false
       },
       {
-        "id": "03a867ce-ae1c-4968-a055-a91cffc5f585",
+        "id": "114306ba-c87a-4b8a-8b5e-45318dc13d29",
         "type": "slow_sale",
-        "message": "\"Mochila Táctica\" lleva 425 días sin venderse",
+        "message": "\"Mochila Táctica\" lleva 408 días sin venderse",
         "productId": "p8",
-        "date": "2026-05-19T17:33:39.994Z",
+        "date": "2026-05-02T19:21:35.032Z",
         "read": false
       },
       {
-        "id": "18dd159b-1040-481c-b420-a2f0b2170f84",
+        "id": "b8967299-3550-45ed-b390-02a4d006f048",
         "type": "slow_sale",
-        "message": "\"Smartwatch Fitness\" lleva 418 días sin venderse",
+        "message": "\"Smartwatch Fitness\" lleva 401 días sin venderse",
         "productId": "p7",
-        "date": "2026-05-19T17:33:39.994Z",
+        "date": "2026-05-02T19:21:35.032Z",
         "read": false
       },
       {
-        "id": "483f68f2-d739-42f7-adac-12fb104a07ed",
+        "id": "839b8a2f-32f0-4249-8423-3b9072171098",
         "type": "slow_sale",
-        "message": "\"Zapatillas Deportivas\" lleva 458 días sin venderse",
+        "message": "\"Zapatillas Deportivas\" lleva 441 días sin venderse",
         "productId": "p6",
-        "date": "2026-05-19T17:33:39.994Z",
+        "date": "2026-05-02T19:21:35.032Z",
         "read": false
       },
       {
-        "id": "b44a3ab7-2829-49f7-8785-45d5edb9af56",
+        "id": "d9545b6f-3ba1-43fb-afe1-976d208d4a1c",
         "type": "low_stock",
         "message": "\"Zapatillas Deportivas\" tiene stock bajo (2)",
         "productId": "p6",
-        "date": "2026-05-19T17:33:39.994Z",
+        "date": "2026-05-02T19:21:35.032Z",
         "read": false
       },
       {
-        "id": "31b3bdcd-3d45-44da-a529-5bd29412fe7a",
+        "id": "52b8ffc0-b70b-4c1d-8222-a59389ca3cfb",
         "type": "slow_sale",
-        "message": "\"Laptop Gaming RTX\" lleva 420 días sin venderse",
+        "message": "\"Laptop Gaming RTX\" lleva 403 días sin venderse",
         "productId": "p5",
-        "date": "2026-05-19T17:33:39.994Z",
+        "date": "2026-05-02T19:21:35.032Z",
         "read": false
       },
       {
-        "id": "3880bf79-065c-4396-90e5-cabae9452d00",
+        "id": "722a7cb1-b6a2-4cfc-aea7-cfa498fac05c",
         "type": "slow_sale",
-        "message": "\"Chocolates Artesanales\" lleva 415 días sin venderse",
+        "message": "\"Chocolates Artesanales\" lleva 398 días sin venderse",
         "productId": "p4",
-        "date": "2026-05-19T17:33:39.994Z",
+        "date": "2026-05-02T19:21:35.032Z",
         "read": false
       },
       {
-        "id": "8cda020e-efbb-4686-8967-2d8939c9287c",
+        "id": "c1085a65-9e53-43b6-a592-bf29ad0052fd",
         "type": "slow_sale",
-        "message": "\"Camiseta Premium\" lleva 416 días sin venderse",
+        "message": "\"Camiseta Premium\" lleva 399 días sin venderse",
         "productId": "p3",
-        "date": "2026-05-19T17:33:39.994Z",
+        "date": "2026-05-02T19:21:35.032Z",
         "read": false
       },
       {
-        "id": "ef5804d8-69ac-4770-84f1-6f15ce753339",
+        "id": "df9464f8-7927-4d1a-b670-9ed466adaf70",
         "type": "slow_sale",
-        "message": "\"Auriculares Inalámbricos\" lleva 415 días sin venderse",
+        "message": "\"Auriculares Inalámbricos\" lleva 398 días sin venderse",
         "productId": "p2",
-        "date": "2026-05-19T17:33:39.994Z",
+        "date": "2026-05-02T19:21:35.032Z",
         "read": false
       },
       {
-        "id": "b9d2e930-b795-47fd-8b2e-82a9a54e7845",
+        "id": "ce39f142-cb34-44df-8a08-83b1592a14b0",
         "type": "slow_sale",
-        "message": "\"Smartphone Ultra Pro\" lleva 417 días sin venderse",
+        "message": "\"Smartphone Ultra Pro\" lleva 400 días sin venderse",
         "productId": "p1",
-        "date": "2026-05-19T17:33:39.994Z",
+        "date": "2026-05-02T19:21:35.032Z",
         "read": false
       }
     ],
     "mt_visits": [
       {
-        "date": "2026-05-19",
-        "hour": 19,
+        "date": "2026-05-02",
+        "hour": 21,
+        "count": 7
+      },
+      {
+        "date": "2026-05-02",
+        "hour": 22,
+        "count": 9
+      },
+      {
+        "date": "2026-05-03",
+        "hour": 9,
+        "count": 7
+      },
+      {
+        "date": "2026-05-05",
+        "hour": 14,
+        "count": 7
+      },
+      {
+        "date": "2026-05-06",
+        "hour": 20,
+        "count": 5
+      },
+      {
+        "date": "2026-05-06",
+        "hour": 21,
+        "count": 5
+      },
+      {
+        "date": "2026-05-06",
+        "hour": 22,
+        "count": 4
+      },
+      {
+        "date": "2026-05-06",
+        "hour": 1,
+        "count": 2
+      },
+      {
+        "date": "2026-05-07",
+        "hour": 2,
+        "count": 1
+      },
+      {
+        "date": "2026-05-07",
+        "hour": 12,
         "count": 1
       }
     ],

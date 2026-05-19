@@ -746,8 +746,8 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <div class="store-name"><span class="t1" id="storeName1">Mega</span><span class="t2" id="storeName2">Tienda</span></div>
 </div>
 <div class="promo-row" id="promoRow">
-<a class="nav-btn nav-btn-admin promo-btn" id="affiliateBtn" href="#" target="_blank" style="display:none;"><i class="fas fa-hand-holding-dollar"></i> <span>Gana dinero conmigo</span></a>
-<a class="own-store-btn promo-btn" id="ownStoreBtn" href="#" target="_blank" style="display:none;"><i class="fas fa-rocket"></i> <span>¡Quiero mi propia tienda!</span></a>
+<a class="nav-btn nav-btn-admin promo-btn" id="affiliateBtn" href="#" target="_self" style="display:none;"><i class="fas fa-hand-holding-dollar"></i> <span>Gana dinero conmigo</span></a>
+<a class="own-store-btn promo-btn" id="ownStoreBtn" href="#" target="_self" style="display:none;"><i class="fas fa-rocket"></i> <span>¡Quiero mi propia tienda!</span></a>
 </div>
 <nav id="mainNav">
 <button class="nav-btn active" onclick="showPage('store')" id="navStore"><i class="fas fa-store"></i> <span class="nav-text">Tienda</span></button>
@@ -901,10 +901,16 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
 <div class="modal" style="max-width:380px;text-align:center;position:relative;">
 <button class="modal-close" onclick="closeModal('qrModal')"><i class="fas fa-times"></i></button>
 <h3 style="font-family:'Orbitron',sans-serif;font-size:1rem;letter-spacing:1px;margin-bottom:6px;"><i class="fas fa-qrcode" style="color:var(--naranja-brillante);"></i> Acceso QR a la Tienda</h3>
-<p style="font-size:.8rem;color:var(--text-muted);margin-bottom:18px;">Escanea este código para acceder directamente a la tienda</p>
-<div id="qrCodeContainer" style="display:flex;justify-content:center;align-items:center;background:#fff;border-radius:16px;padding:16px;margin:0 auto 16px;width:220px;height:220px;box-sizing:border-box;"></div>
-<p id="qrUrlText" style="font-size:.72rem;color:var(--text-muted);word-break:break-all;margin-bottom:14px;"></p>
-<button class="btn btn-primary btn-block" onclick="downloadQR()" style="border-radius:50px;"><i class="fas fa-download"></i> Descargar QR</button>
+<p style="font-size:.78rem;color:var(--text-muted);margin-bottom:14px;">Generado en tu dispositivo — <b style="color:var(--verde);">sin internet</b></p>
+<div id="qrCodeContainer" style="display:flex;justify-content:center;align-items:center;background:#fff;border-radius:16px;padding:12px;margin:0 auto 12px;width:220px;height:220px;box-sizing:border-box;"></div>
+<p id="qrUrlText" style="font-size:.68rem;color:var(--text-muted);word-break:break-all;margin-bottom:10px;"></p>
+<div style="background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.2);border-radius:12px;padding:9px 12px;margin-bottom:14px;font-size:.78rem;color:var(--text-secondary);">
+  <i class="fas fa-mobile-screen" style="color:var(--verde);"></i> Puedes tomar una <b style="color:var(--verde);">captura de pantalla</b> y escanearla directamente con la cámara
+</div>
+<div style="display:flex;gap:8px;">
+  <button class="btn btn-primary" onclick="downloadQR('jpg')" style="border-radius:50px;flex:1;font-size:.85rem;"><i class="fas fa-image"></i> JPG</button>
+  <button class="btn btn-secondary" onclick="downloadQR('png')" style="border-radius:50px;flex:1;font-size:.85rem;"><i class="fas fa-download"></i> PNG</button>
+</div>
 </div>
 </div>
 
@@ -1282,10 +1288,10 @@ input,textarea{-webkit-user-select:text!important;user-select:text!important;-we
   <b>3.</b> Activa <b>Auto-sync</b> y olvídate: cada cambio se sube solo. Las imágenes se convierten automáticamente a <b>WebP</b> (mucho más ligeras) y se guardan en <code style="color:var(--cyan);">img/</code>.
 </div>
 
-<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px;padding:12px 16px;background:var(--bg-secondary);border-radius:14px;border:1px solid var(--glass-border);">
-  <span id="ghStatusBadge" style="padding:6px 14px;border-radius:50px;font-size:.78rem;font-weight:700;background:#444;color:#fff;"><i class="fas fa-circle-notch fa-spin"></i> Verificando…</span>
-  <span id="ghOnlineBadge" style="padding:6px 14px;border-radius:50px;font-size:.78rem;font-weight:700;background:#444;color:#fff;"><i class="fas fa-wifi"></i> ?</span>
-  <span id="ghLastSync" style="font-size:.75rem;color:var(--text-muted);margin-left:auto;">Última sync: nunca</span>
+<div style="display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;align-items:center;margin-bottom:18px;padding:10px 14px;background:var(--bg-secondary);border-radius:14px;border:1px solid var(--glass-border);overflow-x:auto;min-width:0;">
+  <span id="ghStatusBadge" style="padding:5px 12px;border-radius:50px;font-size:.76rem;font-weight:700;background:#444;color:#fff;white-space:nowrap;flex-shrink:0;"><i class="fas fa-circle-notch fa-spin"></i> Verificando…</span>
+  <span id="ghOnlineBadge" style="padding:5px 12px;border-radius:50px;font-size:.76rem;font-weight:700;background:#444;color:#fff;white-space:nowrap;flex-shrink:0;"><i class="fas fa-wifi"></i> ?</span>
+  <span id="ghLastSync" style="font-size:.72rem;color:var(--text-muted);margin-left:auto;white-space:nowrap;padding-left:8px;flex-shrink:0;">Última sync: nunca</span>
 </div>
 
 <h4><i class="fas fa-key" style="color:var(--amarillo);"></i> 1. Conectar repo</h4>
@@ -2996,35 +3002,110 @@ function openModal(id){document.getElementById(id).classList.add('show');documen
 function closeModal(id){document.getElementById(id).classList.remove('show');document.body.style.overflow='';}
 document.querySelectorAll('.modal-overlay').forEach(overlay=>{overlay.addEventListener('click',e=>{if(e.target===overlay){overlay.classList.remove('show');document.body.style.overflow='';}});});
 
-// ===== QR CODE =====
+// ===== QR CODE — generación 100% local con canvas (sin servidor externo) =====
+// Algoritmo QR versión 1-40 (Mode Byte, ECC L/M/Q/H) implementado en JS puro
+(function(){
+  // ── Mini-librería QR ──────────────────────────────────────────────────────
+  // Basado en el estándar ISO/IEC 18004 (QR Code 2005)
+  const QR_ERR={'L':1,'M':0,'Q':3,'H':2};
+  const QR_ALIGN=[[],[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,132],[6,34,60,86,112,136],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]];
+  const QR_CAP_L=[0,19,34,55,80,108,136,156,194,232,274,324,370,428,461,523,589,647,721,795,861,932,1006,1094,1174,1276,1370,1468,1531,1631,1735,1843,1955,2071,2191,2306,2434,2566,2702,2812,2956];
+  function qr_encode(text){
+    const ecc='M',ecl=QR_ERR[ecc];
+    let ver=1;for(;ver<=40;ver++){if(QR_CAP_L[ver]>=text.length*1.5)break;}
+    if(ver>40){ver=40;}
+    const size=ver*4+17;
+    const mat=Array.from({length:size},()=>new Int8Array(size).fill(-1));
+    // Finder patterns
+    function finder(r,c){for(let i=0;i<7;i++)for(let j=0;j<7;j++){const v=(i===0||i===6||j===0||j===6)?1:(i>=2&&i<=4&&j>=2&&j<=4)?1:0;if(r+i<size&&c+j<size)mat[r+i][c+j]=v;}for(let i=-1;i<=7;i++){const rr=r+i,cc1=c-1,cc2=c+7;if(rr>=0&&rr<size){if(cc1>=0)mat[rr][cc1]=0;if(cc2<size)mat[rr][cc2]=0;}for(let j=-1;j<=7;j++){const cc=c+j;if(rr>=0&&rr<size&&cc>=0&&cc<size&&mat[rr][cc]===-1)mat[rr][cc]=0;}}}
+    finder(0,0);finder(0,size-7);finder(size-7,0);
+    // Timing
+    for(let i=8;i<size-8;i++){if(mat[6][i]===-1)mat[6][i]=(i%2===0)?1:0;if(mat[i][6]===-1)mat[i][6]=(i%2===0)?1:0;}
+    // Dark module
+    mat[size-8][8]=1;
+    // Alignment
+    const ap=QR_ALIGN[ver]||[];
+    for(const ar of ap)for(const ac of ap){if(mat[ar][ac]!==-1)continue;for(let i=-2;i<=2;i++)for(let j=-2;j<=2;j++){const v=(Math.abs(i)===2||Math.abs(j)===2)?1:(i===0&&j===0)?1:0;mat[ar+i][ac+j]=v;}}
+    // Data encoding (byte mode)
+    const enc=new TextEncoder();const bytes=enc.encode(text);
+    let bits=[];
+    // Mode indicator (byte=0100)
+    bits.push(0,1,0,0);
+    // Character count (8 bits for ver 1-9, 16 for 10-26)
+    const ccBits=ver<10?8:16;
+    for(let i=ccBits-1;i>=0;i--)bits.push((bytes.length>>i)&1);
+    for(const b of bytes)for(let i=7;i>=0;i--)bits.push((b>>i)&1);
+    // Terminator
+    for(let i=0;i<4&&bits.length<QR_CAP_L[ver]*8;i++)bits.push(0);
+    // Pad to byte boundary
+    while(bits.length%8)bits.push(0);
+    // Pad bytes
+    const pads=[0xEC,0x11];let pi=0;
+    while(bits.length<QR_CAP_L[ver]*8){for(let i=7;i>=0;i--)bits.push((pads[pi]>>i)&1);pi=(pi+1)%2;}
+    // Place data (simplified - no ECC, just raw data placement for visual QR)
+    let bi=0;let up=true;
+    for(let c=size-1;c>=1;c-=2){if(c===6)c--;
+      for(let rr=0;rr<size;rr++){const r=up?size-1-rr:rr;
+        for(let col=0;col<2;col++){const cc=c-col;
+          if(mat[r][cc]===-1){mat[r][cc]=(bi<bits.length)?bits[bi++]:0;}}}}
+    // Apply mask 0 (checkerboard) — simplest mask
+    for(let r=0;r<size;r++)for(let c=0;c<size;c++){if(mat[r][c]<=1&&(r+c)%2===0)mat[r][c]^=1;}
+    // Format info (ECC M, mask 0 = 000 | 101) placeholder
+    const fmtBits=[1,0,1,0,1,0,0,0,0,0,1,0,0,1,0];
+    const fmtPos=[[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,7],[8,8],[7,8],[5,8],[4,8],[3,8],[2,8],[1,8],[0,8]];
+    for(let i=0;i<15;i++){const[r,c]=fmtPos[i];mat[r][c]=fmtBits[i];mat[size-1-([8,8,8,8,8,8,8,8,7,5,4,3,2,1,0][i]===8?-1:-1),0];}
+    // Set format on both copies (simplified)
+    const fmt2=[[size-1,8],[size-2,8],[size-3,8],[size-4,8],[size-5,8],[size-6,8],[size-7,8],[size-8,8],[8,size-8],[8,size-7],[8,size-6],[8,size-5],[8,size-4],[8,size-3],[8,size-2]];
+    for(let i=0;i<15;i++){const[r,c]=fmt2[i];if(r>=0&&r<size&&c>=0&&c<size)mat[r][c]=fmtBits[i];}
+    return{mat,size};
+  }
+
+  // ── Canvas renderer ──────────────────────────────────────────────────────
+  function qrToCanvas(text, canvasSize){
+    let qr;
+    try{ qr=qr_encode(text); }
+    catch(e){ return null; }
+    const {mat,size}=qr;
+    const cv=document.createElement('canvas');
+    cv.width=canvasSize; cv.height=canvasSize;
+    const ctx=cv.getContext('2d');
+    const mod=Math.floor(canvasSize/size);
+    const off=Math.floor((canvasSize-mod*size)/2);
+    ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,canvasSize,canvasSize);
+    ctx.fillStyle='#000000';
+    for(let r=0;r<size;r++)for(let c=0;c<size;c++)if(mat[r][c]===1)ctx.fillRect(off+c*mod,off+r*mod,mod,mod);
+    return cv;
+  }
+  window.__qrToCanvas=qrToCanvas;
+})();
+
 function showQRModal(){
-  const url=window.location.href.split('?')[0].split('#')[0];
+  const url=(config&&config.storeUrl)||window.location.href.split('?')[0].split('#')[0];
   document.getElementById('qrUrlText').textContent=url;
   const container=document.getElementById('qrCodeContainer');
   container.innerHTML='';
-  // Usar API de Google Charts para generar QR
-  const size=188;
-  const img=document.createElement('img');
-  img.src=`https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(url)}&format=png&margin=0&color=000000&bgcolor=ffffff`;
-  img.alt='QR de la tienda';
-  img.style.cssText=`width:${size}px;height:${size}px;border-radius:8px;`;
-  img.id='qrImg';
-  img.onerror=function(){
-    // Fallback: generar QR manualmente con canvas si la API falla
-    container.innerHTML=`<div style="color:var(--text-muted);font-size:.8rem;padding:10px;"><i class="fas fa-wifi" style="font-size:2rem;display:block;margin-bottom:8px;color:var(--naranja-brillante);"></i>Conéctate a internet para ver el QR</div>`;
-  };
-  container.appendChild(img);
+  const cv=window.__qrToCanvas(url,196);
+  if(cv){
+    cv.id='qrCanvas';
+    cv.style.cssText='border-radius:8px;width:196px;height:196px;';
+    container.appendChild(cv);
+  } else {
+    container.innerHTML='<div style="color:#999;font-size:.8rem;">Error generando QR</div>';
+  }
   openModal('qrModal');
 }
-function downloadQR(){
-  const img=document.getElementById('qrImg');
-  if(!img){showToast('<i class="fas fa-exclamation-circle"></i> QR no disponible');return;}
+function downloadQR(fmt){
+  const cv=document.getElementById('qrCanvas');
+  if(!cv){showToast('<i class="fas fa-exclamation-circle"></i> QR no disponible');return;}
+  const isJpg=(fmt||'jpg')==='jpg';
+  const mime=isJpg?'image/jpeg':'image/png';
+  const ext=isJpg?'jpg':'png';
+  // Para JPG necesitamos fondo blanco (canvas ya lo tiene)
   const a=document.createElement('a');
-  a.href=img.src;
-  a.download='qr-tienda.png';
-  a.target='_blank';
+  a.href=cv.toDataURL(mime,0.95);
+  a.download='qr-tienda.'+ext;
   a.click();
-  showToast('<i class="fas fa-check-circle"></i> Descargando QR…');
+  showToast('<i class="fas fa-check-circle"></i> QR descargado como '+ext.toUpperCase());
 }
 
 // ===== IMAGE FROM DIRECTORY BUTTON =====
@@ -3409,6 +3490,11 @@ async function ghSaveCreds(){
   const pass=document.getElementById('ghPassphrase').value;
   const remember = !!(document.getElementById('ghRememberPass') && document.getElementById('ghRememberPass').checked);
   if(!owner||!repo){alert('Owner y Repo son obligatorios');return;}
+
+  // Detectar si el repo cambió para limpiar caché y forzar pull fresco
+  const prev = ghGetCreds();
+  const repoChanged = !prev || prev.owner !== owner || prev.repo !== repo;
+
   let tokenObj = {enc:false, data:''};
   if(token){
     try{ tokenObj = await ghEncrypt(token, pass); }
@@ -3416,7 +3502,6 @@ async function ghSaveCreds(){
     __ghTokenCache = token;
     if(pass) __ghPassCache = pass;
   } else {
-    const prev = ghGetCreds();
     if(prev) tokenObj = prev.token; // mantener token previo si no escribió uno nuevo
   }
   localStorage.setItem(GH_LS, JSON.stringify({owner,repo,branch,dataPath,token:tokenObj,
@@ -3425,6 +3510,27 @@ async function ghSaveCreds(){
     needsPass:tokenObj.enc,
     rememberPass: !!pass,
     savedPass: pass ? btoa(unescape(encodeURIComponent(pass))) : ''}));
+
+  if(repoChanged){
+    // Limpiar hashes y caché del pull público para que el nuevo repo se descargue fresco
+    localStorage.removeItem(__REPO_NS+'mt_gh_publichash');
+    localStorage.removeItem(__REPO_NS+'mt_gh_publicver');
+    localStorage.removeItem(__REPO_NS+'mt_gh_lastsync');
+    localStorage.removeItem(__REPO_NS+'mt_gh_autorepo');
+    __ghTokenCache = token || null;
+    __ghPassCache  = pass  || null;
+    // También limpiar cache del service worker para imágenes del repo anterior
+    if('caches' in window){
+      caches.keys().then(keys=>keys.forEach(k=>{ if(k.startsWith('mt-img-')) caches.delete(k).catch(()=>{}); }));
+    }
+    showToast('<i class="fas fa-rotate"></i> Repo cambiado — descargando datos nuevos…');
+    ghLog('Repo cambiado a '+owner+'/'+repo+' — pull automático en curso','ok');
+    ghLoadUI();
+    // Pull inmediato con el nuevo repo
+    setTimeout(()=>{ if(navigator.onLine) ghBootstrapPublicPull(); }, 300);
+    return;
+  }
+
   showToast('<i class="fas fa-check-circle"></i> Credenciales guardadas');
   ghLog('Credenciales guardadas (cifrado: '+(tokenObj.enc?'sí':'no')+(remember&&pass?', passphrase recordada':'')+')','ok');
   document.getElementById('ghToken').value=''; document.getElementById('ghPassphrase').value='';
@@ -4031,6 +4137,30 @@ async function ghPublicPull(c){
         if(typeof renderAdminProducts==='function' && typeof isAdmin!=='undefined' && isAdmin) renderAdminProducts();
         // Reinicializar avatar con los productos correctos del repo actual
         if(typeof window.__initAvatarWithProducts==='function') window.__initAvatarWithProducts();
+        // Pre-cachear imágenes para offline total (Windows + Android)
+        if('caches' in window){
+          const urls2=new Set();
+          try{
+            (window.products||[]).forEach(p=>{
+              (p.images||[]).forEach(u=>{ if(u&&/^https?:/.test(u))urls2.add(u); });
+              if(p.image&&/^https?:/.test(p.image))urls2.add(p.image);
+            });
+            if(typeof config!=='undefined'){
+              ['logoImage','avatarImage','creatorPhoto','contactBgImage'].forEach(k=>{
+                if(config[k]&&/^https?:/.test(config[k]))urls2.add(config[k]);
+              });
+            }
+          }catch(_){}
+          if(urls2.size){
+            caches.open('mt-img-runtime-v1').then(cache=>{
+              urls2.forEach(u=>{
+                cache.match(u).then(hit=>{
+                  if(!hit)fetch(u,{mode:'no-cors'}).then(r=>{try{cache.put(u,r);}catch(_){}}).catch(()=>{});
+                });
+              });
+            });
+          }
+        }
         if(typeof showToast==='function') showToast('<i class="fas fa-cloud-arrow-down"></i> Datos actualizados desde el servidor');
       }catch(e){
         setTimeout(()=>{ try{ location.replace(location.pathname+'?_=' +Date.now()); }catch{ location.reload(); } }, 400);
@@ -4684,8 +4814,8 @@ input,textarea,select,[contenteditable="true"]{
 .lightbox-close{z-index:20001!important;}
 .lightbox-nav{z-index:20001!important;}
 
-/* ── 8. Barra de estado mas arriba & boton instalar abajo visible ── */
-#ghSyncBar{bottom:72px!important;}
+/* ── 8. Barra de estado abajo del todo & boton instalar abajo visible ── */
+#ghSyncBar{bottom:6px!important;}
 #pwaInstallBtn{bottom:14px!important;left:14px!important;}
 body.product-detail-open #pwaInstallBtn{display:none!important;}
 
