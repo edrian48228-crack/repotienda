@@ -1,8 +1,39 @@
 {
   "version": 2,
-  "exportedAt": "2026-05-21T21:58:14.702Z",
+  "exportedAt": "2026-05-21T22:00:26.202Z",
   "data": {
-    "mt_products": [],
+    "mt_products": [
+      {
+        "id": "8e1f1930-46b1-494e-a61d-f441d2ea7ba8",
+        "name": "Puertos para Telefonos Celulares",
+        "price": 120,
+        "currency": "CUP",
+        "category": "Electrónica",
+        "condition": "nuevo",
+        "stock": 21,
+        "minStock": 5,
+        "description": "Puertos para Telefonos Celulares",
+        "images": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-8e1f1930-0-1779400821066-reux4ss1.webp",
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-8e1f1930-1-1779400822929-ptkvrztx.webp",
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-8e1f1930-2-1779400824594-nrobn26v.webp"
+        ],
+        "originalPrice": 200,
+        "bulkDiscount": 10,
+        "bulkQty": 12,
+        "featured": "si",
+        "views": 0,
+        "cartAdds": 0,
+        "sales": 0,
+        "lastSaleDate": null,
+        "createdAt": "2026-05-21T22:00:18.440Z",
+        "__lastRepoImgs": [
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-8e1f1930-0-1779400821066-reux4ss1.webp",
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-8e1f1930-1-1779400822929-ptkvrztx.webp",
+          "https://raw.githubusercontent.com/edrian48228-crack/repotienda/main/img/prod-8e1f1930-2-1779400824594-nrobn26v.webp"
+        ]
+      }
+    ],
     "mt_sales": [
       {
         "id": "782c3839-e5fa-42bd-a042-8a37147319c3",
